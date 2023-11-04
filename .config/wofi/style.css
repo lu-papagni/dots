@@ -1,0 +1,35 @@
+#window {
+	border-radius: 5px;
+	border-style: solid;
+	border-color: #868a3d;
+	border-width: 3px;
+	background-color: rgba(28, 28, 28, .9);
+}
+
+#outer-box {
+	font-family: "CaskaydiaCove Nerd Font";
+  font-size: 1.2rem;
+	margin: 12px;
+}
+
+#input {
+	margin-bottom: 8px;
+	border-style: solid;
+	border-color: #a9ab7e;
+	border-width: 2px;
+  border-radius: 5px;
+}
+
+#entry {
+	padding: 6px;
+  border-radius: 5px;
+}
+
+#entry:selected {
+	background-color: #a9ab7e;
+	color: #4c4f69;
+}
+
+image {
+  margin-right: .75rem;
+}
