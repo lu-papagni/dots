@@ -9,5 +9,7 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
+set termguicolors
+
 " Inizializzazione moduli
 lua require('luca')
