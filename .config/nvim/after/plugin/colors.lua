@@ -1,20 +1,10 @@
-function Theme(color, back, front)
-  local default_color = "rose-pine"
+function Theme(color, front, back)
+  local default_color = "gruvbox-material"
 	color = color or default_color
 
-  if color == "material" then
-    vim.g.material_style = variant or "darker"
-  elseif color == "gruvbox-material" then
+  if color == "gruvbox-material" then
     vim.g.gruvbox_material_background = back or 'medium'
     vim.g.gruvbox_material_foreground = front or 'material'
-  elseif color == "neogruvbox" then
-    require('lualine').setup {
-      options = { theme = 'gruvbox' }
-    }
-  elseif color == "one_monokai" then
-    require("one_monokai").setup({
-      transparent = true,
-    })
   end
 
 	vim.cmd.colorscheme(color)
@@ -25,4 +15,4 @@ function Theme(color, back, front)
   vim.api.nvim_set_hl(0, '@lsp.type.typeParameter', { link='@property' })
 end
 
-Theme('gruvbox-material', 'hard', 'mix')
+Theme('gruvbox-material', 'mix')

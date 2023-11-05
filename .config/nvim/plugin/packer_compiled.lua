@@ -186,11 +186,6 @@ _G.packer_plugins = {
     path = "/home/luca/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["rainbow-delimiters.nvim"] = {
-    loaded = true,
-    path = "/home/luca/.local/share/nvim/site/pack/packer/start/rainbow-delimiters.nvim",
-    url = "https://github.com/hiphish/rainbow-delimiters.nvim"
-  },
   ["rose-pine"] = {
     loaded = true,
     path = "/home/luca/.local/share/nvim/site/pack/packer/start/rose-pine",

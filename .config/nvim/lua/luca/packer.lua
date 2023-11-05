@@ -23,8 +23,11 @@ return require('packer').startup(function(use)
 		-- or                            , branch = '0.1.x',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
+
 	use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-  use{ 'hiphish/rainbow-delimiters.nvim' }
+
+  -- use{ 'hiphish/rainbow-delimiters.nvim' }
+
 	use {
 	'VonHeikemen/lsp-zero.nvim',
 		branch = 'v2.x',

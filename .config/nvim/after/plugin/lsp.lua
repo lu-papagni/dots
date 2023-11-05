@@ -10,7 +10,6 @@ lsp.ensure_installed({
   'cssls',
   'jdtls',
   'html',
-  'arduino_language_server'
 })
 
 lsp.setup()
@@ -18,9 +17,8 @@ lsp.setup()
 -- Autocompletamento
 local cmp = require('cmp')
 
-cmp.setup({
+cmp.setup {
   mapping = {
-	  ['<Tab>'] = cmp.mapping.confirm({select = true})
+    ['<Tab>'] = cmp.mapping.confirm({select = true})
   }
 }
-)
