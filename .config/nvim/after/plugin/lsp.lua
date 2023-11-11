@@ -10,6 +10,7 @@ lsp.ensure_installed({
   'cssls',
   'jdtls',
   'html',
+  'pyright',
 })
 
 lsp.setup()
