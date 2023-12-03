@@ -1,33 +1,36 @@
 #window {
-	border-radius: 5px;
+	border-radius: 15px;
 	border-style: solid;
-	border-color: #868a3d;
+	border-color: @theme_selected_bg_color;
 	border-width: 3px;
 	background-color: rgba(28, 28, 28, .9);
 }
 
 #outer-box {
-	font-family: "CaskaydiaCove Nerd Font";
+	font-family: "Fira Code Nerd Font Ret", "CaskaydiaCove Nerd Font";
   font-size: 1.2rem;
 	margin: 12px;
 }
 
 #input {
 	margin-bottom: 8px;
-	border-style: solid;
-	border-color: #a9ab7e;
-	border-width: 2px;
-  border-radius: 5px;
+  border-radius: 15px;
+  background-color: @theme_bg_color;
 }
 
 #entry {
 	padding: 6px;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 #entry:selected {
-	background-color: #a9ab7e;
-	color: #4c4f69;
+	background-color: alpha(@theme_selected_bg_color, .5);
+  font-style: italic;
+}
+
+#entry:selected label {
+  text-decoration-style: solid;
+  text-decoration-line: underline;
 }
 
 image {

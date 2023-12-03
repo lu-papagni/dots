@@ -115,8 +115,6 @@ alias ffc="fastfetch"
 alias ghidra="/home/luca/ghidra_10.2.2_PUBLIC/ghidraRun"
 alias ascii_live="~/.ascii-live.sh & exit"
 alias prime_run="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia"
-alias ogcat="cat"
-alias cat="bat"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
