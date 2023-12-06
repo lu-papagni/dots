@@ -15,4 +15,4 @@ function Theme(color, front, back)
   vim.api.nvim_set_hl(0, '@lsp.type.typeParameter', { link='@property' })
 end
 
-Theme('gruvbox-material', 'mix')
+Theme('tokyonight')

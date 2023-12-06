@@ -17,7 +17,7 @@ return require('packer').startup(function(use)
   use({ 'marko-cerovac/material.nvim', as = 'material'}) -- Material
   use({ 'sainnhe/gruvbox-material', as = 'gruv-material'}) -- Gruvbox Material
   use({ "cpea2506/one_monokai.nvim", as = 'one-monokai'}) -- One Monokai
-  use({ 'chriskempson/base16-vim' }) -- Base 16
+  use({ "folke/tokyonight.nvim" }) -- Tokio Night
 
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.2',
