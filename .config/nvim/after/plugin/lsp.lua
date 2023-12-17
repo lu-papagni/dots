@@ -7,7 +7,6 @@ end)
 lsp.ensure_installed({
   'tsserver',
   'clangd',
-  'cssls',
   'jdtls',
   'html',
   'pyright',

@@ -13,3 +13,4 @@ set termguicolors " supporto truecolor
 
 " Inizializzazione moduli
 lua require('luca')
+lua Theme('gruvbox-material','mix')

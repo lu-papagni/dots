@@ -14,5 +14,3 @@ function Theme(color, front, back)
   vim.api.nvim_set_hl(0, '@lsp.type.parameter', { italic=true })
   vim.api.nvim_set_hl(0, '@lsp.type.typeParameter', { link='@property' })
 end
-
-Theme('tokyonight')
