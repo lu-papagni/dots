@@ -122,18 +122,28 @@ alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
-        . "/usr/etc/profile.d/conda.sh"
-    else
-        export PATH="/usr/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+#__conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+#else
+#    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
+#        . "/usr/etc/profile.d/conda.sh"
+#    else
+#        export PATH="/usr/bin:$PATH"
+#    fi
+#fi
+#unset __conda_setup
 # <<< conda initialize <<<
 
 export PATH=$PATH:/home/luca/.spicetify
-export QT_QPA_PLATFORMTHEME="qt5ct"
+#export QT_QPA_PLATFORMTHEME="qt5ct"
+
+# Esegui Hyprland dopo il login da tty1
+which "Hyprland" > /dev/null
+if [ $? -eq 0 ]; then
+  if [ "$(tty)" = "/dev/tty1" ]; then
+    exec Hyprland
+  fi
+else
+  echo "Hyprland non è installato."
+fi

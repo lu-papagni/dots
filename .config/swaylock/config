@@ -1,10 +1,20 @@
 ignore-empty-password
 disable-caps-lock-text
 font=Fira Code NerdFont Ret
+grace=5
+
+clock
+timestr=%R
+datestr=%A%e %b
 
 image=/home/luca/Immagini/palm_tree_branch_tropics.jpg
 
-indicator-idle-visible
+fade-in=0.2
+
+effect-blur=10x3
+effect-scale=0.1
+
+indicator
 indicator-radius=240
 indicator-thickness=20
 indicator-caps-lock

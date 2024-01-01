@@ -16,19 +16,21 @@ packages=(
     'waybar'    # barra degli strumenti
     'wofi'      # menu delle applicazioni
     'swayidle'  # daemon per controllare lo standby
-    'swaylock'  # schermata di blocco
     'blueman'   # bluetooth manager
     'pavucontrol'    # audio manager
+    'light'     # gestore della retroilluminazione
 )
 
 copr=(
     'erikreider/SwayNotificationCenter'
     'solopasha/hyprland'
+    'eddsalkield/swaylock-effects'
 )
 
 copr_packages=(
-    'hyprland'    # window manager
-    'swaync'      # daemon/centro notifiche
+    'hyprland'          # window manager
+    'swaync'            # daemon/centro notifiche
+    'swaylock-effects'  # schermata di blocco
 )
 
 if [ ! -z $1 ]; then

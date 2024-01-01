@@ -24,18 +24,6 @@
     "on-click-right": "sleep 0.2; swaync-client -d -sw",
     "on-click-middle": "sleep 0.2 && swaync-client --toggle-dnd",
     "escape": true,
-    //"exec": "~/.config/waybar/scripts/swaync.sh",
-    //"return-type": "json",
-    //"restart-interval": 3,
-    //"on-click": "sleep 0.2 && swaync-client -t",
-    //"format": "{icon}{}",
-    //"format-icons": {
-    //  "empty": "󰂚",
-    //  "pending": "󱅫",
-    //  "dnd": "󰂛",
-    //},
-    //"tooltip": true,
-    //"escape": true
   },
   "custom/media": {
     "format": "{icon} {}",

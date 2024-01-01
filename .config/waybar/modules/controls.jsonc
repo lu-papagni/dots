@@ -28,6 +28,6 @@
     "format-icons": ["", "", "", "", "", "󰃝", "󰃞", "󰃟", "󰃠"]
   },
   "hyprland/language": {
-    "format": "{variant}"
+    "format": "{variant}",
   }
 }
