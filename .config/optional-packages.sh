@@ -1,15 +1,40 @@
 #!/bin/bash
-DO="exec"    # cosa fare con i comandi da runnare: di default li esegue, ma li può anche solo mostrare su stdout per debug
 LI_INFO="\e[1;32m::\e[0m"
 LI_INPUT="\e[1;33m::\e[0m"
 LI_ERROR="\e[1;31m::\e[0m"
-packages=('neovim' 'firefox' 'kitty' 'zsh' 'bat' 'cava' 'gnome-calculator' 'onedrive' 'waybar' 'wofi' 'swayidle' 'swaylock')
+
+packages=(
+    'neovim'    # editor di testo
+    'firefox'   # browser
+    'kitty'     # terminale
+    'zsh'       # shell
+    'bat'       # alternativa per cat (evidenzia la sintassi del linguaggio)
+    'cava'      # visualizzatore musica per terminale
+    'gnome-calculator'    # calcolatrice di gnome
+    'onedrive'  # daemon per sincronizzare i file con OneDrive
+    'waybar'    # barra degli strumenti
+    'wofi'      # menu delle applicazioni
+    'swayidle'  # daemon per controllare lo standby
+    'swaylock'  # schermata di blocco
+    'blueman'   # bluetooth manager
+    'pavucontrol'    # audio manager
+)
+
+copr=(
+    'erikreider/SwayNotificationCenter'
+    'solopasha/hyprland'
+)
+
+copr_packages=(
+    'hyprland'    # window manager
+    'swaync'      # daemon/centro notifiche
+)
 
 if [ ! -z $1 ]; then
     case $1 in
         "--dry-run")
-            DO="echo"
-            echo -e "$LI_INPUT Attenzione: lo script è in modalità test. I comandi importanti verranno solo mostrati in output."
+            DEBUG="echo"    # cosa fare con i comandi da runnare: di default li esegue, ma li può anche solo mostrare su stdout per debug
+            echo -e "$LI_INPUT Attenzione: lo script è in modalità test. I comandi importanti non verranno eseguiti, ma stampati."
             ;;
         *)
             echo -e "$LI_ERROR '$1' non è un parametro valido."
@@ -20,16 +45,20 @@ fi
 
 read -p "$(echo -e "$LI_INPUT Package manager utilizzato:") " manager
 
-if [ $manager == "dnf" ]; then
-    install_cmd="install"
-    update_cmd="upgrade"
-elif [ $manager == "pacman" ]; then
-    install_cmd="-S"
-    update_cmd="-Syu"
-else
-    echo -e "$LI_ERROR Package manager '$manager' non supportato."
-    exit -1
-fi
+case $manager in
+    "dnf")
+        install_cmd="install"
+        update_cmd="upgrade"
+        ;;
+    "pacman")
+        install_cmd="-S"
+        update_cmd="-Syu"
+        ;;
+    *)
+        echo -e "$LI_ERROR Package manager '$manager' non supportato."
+        exit -1
+        ;;
+esac
 
 # controlla se il package manager è corretto
 which $manager > /dev/null
@@ -43,12 +72,28 @@ read -p "$(echo -e "$LI_INPUT Pronto per l'esecuzione. Continuare? (Y/N): ")" co
 
 # aggiorna il sistema
 echo -e "$LI_INFO Esecuzione aggiornamento completo del sistema..."
-$DO "sudo $manager $update_cmd"
+$DEBUG sudo $manager $update_cmd
 
 # installa i pacchetti
-echo -e "$LI_INFO Installazione pacchetti richiesti..."
-$DO "sudo $manager $install_cmd $(
+echo -e "$LI_INFO Installazione pacchetti..."
+$DEBUG sudo $manager $install_cmd $(
     for pkg in ${packages[*]}; do
         printf '%s ' $pkg
     done
-)"
+)
+
+if [ $manager == "dnf" ]; then
+    # abilita le user repository di Fedora (copr)
+    echo -e "$LI_INFO Abilitazione delle COPR preferite..."
+    for repo in ${copr[*]}; do
+        $DEBUG sudo $manager copr enable $repo
+    done
+
+    # installa i pacchetti delle copr
+    echo -e "$LI_INFO Installazione pacchetti delle COPR..."
+    $DEBUG sudo $manager $install_cmd $(
+        for pkg in ${copr_packages[*]}; do
+            printf '%s ' $pkg
+        done
+    )
+fi
