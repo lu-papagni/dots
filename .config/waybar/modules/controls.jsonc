@@ -1,0 +1,33 @@
+{
+  "network": {
+     // "interface": "wlp2*", // (Optional) To force the use of this interface
+     "format-wifi": "{essid} 󰖩",
+     "format-ethernet": "{ipaddr}/{cidr} ",
+     "tooltip-format": "{ifname} via {gwaddr} ",
+     "format-linked": "{ifname} (No IP) ",
+     "format-disconnected": "󰖪",
+     "format-alt": "{ifname}: {ipaddr}/{cidr}",
+     "on-click": "sh ~/.config/waybar/scripts/net-toggle.sh"
+  },
+  "bluetooth": {
+    "on-click-middle": "blueman-manager",
+    "on-click": "sh ~/.config/waybar/scripts/bluetooth-toggle.sh",
+    "format-connected": "󰂱 {device_alias}",
+    "format-on": "",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+  },
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{icon} {percent}",
+    "format-icons": ["", "", "", "", "", "󰃝", "󰃞", "󰃟", "󰃠"]
+  },
+  "hyprland/language": {
+    "format": "{variant}"
+  }
+}

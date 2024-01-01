@@ -1,0 +1,52 @@
+{
+  "custom/power-menu" : {
+    "on-click" : "wlogout",
+    "format" : "⏻",
+    "tooltip" : false,
+  },
+  "custom/swaync": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󰂚<span foreground='red'><sup></sup></span>",
+      "none": "󰂚",
+      "dnd-notification": "󰂛<span foreground='red'><sup></sup></span>",
+      "dnd-none": "󰂛",
+      "inhibited-notification": "󰂚<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "󰂚",
+      "dnd-inhibited-notification": "󰂛<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": "󰂛"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "sleep 0.2; swaync-client -t -sw",
+    "on-click-right": "sleep 0.2; swaync-client -d -sw",
+    "on-click-middle": "sleep 0.2 && swaync-client --toggle-dnd",
+    "escape": true,
+    //"exec": "~/.config/waybar/scripts/swaync.sh",
+    //"return-type": "json",
+    //"restart-interval": 3,
+    //"on-click": "sleep 0.2 && swaync-client -t",
+    //"format": "{icon}{}",
+    //"format-icons": {
+    //  "empty": "󰂚",
+    //  "pending": "󱅫",
+    //  "dnd": "󰂛",
+    //},
+    //"tooltip": true,
+    //"escape": true
+  },
+  "custom/media": {
+    "format": "{icon} {}",
+    "return-type": "json",
+    "max-length": 40,
+    "format-icons": {
+      "spotify": "",
+      "default": "🎜"
+    },
+    "escape": true,
+    "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "hyprland/window": {
+    "format": "{title}",
+    "max-length": 80
+  },
+  "hyprland/workspaces": {
+    "format": "{id}",
+    "persistent-workspaces": {
+      "*": 2,
+    },
+  },
+  "hyprland/language": {
+    "format-en": "en",
+    "format-it": "it"
+  },
+}

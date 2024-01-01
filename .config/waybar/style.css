@@ -1,28 +1,102 @@
-/* Catppuccin.css */
-@define-color backg rgba(28, 28, 28, .9);
+@define-color backg rgba(28, 28, 28, .8);
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     /* font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif; */
-	font-family: "CaskaydiaCove Nerd Font", sans-serif;
+	  font-family: "Fira Code Nerd Font Ret", sans-serif;
     font-size: 1rem;
 }
 
-.modules-right {
-	margin: 3px 6px 0 6px;
-	padding: .25rem .25rem .25rem 0;
+.modules-right, .modules-left, .modules-center {
+  margin-top: 5px;
+	padding: .25em;
+  min-height: 35px;
+  border-radius: 15px;
 	background-color: @backg;
-	border-radius: 2rem;
   color: black;
 }
 
+tooltip {
+  background-color: @backg;
+  padding: .25em;
+  border: 2px solid @theme_selected_bg_color;
+  border-radius: 15px;
+  margin: -90px;
+}
+
+/* Calcolo bordi innestati rispetto al border-radius delle barre */
+#clock,
+#custom-power-menu,
+#custom-swaync,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#pulseaudio-slider,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#workspaces button,
+#window,
+#language,
+#bluetooth,
+#mpd {
+  border-radius: calc(15px - .25em);
+}
+
+/* Gruppi */
+box#resources > widget:not(:first-child):not(:last-child) > *,
+box#datetime > widget:not(:first-child):not(:last-child) > *,
+box#controls > widget:not(:first-child):not(:last-child) > *,
+box#multimedia > widget:not(:first-child):not(:last-child) > *
+{
+  border-radius: calc((15px - .25em) / 2);
+}
+
+box#resources > widget:first-child > *,
+box#datetime > widget:first-child > *,
+box#controls > widget:first-child > *,
+box#multimedia > widget:first-child > *
+{
+  border-top-right-radius: calc((15px - .25em) / 2);
+  border-bottom-right-radius: calc((15px - .25em) / 2);
+}
+
+box#resources > widget:last-child > *,
+box#datetime > widget:last-child > *,
+box#controls > widget:last-child > *,
+box#multimedia > widget:last-child > *
+{
+  border-top-left-radius: calc((15px - .25em) / 2);
+  border-bottom-left-radius: calc((15px - .25em) / 2);
+}
+
+box#resources > widget:only-child > *,
+box#datetime > widget:only-child > *,
+box#controls > widget:only-child > *,
+box#multimedia > widget:only-child > *
+{
+  border-radius: calc(15px - .25em);
+}
+
+/* Barre */
+.modules-left {
+	margin-left: 10px;
+  padding-right: 0;
+}
+
+.modules-right {
+	margin-right: 10px;
+}
+
 window#waybar {
-    /* background-color: @backg; old */
-    /* background-color: #1e1e2e; */
-    background-color: transparent;
+    background: transparent;
     color: #ffffff;
-    transition-property: background-color;
-    transition-duration: .5s;
 }
 
 window#waybar.hidden {
@@ -38,38 +112,27 @@ window#waybar.solo {
 }
 */
 
-window#waybar.termite {
-    background-color: #3F3F3F;
-}
-
-window#waybar.chromium {
-    background-color: #000000;
-    border: none;
-}
-
-#workspaces {
-	margin: 3px 6px 0 6px;
-	padding: .25rem;
-	background-color: @backg;
-	border-radius: 2rem;
-}
-
 #workspaces button {
 	padding: 0 .5rem;
 	margin: 2px;
     /* background-color: transparent; */
-    background-color: #45475a;
-    color: #cdd6f4;
-    border-radius: 2rem;
+  background-color: #45475a;
+  color: #cdd6f4;
 }
 
+#workspaces button {
+  min-width: 0;
+  background-color: transparent;
+  transition: min-width 300ms, background-color 300ms;
+}
+
+#workspaces button.active {
+  min-width: 3rem;
+  background-color: @theme_selected_bg_color;
+}
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover {
-    background: #585b70;
-}
-
-#workspaces button.focused {
-    background-color: #868a3d;
+    background-color: darker(@theme_selected_bg_color);
     color: #343618;
 }
 
@@ -84,6 +147,7 @@ window#waybar.chromium {
 
 #clock,
 #custom-power-menu,
+#custom-swaync,
 #battery,
 #cpu,
 #memory,
@@ -92,27 +156,30 @@ window#waybar.chromium {
 #backlight,
 #network,
 #pulseaudio,
+#pulseaudio-slider,
 #custom-media,
 #tray,
 #mode,
 #idle_inhibitor,
+#language,
+#bluetooth,
 #mpd {
-	border-radius: 2rem;
-  padding: .2rem 1rem .2rem .8rem;
-	margin: .25rem;
+  padding: .2rem .85rem .2rem .7rem;
+	margin: .15rem;
 }
 
 #window {
-    margin: 3px 6px 0 6px;
-    background-color: @backg;
-    border-radius: 2rem;
-    padding-left: 8px;
-    padding-right: 8px;
-    /* padding: 0 6px; */
+    background-color: transparent;
+    padding-right: .65rem;
+    padding-left: .5rem;
+    color: white;
+    margin-top: .2rem;
 }
 
 window#waybar.empty #window {
-	background-color: transparent;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
 }
 
 #clock {
@@ -121,7 +188,14 @@ window#waybar.empty #window {
 }
 
 #custom-power-menu {
-  background-color: red;
+  background-color: @theme_selected_bg_color;
+  margin-right: .1rem;
+  transition: background-color, 300ms;
+  padding-right: 1rem;
+}
+
+#custom-swaync {
+  background-color: @theme_selected_bg_color;
 }
 
 #battery {
@@ -150,10 +224,6 @@ window#waybar.empty #window {
     animation-direction: alternate;
 }
 
-label:focus {
-    background-color: #000000;
-}
-
 #cpu {
     background-color: #2ecc71;
     color: #0f4526;
@@ -176,10 +246,42 @@ label:focus {
 #network {
     background-color: #74c7ec;
     color: #243c47;
+    transition: background-color 1s, color 1s;
 }
 
 #network.disconnected {
     background-color: #585b70;
+}
+
+
+@keyframes bluetooth-discovering {
+  from {
+    background-color: blue;
+    color: darker(blue);
+  }
+  to {
+    background-color: lighter(blue);
+    color: lighter(lighter(blue));
+  }
+}
+
+#bluetooth {
+  transition: background-color 1s, color 1s;
+}
+
+#bluetooth.on {
+  background-color: blue;
+}
+
+#bluetooth.off, #bluetooth.disabled {
+  background-color: gray;
+}
+
+#bluetooth.discovering {
+  animation-name: bluetooth-discovering;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: 1s;
 }
 
 #pulseaudio {
@@ -190,6 +292,11 @@ label:focus {
 #pulseaudio.muted {
     background-color: #90b1b1;
     color: #2a5c45;
+}
+
+#pulseaudio-slider trough, #backlight-slider trough {
+    min-height: 10px;
+    min-width: 80px;
 }
 
 #custom-media {
@@ -257,10 +364,7 @@ label:focus {
 
 #language {
     background: #00b093;
-    color: #740864;
-    padding: 0 5px;
-    margin: 0 5px;
-    min-width: 16px;
+    color: alpha(darker(#00b093), .5);
 }
 
 #keyboard-state {
