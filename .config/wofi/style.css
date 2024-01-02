@@ -2,7 +2,7 @@
 	border-radius: 15px;
 	border-style: solid;
 	border-color: @theme_selected_bg_color;
-	border-width: 3px;
+	border-width: 2px;
 	background-color: rgba(28, 28, 28, .9);
 }
 

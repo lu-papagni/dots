@@ -19,6 +19,7 @@ packages=(
     'blueman'   # bluetooth manager
     'pavucontrol'    # audio manager
     'light'     # gestore della retroilluminazione
+    'eog'       # visualizzatore immagini
 )
 
 copr=(
