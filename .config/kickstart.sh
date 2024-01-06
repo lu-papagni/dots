@@ -29,9 +29,9 @@ copr=(
 )
 
 copr_packages=(
-    'hyprland'          # window manager
-    'swaync'            # daemon/centro notifiche
-    'swaylock-effects'  # schermata di blocco
+    'hyprland'                          # window manager
+    'SwayNotificationCenter'            # daemon/centro notifiche
+    'swaylock-effects'                  # schermata di blocco
 )
 
 if [ ! -z $1 ]; then
