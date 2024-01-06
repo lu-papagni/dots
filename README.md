@@ -2,7 +2,7 @@
 
 ## Installazione
 ### Fedora
-- La [versione](https://alt.fedoraproject.org) da installare è _Fedora Everything_.
+- La [versione](https://alt.fedoraproject.org) da installare è _Fedora Everything_ per [Hyprland](#hyprland), oppure [Fedora KDE](https://fedoraproject.org/spins/kde) per [KWin](#kwin).
 - Se l’installazione non dovesse partire, provare ad avviare l’immagine ISO in modalità grafica ridotta.
 - Alla richiesta di creare un utente root scegliere **NO**.
 
@@ -72,8 +72,15 @@ Generalmente, i WM stacking sono quelli più comuni e semplici da configurare. I
 I gestori tiling, invece, hanno meno funzionalità dell'altro tipo e sono più complicati da gestire. Sono davvero utili per chi lavora molto con il terminale e si trova ad avere spesso la necessità di
 aprire/allineare più istanze per avere tutto sotto controllo. O per flexare 🗿.
 
-| ![](https://www.html.it/app/uploads/2022/03/kde.png "Stacking window manager KDE") |
+| Due esempi |
 |:--:|
-| *KDE, stacking* |
+| ![](https://www.html.it/app/uploads/2022/03/kde.png "Stacking window manager KDE") |
+| *KWin, stacking* |
 | ![](https://storage.googleapis.com/zenn-user-upload/38ff1f02ef60253135f77e14.png "Tiling window manager Sway") |
 | *Sway, tiling* |
+
+### KWin
+È uno dei migliori window manager del tipo classico. In realtà fa parte di una suite di programmi molto più grande, cioè del _desktop environment_ KDE.
+
+### Hyprland
+Uno tra i tiling WM più innovativi basato su Wayland, il nuovo protocollo grafico standard di Linux. Supporta le animazioni delle finestre.
