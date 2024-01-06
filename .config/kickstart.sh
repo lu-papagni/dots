@@ -20,6 +20,8 @@ packages=(
     'pavucontrol'    # audio manager
     'light'     # gestore della retroilluminazione
     'eog'       # visualizzatore immagini
+    'wlogout'   # menu logout
+    'vlc'       # visualizzatore video
 )
 
 copr=(
@@ -101,3 +103,6 @@ if [ $manager == "dnf" ]; then
         done
     )
 fi
+
+echo -e "$LI_INFO Cambio della shell predefinita a zsh..."
+$DEBUG sudo chsh -s "/usr/bin/zsh" "$(whoami)"
