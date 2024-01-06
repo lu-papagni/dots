@@ -22,6 +22,8 @@ packages=(
     'eog'       # visualizzatore immagini
     'wlogout'   # menu logout
     'vlc'       # visualizzatore video
+    'lsd'       # alternativa a ls
+    'btop'      # monitor risorse
 )
 
 copr=(
