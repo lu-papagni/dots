@@ -1,16 +1,14 @@
-# Set-up Linux
-
-## Installazione
-### Fedora
+# Installazione
+## Fedora
 - La [versione](https://alt.fedoraproject.org) da installare è _Fedora Everything_ per [Hyprland](#hyprland), oppure [Fedora KDE](https://fedoraproject.org/spins/kde) per [KWin](#kwin).
 - Se l’installazione non dovesse partire, provare ad avviare l’immagine ISO in modalità grafica ridotta.
 - Alla richiesta di creare un utente root scegliere **NO**.
 
-### Arch
+## Arch
 Non ho ancora trovato la voglia.
 
-## Configurazione
-### Dotfiles
+# Configurazione
+## Dotfiles
 La maggior parte delle impostazioni dei software su Linux è salvata nei loro rispettivi file di configurazione (in gergo _dotfiles_).
 Questi ultimi sono salvati in [questa repository](https://github.com/lu-papagni/dots). Per gestire i _dotfiles_ più facilmente ho creato un alias basato su git per sincronizzarli.
 
@@ -39,7 +37,7 @@ Per utilizzarlo è necessaria una **shell compatibile POSIX** (come bash, zsh…
     e branch ogni volta che si vuole eseguire un backup. Ad esempio: `dotfiles push --set-upstream https://github.com/lu-papagni/dots.git main`. In alternativa si potrebbero configurare
     le proprietà del ramo locale per puntare alla nostra repository per evitare di ripetere l'indirizzo ogni volta.
 
-### Plugin per la shell
+## Plugin per la shell
 La shell _zsh_ è compatibile con molte estensioni di terze parti. Per essere sicuri che rimangano sempre aggiornate, può essere utile installare [Oh-My-Zsh](https://ohmyz.sh), un popolare plugin manager.
 - Installazione di _Oh-My-Zsh_:
   
@@ -50,9 +48,22 @@ La shell _zsh_ è compatibile con molte estensioni di terze parti. Per essere si
 Queste sono delle estensioni utili:
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k#for-new-users) (prompt compatibile con zsh)
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) completa i comandi che si scrivono al terminale
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) evidenzia il ruolo delle parole che si scrivono 
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) evidenzia il ruolo delle parole che si scrivono
 
-## Gestore delle finestre
+## Script di installazione
+Ho creato uno script bash chiamato `kickstart.sh` per evitare i passaggi più ripetitivi, come installare i pacchetti e abilitare le repository di terze parti. Al momento è compatibile al 100% solo con Fedora (_08/01/2024_) e c'è un supporto iniziale per Arch Linux (spoiler non lo finirò mai).
+### Breve guida a kickstart
+**Parametri opzionali**
+- `--dry-run` non modifica nulla sul sistema ma stampa l'output dei comandi che lo script avrebbe invece eseguito. Può essere utile per debug.
+
+**Come si usa?**
+1. Inserisci il nome del package manager (nel caso di Fedora è `dnf`)
+2. Rispondi alle domande che appaiono
+3. Spera che funzioni
+
+**Attenzione!** Lo script esegue praticamente tutti i comandi con privilegi di root, chiedendo solo la primissima volta la password.
+
+# Gestore delle finestre
 Su Linux si può scegliere l'ambiente grafico in modo molto libero. La prima decisione è sul tipo di gestore delle finestre (_window manager_ o _WM_ in breve) da usare, ovvero il software che posiziona
 le finestre sullo schermo. In generale si dividono in due categorie: _stacking_ e _tiling_.
 
@@ -63,9 +74,9 @@ Come si comportano le finestre in queste due varianti?
     - hanno una barra del titolo con cui si possono spostare, minimizzare, ingrandire e chiudere.
 - **Tiling**
     - sono gestite secondo un layout predefinito
-    - vengono disegnate a partire da un punto specifico (uno degli angoli dello schermo o in corrispondenza della finestra attiva).
-    - Le finestre solitamentee non si sovrappongono mai. Esistono dei a meno che non vengano spostate manualmente (quindi sganciate dal layout).
-    - Per cambiare la finestra attiva, spostarla in un altro punto, ridimensionarla, chiuderla, ecc. si usano degli shortcut formati solitamente da un modificatore e altri tasti.
+    - vengono disegnate a partire da un punto specifico, come uno degli angoli dello schermo o in corrispondenza della finestra attiva.
+    - Le finestre solitamente non si sovrappongono mai, a meno che non vengano spostate manualmente (quindi sganciate dal layout).
+    - Per cambiare la finestra attiva, spostarla in un altro punto, ridimensionarla, chiuderla, ecc. si usano degli shortcut formati solitamente da un modificatore o _leader_ e altri tasti.
 
 Generalmente, i WM stacking sono quelli più comuni e semplici da configurare. In più, portano con sé molti programmi pre-installati. Per dare un'idea, anche Windows ne usa uno di questo tipo.
 
@@ -79,10 +90,10 @@ aprire/allineare più istanze per avere tutto sotto controllo. O per flexare �
 | ![](https://storage.googleapis.com/zenn-user-upload/38ff1f02ef60253135f77e14.png "Tiling window manager Sway") |
 | *Sway, tiling* |
 
-### KWin
+## KWin
 È uno dei migliori window manager del tipo classico. In realtà fa parte di una suite di programmi molto più grande, cioè del _desktop environment_ KDE.
 
-#### Layout 1
+### Layout 1
 ![image](https://github.com/lu-papagni/dots/assets/89859659/b302cb5f-736a-4b2f-9882-9a7146296843)
 
 - **Dock**: il dock (pannello che permette di lanciare le applicazioni) si trova in basso al centro. È un pannello fluttuante composto, in ordine, da questi widget:
@@ -111,12 +122,12 @@ aprire/allineare più istanze per avere tutto sotto controllo. O per flexare �
 - **Effetti del desktop**
     1. **Lampada magica**: quando una finestra viene minimizzata avviene un'animazione simile a quella di MacOS.
 
-#### Layout "Pseudo tiling"
+### Layout "Pseudo tiling"
 Emula (così così) la gestione delle finestre di un tiling WM su KDE.
 
 ![image](https://github.com/lu-papagni/dots/assets/89859659/78497964-215c-40c4-bab6-13438512193c)
 
-##### Associazioni tasti
+#### Associazioni tasti
 | Funzione                            | Shortcut                     |
 |-------------------------------------|------------------------------|
 |     Modificatore                    |     Super (tasto Windows)    |
@@ -160,5 +171,12 @@ Per spostare una finestra liberamente basta tenere premuto Mod e trascinare con 
 ![image](https://github.com/lu-papagni/dots/assets/89859659/e731993c-61d9-4c53-9b10-479ed0be53c1)
 
 
-### Hyprland
+## Hyprland
 Uno tra i tiling WM più innovativi basato su Wayland, il nuovo protocollo grafico standard di Linux. Supporta le animazioni delle finestre ed effetti come la sfocatura.
+Poiché Hyprland è un progetto molto sperimentale, al momento si trova solo in [questa copr](https://copr.fedorainfracloud.org/coprs/solopasha/hyprland/) su Fedora (_aggiornato al 08/01/2024_).
+
+### Componenti
+- **Barra di stato**: waybar
+- **Gestore delle notifiche**: swaync (disponibile nelle [copr](https://copr.fedorainfracloud.org/coprs/erikreider/SwayNotificationCenter/))
+- **Blocco schermo**: swaylock-effects (disponibile nelle [copr](https://copr.fedorainfracloud.org/coprs/eddsalkield/swaylock-effects/))
+- **Menu di logout**: wlogout
