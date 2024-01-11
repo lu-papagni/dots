@@ -1,10 +1,23 @@
 #!/usr/bin/env bash
 
+################################   DICHIARAZIONI   #####################################
+
+# Decorazioni di linea
 LI_INFO="\e[1;32m::\e[0m"
 LI_INPUT="\e[1;33m::\e[0m"
 LI_ERROR="\e[1;31m::\e[0m"
 
-packages=(
+# Colori
+HI_DIM="\e[1;30m"    # Grigio
+HI_RST="\e[0m"       # Reset
+
+# rende il testo grigio
+function DIM_TEXT () {
+    echo "$HI_DIM$1$HI_RST"
+}
+
+# paccheti da installare
+RequiredPackages=(
     'neovim'    # editor di testo
     'firefox'   # browser
     'kitty'     # terminale
@@ -26,18 +39,28 @@ packages=(
     'btop'      # monitor risorse
 )
 
-copr=(
+# user repository da attivare
+Copr=(
     'erikreider/SwayNotificationCenter'
     'solopasha/hyprland'
     'eddsalkield/swaylock-effects'
 )
 
-copr_packages=(
-    'hyprland'                          # window manager
-    'SwayNotificationCenter'            # daemon/centro notifiche
-    'swaylock-effects'                  # schermata di blocco
+# pacchetti non inclusi nella repository standard
+CoprPackages=(
+    'hyprland'                 # window manager
+    'SwayNotificationCenter'   # daemon/centro notifiche
+    'swaylock-effects'         # schermata di blocco
 )
 
+# collegamenti simbolici
+declare -A Symlinks=(
+    ["/home/.zhsrc"]="/home/.config/zsh/.zshrc"
+)
+
+################################   ESECUZIONE   #####################################
+
+# se sono stati passati argomenti allo script
 if [ ! -z $1 ]; then
     case $1 in
         "--dry-run")
@@ -51,6 +74,7 @@ if [ ! -z $1 ]; then
     esac
 fi
 
+# input nome del package manager
 read -p "$(echo -e "$LI_INPUT Package manager utilizzato:") " manager
 
 case $manager in
@@ -85,26 +109,33 @@ $DEBUG sudo $manager $update_cmd
 # installa i pacchetti
 echo -e "$LI_INFO Installazione pacchetti..."
 $DEBUG sudo $manager $install_cmd $(
-    for pkg in ${packages[*]}; do
+    for pkg in ${RequiredPackages[*]}; do
         printf '%s ' $pkg
     done
 )
 
 if [ $manager == "dnf" ]; then
-    # abilita le user repository di Fedora (copr)
+    # abilita le user repository di Fedora (Copr)
     echo -e "$LI_INFO Abilitazione delle COPR preferite..."
-    for repo in ${copr[*]}; do
-        $DEBUG sudo $manager copr enable $repo
+    for repo in ${Copr[*]}; do
+        $DEBUG sudo $manager Copr enable $repo
     done
 
-    # installa i pacchetti delle copr
+    # installa i pacchetti delle Copr
     echo -e "$LI_INFO Installazione pacchetti delle COPR..."
     $DEBUG sudo $manager $install_cmd $(
-        for pkg in ${copr_packages[*]}; do
+        for pkg in ${CoprPackages[*]}; do
             printf '%s ' $pkg
         done
     )
 fi
 
+# imposta la shell predefinita
 echo -e "$LI_INFO Cambio della shell predefinita a zsh..."
 $DEBUG sudo chsh -s "/usr/bin/zsh" "$(whoami)"
+
+# crea collegamenti simbolici
+for dest in ${!Symlinks[@]}; do
+    echo -e "$LI_INFO Creazione symlink '$(DIM_TEXT $dest)' --> '$(DIM_TEXT ${Symlinks[$dest]})'"
+    $DEBUG ln -s "${Symlinks[$dest]}" "$dest"
+done
