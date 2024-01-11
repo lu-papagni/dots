@@ -16,7 +16,7 @@ function DIM_TEXT () {
     echo "$HI_DIM$1$HI_RST"
 }
 
-# paccheti da installare
+# pacchetti da installare
 RequiredPackages=(
     'neovim'    # editor di testo
     'firefox'   # browser
@@ -37,6 +37,7 @@ RequiredPackages=(
     'vlc'       # visualizzatore video
     'lsd'       # alternativa a ls
     'btop'      # monitor risorse
+    'fastfetch' # fetch tool
 )
 
 # user repository da attivare
@@ -55,7 +56,7 @@ CoprPackages=(
 
 # collegamenti simbolici
 declare -A Symlinks=(
-    ["/home/.zhsrc"]="/home/.config/zsh/.zshrc"
+    ["/home/.zshrc"]="/home/.config/zsh/.zshrc"
 )
 
 ################################   ESECUZIONE   #####################################
