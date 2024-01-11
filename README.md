@@ -13,6 +13,17 @@ La maggior parte delle impostazioni dei software su Linux è salvata nei loro ri
 Questi ultimi sono salvati in [questa repository](https://github.com/lu-papagni/dots). Per gestire i _dotfiles_ più facilmente ho creato un alias basato su git per sincronizzarli.
 
 Per utilizzarlo è necessaria una **shell compatibile POSIX** (come bash, zsh…) e seguire questo procedimento:
+
+> [!IMPORTANT]
+> Questo processo era un po' troppo macchinoso, quindi ora lo script prevede che si debba semplicemente clonare la repository in `~/.config` (senza sotto-directory). In questo modo si
+> può gestire il tutto con gli stessi comandi di qualsiasi altra repo. Per i file che hanno bisogno di risiedere direttamente in `/home`, lo script creerà dei link simbolici.
+>
+> Il *punto 4* è ancora molto consigliato (ovviamente non usando l'alias ma questo comando in `.config`):
+>
+> ```bash
+> git config --local status.showUntrackedFiles no
+> ```
+
 1.  Creare una directory _dummy_ (ovvero non utilizzata da noi ma solo come bersaglio del comando). Io l'ho posizionata in `~/.dotfiles`;
 2.	Spostarsi in quest'ultima directory ed inizializzare un progetto vuoto con git.
 
