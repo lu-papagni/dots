@@ -147,3 +147,7 @@ if [ $? -eq 0 ]; then
 else
   echo "Hyprland non è installato."
 fi
+
+# Supporto Hyprland su macchina virtuale
+# export WLR_NO_HARDWARE_CURSORS=1
+# export WLR_RENDERER_ALLOW_SOFTWARE=1
