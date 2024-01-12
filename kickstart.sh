@@ -56,7 +56,7 @@ CoprPackages=(
 
 # collegamenti simbolici
 declare -A Symlinks=(
-    ["/home/.zshrc"]="/home/.config/zsh/.zshrc"
+    ["/home/.zshrc"]="/home/.config/.zshrc"
 )
 
 ################################   ESECUZIONE   #####################################
@@ -129,7 +129,7 @@ if [ $manager == "dnf" ]; then
     # abilita le user repository di Fedora (Copr)
     echo -e "$LI_INFO Abilitazione delle COPR preferite..."
     for repo in ${Copr[*]}; do
-        $DEBUG sudo $manager Copr enable $repo
+        $DEBUG sudo $manager copr enable $repo
     done
 
     # installa i pacchetti delle Copr
