@@ -61,6 +61,16 @@ declare -A Symlinks=(
 
 ################################   ESECUZIONE   #####################################
 
+echo "
+  _  __ _        _          _                _            _     
+ | |/ /(_)      | |        | |              | |          | |    
+ | ' /  _   ___ | | __ ___ | |_  __ _  _ __ | |_     ___ | |__  
+ |  <  | | / __|| |/ // __|| __|/ _\` || '__|| __|   / __|| '_ \ 
+ | . \ | || (__ |   < \__ \| |_| (_| || |   | |_  _ \__ \| | | |
+ |_|\_\|_| \___||_|\_\|___/ \__|\__,_||_|    \__|(_)|___/|_| |_|
+                                                                
+"
+
 # se sono stati passati argomenti allo script
 if [ ! -z $1 ]; then
     case $1 in
@@ -133,10 +143,18 @@ fi
 
 # imposta la shell predefinita
 echo -e "$LI_INFO Cambio della shell predefinita a zsh..."
-$DEBUG sudo chsh -s "/usr/bin/zsh" "$(whoami)"
+$DEBUG sudo chsh -s "$(which zsh)" "$(whoami)"
 
 # crea collegamenti simbolici
 for dest in ${!Symlinks[@]}; do
     echo -e "$LI_INFO Creazione symlink '$(DIM_TEXT $dest)' --> '$(DIM_TEXT ${Symlinks[$dest]})'"
     $DEBUG ln -s "${Symlinks[$dest]}" "$dest"
 done
+
+# avviso supporto hyprland su vm
+which 'Hyprland' > /dev/null
+if [ $? -eq 0 ]; then
+    echo -e "$LI_INPUT Attenzione: se vuoi usare $(DIM_TEXT 'Hyprland') su macchina virtuale, abilita queste variabili d'ambiente in $(DIM_TEXT '.zshrc'):"
+    echo -e "$LI_INPUT $(DIM_TEXT 'WLR_NO_HARDWARE_CURSORS') impostata ad $(DIM_TEXT '1')"
+    echo -e "$LI_INPUT $(DIM_TEXT 'WLR_RENDERER_ALLOW_SOFTWARE') impostata ad $(DIM_TEXT '1')"
+fi
