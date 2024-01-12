@@ -56,7 +56,7 @@ CoprPackages=(
 
 # collegamenti simbolici
 declare -A Symlinks=(
-    ["/home/.zshrc"]="/home/.config/.zshrc"
+    ["~/.zshrc"]="~/.config/.zshrc"
 )
 
 ################################   ESECUZIONE   #####################################
