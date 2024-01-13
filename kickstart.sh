@@ -148,7 +148,7 @@ $DEBUG sudo chsh -s "$(which zsh)" "$(whoami)"
 # crea collegamenti simbolici
 for dest in ${!Symlinks[@]}; do
     echo -e "$LI_INFO Creazione symlink '$(DIM_TEXT $dest)' --> '$(DIM_TEXT ${Symlinks[$dest]})'"
-    $DEBUG ln -s "${Symlinks[$dest]}" "$dest"
+    $DEBUG ln -s "$dest" "${Symlinks[$dest]}"
 done
 
 # avviso supporto hyprland su vm
