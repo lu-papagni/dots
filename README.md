@@ -13,7 +13,7 @@ A partire dalla versione `37` di Fedora, l'ISO potrebbe fallire l'avvio su speci
     2. Installare il plugin per l'avanzamento di versione: `sudo dnf install dnf-plugin-system-upgrade`.
     3. Scaricare l'aggiornamento più recente: `sudo dnf system-upgrade download --releasever=xx` dove `xx` sta al posto del numero di versione.
     4. Installare l'aggiornamento con `sudo dnf system-upgrade reboot`.
-    5. Ripetere il passo `3.1` fino a che non si raggiunge la versione voluta.
+    5. Ripetere il passo **3** fino a che non si raggiunge la versione voluta.
 > [!IMPORTANT]
 > Secondo la [wiki](https://docs.fedoraproject.org/en-US/quick-docs/upgrading-fedora-offline/#sect-how-many-releases-can-i-upgrade-across-at-once) di Fedora è sicuro eseguire un upgrade solo fino a 2 versioni successive. Serviranno quindi più passaggi per completare il workaround.
 
