@@ -1,3 +1,15 @@
+# Esegui Hyprland dopo il login da tty1
+if [ "$(tty)" = "/dev/tty1" ]; then
+  which "Hyprland" > /dev/null
+  if [ $? -eq 0 ]; then
+    exec Hyprland
+  else
+    echo "Hyprland non installato!"
+  fi
+fi
+
+fastfetch -c ~/.config/fastfetch/small.jsonc
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -137,16 +149,6 @@ alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 
 export PATH=$PATH:/home/luca/.spicetify
 #export QT_QPA_PLATFORMTHEME="qt5ct"
-
-# Esegui Hyprland dopo il login da tty1
-which "Hyprland" > /dev/null
-if [ $? -eq 0 ]; then
-  if [ "$(tty)" = "/dev/tty1" ]; then
-    exec Hyprland
-  fi
-else
-  echo "Hyprland non è installato."
-fi
 
 # Supporto Hyprland su macchina virtuale
 # export WLR_NO_HARDWARE_CURSORS=1
