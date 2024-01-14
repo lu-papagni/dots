@@ -38,6 +38,8 @@ RequiredPackages=(
     'lsd'       # alternativa a ls
     'btop'      # monitor risorse
     'fastfetch' # fetch tool
+    'pulseaudio-utils'   # layer compatibilità per pulseaudio
+    'which'     # sembra strano ma a volte non è incluso nell'installazione base
 )
 
 # user repository da attivare
@@ -50,6 +52,7 @@ Copr=(
 # pacchetti non inclusi nella repository standard
 CoprPackages=(
     'hyprland'                 # window manager
+    'hyprpaper'                # wallpaper utility
     'SwayNotificationCenter'   # daemon/centro notifiche
     'swaylock-effects'         # schermata di blocco
 )
