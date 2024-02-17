@@ -89,6 +89,6 @@ return {
     },
   })
 
-  require("user.macro.colorscheme").utils.editTextObjects()
+  require("user.macro.colorscheme").editTextObjects()
   end
 }
