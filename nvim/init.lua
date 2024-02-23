@@ -1,8 +1,11 @@
 require("user.vim-options")
 require("user.vim-keymaps")
+
+-- Impostazione del tema
 local Colorscheme = require("user.macro.colorscheme")
-Colorscheme.theme.current = "gruvbox-material"
+Colorscheme.current = "gruvbox-material"
+Colorscheme.transparent = true
 
 require("user.lazy")
 
-Colorscheme.theme.apply()
+Colorscheme.apply(nil, "mix")
