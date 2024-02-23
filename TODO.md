@@ -12,6 +12,11 @@
 - [ ] Tema basato sullo sfondo (bordi finestre, gtk) -> Pywal??
 
 ## Neovim
-- [ ] Migrare Packer -> Lazy
-- [ ] Lualine: mettere l'icona del tipo di file, cambiare l'indicatore di codifica da icona a testo
-- [ ] Fare in modo che l'autocompletamento delle funzioni permetta di navigare i parametri con TAB
+- [x] Migrare Packer -> Lazy
+- [x] Lualine: mettere l'icona del tipo di file
+- [ ] Lualine: cambiare l'indicatore di codifica da icona a testo
+- [x] Fare in modo che l'autocompletamento delle funzioni permetta di navigare i parametri con TAB
+
+## Kickstart.sh
+- [ ] Compatibilità con yay
+- [ ] sudo opzionale nella funzione Run

@@ -16,7 +16,7 @@ local function ApplyTheme(color, front, back)
 
   vim.cmd.colorscheme(color)
   if M.transparent then
-    local highlightGroups = { "Normal", "NormalFloat", "NormalNC", "NonText", "EndOfBuffer" }
+    local highlightGroups = { "Normal", "NormalNC", "NonText", "EndOfBuffer" }
     for i, group in ipairs(highlightGroups) do
       vim.api.nvim_set_hl(0, group, { bg = "none" })
     end
