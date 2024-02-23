@@ -1,5 +1,3 @@
-timeout 300 'light -T 0.5'
-timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on && light -T 2'
-timeout 900 'systemctl suspend'
+timeout 300 'light -T 0.5' resume 'light -T 2'
+timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'
 before-sleep 'swaylock -f'
-

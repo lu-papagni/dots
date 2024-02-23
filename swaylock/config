@@ -1,13 +1,13 @@
 ignore-empty-password
 disable-caps-lock-text
-font=Fira Code NerdFont Ret
+font=JetBrains Mono Nerd Font
 grace=5
 
 clock
 timestr=%R
 datestr=%A%e %b
 
-image=/home/luca/Immagini/palm_tree_branch_tropics.jpg
+image=/home/luca/Pictures/Wallpapers/Mascaloona.jpg
 
 fade-in=0.2
 
