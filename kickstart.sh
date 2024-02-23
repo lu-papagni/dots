@@ -30,8 +30,10 @@ RequiredPackages=(
     'wofi'      # menu delle applicazioni
     'swayidle'  # daemon per controllare lo standby
     'blueman'   # bluetooth manager
+    'python-cairo' # dipendenza di blueman
     'pavucontrol'    # audio manager
     'light'     # gestore della retroilluminazione
+    'nm-applet' # menu di rete
     'eog'       # visualizzatore immagini
     'wlogout'   # menu logout
     'vlc'       # visualizzatore video
@@ -40,6 +42,7 @@ RequiredPackages=(
     'fastfetch' # fetch tool
     'pulseaudio-utils'   # layer compatibilità per pulseaudio
     'which'     # sembra strano ma a volte non è incluso nell'installazione base
+    'flatpak'   # scarica pacchetti da Flathub
 )
 
 # user repository da attivare
@@ -55,6 +58,11 @@ CoprPackages=(
     'hyprpaper'                # wallpaper utility
     'SwayNotificationCenter'   # daemon/centro notifiche
     'swaylock-effects'         # schermata di blocco
+)
+
+# Pacchetti da scaricare da FlatHub
+Flatpak=(
+    'spotify'
 )
 
 # collegamenti simbolici
@@ -120,10 +128,20 @@ read -p "$(echo -e "$LI_INPUT Pronto per l'esecuzione. Continuare? (Y/N): ")" co
 echo -e "$LI_INFO Esecuzione aggiornamento completo del sistema..."
 $DEBUG sudo $manager $update_cmd
 
-# installa i pacchetti
+# installa i pacchetti di sistema
 echo -e "$LI_INFO Installazione pacchetti..."
 $DEBUG sudo $manager $install_cmd $(
     for pkg in ${RequiredPackages[*]}; do
+        printf '%s ' $pkg
+    done
+)
+
+echo -e "$LI_INFO Configurazione Flathub remote..."
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+echo -e "$LI_INFO Installazione flatpak..."
+$DEBUG sudo flatpak install $(
+    for pkg in ${Flatpak[*]}; do
         printf '%s ' $pkg
     done
 )
