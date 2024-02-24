@@ -18,7 +18,11 @@ A partire dalla versione `37` di Fedora, l'ISO potrebbe fallire l'avvio su speci
 > Secondo la [wiki](https://docs.fedoraproject.org/en-US/quick-docs/upgrading-fedora-offline/#sect-how-many-releases-can-i-upgrade-across-at-once) di Fedora è sicuro eseguire un upgrade solo fino a 2 versioni successive. Serviranno quindi più passaggi per completare il workaround.
 
 ## Arch
-Non ho ancora trovato la voglia.
+Per non impazzire è meglio scaricare [EndeavourOS](https://endeavouros.com/#Download).
+La ISO permette di installare una grande selezione di _desktop environment_, ma solo con l'installazione online. In modalità offline è presente KDE.
+
+### Possibili problemi
+- **Non c'è l'opzione di KDE su Wayland:** installare il pacchetto `plasma-wayland-session`
 
 # Configurazione
 ## Dotfiles
