@@ -19,3 +19,4 @@
 
 ## Kickstart.sh
 - [ ] Compatibilità con yay
+- [ ] sudo opzionale nella funzione Run
