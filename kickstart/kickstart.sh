@@ -15,6 +15,8 @@ RequiredPackages=(
     'btop'      # monitor risorse
     'fastfetch' # fetch tool
     'flatpak'   # scarica pacchetti da Flathub
+    'nodejs'    # runtime di javascript
+    'npm'       # node package manager
 )
 
 # user repository da attivare
