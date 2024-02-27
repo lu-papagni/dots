@@ -11,7 +11,6 @@ RequiredPackages=(
     'kitty'     # terminale
     'zsh'       # shell
     'bat'       # alternativa per cat (evidenzia la sintassi del linguaggio)
-    'cava'      # visualizzatore musica per terminale
     'lsd'       # alternativa a ls
     'btop'      # monitor risorse
     'fastfetch' # fetch tool
