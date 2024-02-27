@@ -11,3 +11,4 @@ wlogout
 pulseaudio-utils
 which
 flatpak
+cava
