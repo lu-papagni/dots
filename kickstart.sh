@@ -2,18 +2,21 @@
 
 ################################   DICHIARAZIONI   #####################################
 
-# Decorazioni di linea
-LI_INFO="\e[1;32m::\e[0m"
-LI_INPUT="\e[1;33m::\e[0m"
-LI_ERROR="\e[1;31m::\e[0m"
-
 # Colori
 HI_DIM="\e[1;30m"    # Grigio
+HI_WARN="\e[1;33m"   # Giallo
+HI_OK="\e[1;32m"     # Verde
+HI_ERR="\e[1;31m"    # Rosso
 HI_RST="\e[0m"       # Reset
-HI_INV="\e[7m"      # Inverti
+HI_INV="\e[7m"       # Inverti
 
-# Directory da cui lo script si sta eseguendo
-SCRIPT_DIR="$(dirname "$0")"
+# Decorazioni di linea
+LI_INFO="$HI_OK::$HI_RST"
+LI_INPUT="$HI_WARN::$HI_RST"
+LI_ERROR="$HI_ERR::$HI_RST"
+
+# Variabili importanti
+SCRIPT_DIR="$(dirname "$0")"    # Cartella da cui si sta eseguendo lo script 
 
 # rende il testo grigio
 function DimText {
@@ -22,21 +25,40 @@ function DimText {
 
 # crea una scritta di warning
 function WarnText {
-    echo -e "\e[1;33mWARNING> $1$HI_RST"
+    echo -e "$HI_WARN""WARNING> $1$HI_RST"
+}
+
+# crea una scritta di errore
+function ErrText {
+    echo -e "\e[1;31m"
 }
 
 # crea una scritta di suggerimento
 function TipText {
-    echo -e "\e[1;32mTIP> $1$HI_RST"
+    echo -e "$HI_OK""TIP> $1$HI_RST"
+}
+
+function WithPrivilege {
+    case "$1" in
+        "dnf" | "pacman")
+            echo "sudo $1"
+            ;;
+        "yay")
+            echo "$1"
+            ;;
+        *)
+            exit 1
+            ;;
+    esac
 }
 
 # esegue o mostra in versione debug un comando
 function Run {
-    if [[ "$DEBUG" = true || "$LOG_ENABLED" = true ]]; then
-        echo -e "$(DimText 'DEBUG>') $1"
-    fi
     if [ "$DEBUG" != true ]; then
-        $1
+        $evalCommand
+    else
+    if [[ "$DEBUG" = true || "$LOG_ENABLED" = true ]]; then
+        echo -e "$(DimText 'DEBUG>') $evalCommand"
     fi
 }
 
@@ -152,7 +174,7 @@ case $manager in
         install_cmd="install"
         update_cmd="upgrade"
         ;;
-    "pacman")
+    "pacman" | "yay")
         install_cmd="-S"
         update_cmd="-Syu"
         ;;
@@ -177,7 +199,7 @@ read -p "$(echo -e "$LI_INPUT Pronto per l'esecuzione. Continuare? (S/N): ")" co
 
 # aggiorna il sistema
 echo -e "$LI_INFO Esecuzione aggiornamento completo del sistema..."
-Run "sudo $manager $update_cmd"
+Run "$(WithPrivilege $manager) $update_cmd"
 
 # Lettura dei pacchetti da installare
 TipText "Stanno per essere installati solo i pacchetti strettamente necessari."
@@ -196,7 +218,7 @@ done
 
 # installa i pacchetti di sistema
 echo -e "$LI_INFO Installazione pacchetti..."
-Run "sudo $manager $install_cmd $(
+Run "$(WithPrivilege $manager) $install_cmd $(
     for pkg in ${RequiredPackages[*]}; do
         printf '%s ' $pkg
     done
@@ -221,12 +243,12 @@ if [ $manager == "dnf" ]; then
     # abilita le user repository di Fedora (Copr)
     echo -e "$LI_INFO Abilitazione delle COPR preferite..."
     for repo in ${Copr[*]}; do
-        Run "sudo $manager copr enable $repo"
+        Run "$(WithPrivilege $manager) copr enable $repo"
     done
 
     # installa i pacchetti delle Copr
     echo -e "$LI_INFO Installazione pacchetti delle COPR..."
-    Run "sudo $manager $install_cmd $(
+    Run "$(WithPrivilege $manager) $install_cmd $(
         for pkg in ${CoprPackages[*]}; do
             printf '%s ' $pkg
         done
