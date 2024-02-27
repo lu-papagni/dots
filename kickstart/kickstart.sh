@@ -12,23 +12,9 @@ RequiredPackages=(
     'zsh'       # shell
     'bat'       # alternativa per cat (evidenzia la sintassi del linguaggio)
     'cava'      # visualizzatore musica per terminale
-    'gnome-calculator'    # calcolatrice di gnome
-    'onedrive'  # daemon per sincronizzare i file con OneDrive
-    'waybar'    # barra degli strumenti
-    'wofi'      # menu delle applicazioni
-    'swayidle'  # daemon per controllare lo standby
-    'blueman'   # bluetooth manager
-    'python-cairo' # dipendenza di blueman
-    'pavucontrol'    # audio manager
-    'light'     # gestore della retroilluminazione
-    'nm-applet' # menu di rete
-    'wlogout'   # menu logout
-    'mpv'       # visualizzatore video
     'lsd'       # alternativa a ls
     'btop'      # monitor risorse
     'fastfetch' # fetch tool
-    'pulseaudio-utils'   # layer compatibilità per pulseaudio
-    'which'     # sembra strano ma a volte non è incluso nell'installazione base
     'flatpak'   # scarica pacchetti da Flathub
 )
 
