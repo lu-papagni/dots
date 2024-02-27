@@ -55,10 +55,11 @@ function WithPrivilege {
 # esegue o mostra in versione debug un comando
 function Run {
     if [ "$DEBUG" != true ]; then
-        $evalCommand
+        $1
     else
-    if [[ "$DEBUG" = true || "$LOG_ENABLED" = true ]]; then
-        echo -e "$(DimText 'DEBUG>') $evalCommand"
+        if [[ "$DEBUG" = true || "$LOG_ENABLED" = true ]]; then
+            echo -e "$(DimText 'DEBUG>') $1"
+        fi
     fi
 }
 
@@ -202,10 +203,11 @@ echo -e "$LI_INFO Esecuzione aggiornamento completo del sistema..."
 Run "$(WithPrivilege $manager) $update_cmd"
 
 # Lettura dei pacchetti da installare
-TipText "Stanno per essere installati solo i pacchetti strettamente necessari."
-TipText "I file devono essere nella stessa directory di questo script."
 
-while read -p "$(echo -e "$LI_INPUT Vuoi indicare un nuovo file da cui leggere i pacchetti? (S/N) ")" confirm && \
+#TipText "Stanno per essere installati solo i pacchetti strettamente necessari."
+#TipText "I file devono essere nella stessa directory di questo script."
+
+while read -p "$(echo -e "$LI_INPUT Vuoi indicare un nuovo file da cui leggere i pacchetti da installare? (S/N) ")" confirm && \
 [[ $confirm == [sS] || $confirm == [sS][iI] ]]
 do
     read -p "$(echo -e "$LI_INPUT Nome file: ")" packageFile
