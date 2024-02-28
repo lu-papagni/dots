@@ -41,14 +41,14 @@ Flatpak=(
 
 ################################   ESECUZIONE   #####################################
 
-echo -e "$HI_INV$HI_DIM
+echo "
   _  __ _        _          _                _            _      
  | |/ /(_)      | |        | |              | |          | |     
  | ' /  _   ___ | | __ ___ | |_  __ _  _ __ | |_     ___ | |__   
  |  <  | | / __|| |/ // __|| __|/ _\` || '__|| __|   / __|| '_ \  
  | . \ | || (__ |   < \__ \| |_| (_| || |   | |_  _ \__ \| | | | 
  |_|\_\|_| \___||_|\_\|___/ \__|\__,_||_|    \__|(_)|___/|_| |_| 
-                                                                 $HI_RST
+                                                                
 "
 
 # se sono stati passati argomenti allo script
@@ -89,7 +89,7 @@ case $manager in
         update_cmd="upgrade"
         ;;
     "pacman" | "yay")
-        install_cmd="-S"
+        install_cmd="-S --needed"
         update_cmd="-Syu"
         ;;
     *)
@@ -126,7 +126,7 @@ do
     read -p "$(echo -e "$LI_INPUT Nome file: ")" packageFile
     while read -r line
     do
-        echo -e "$LI_INFO Aggiungo: $(DimText "$line")"
+        echo -e "$LI_INFO Aggiungo: $(UnderlineText "$line")"
         RequiredPackages+=("$line")
     done < "$SCRIPT_DIR/$packageFile"
 done
@@ -154,7 +154,7 @@ else
     echo -e "$LI_ERROR Non è stato possibile configurare Flatpak sul sistema."
 fi
 
-if [ $manager == "dnf" ]; then
+if [ "$manager" = "dnf" ]; then
     # abilita le user repository di Fedora (Copr)
     echo -e "$LI_INFO Abilitazione delle COPR preferite..."
     for repo in ${Copr[*]}; do
@@ -168,18 +168,25 @@ if [ $manager == "dnf" ]; then
             printf '%s ' $pkg
         done
     )"
+else if [ "$manager" = "pacman" ]; then
+        # installazione yay
+        read -p "$(echo -e "$LI_INPUT Installare l'AUR helper 'yay' ? (S/N): ")" confirm
+        if [ $confirm == [sS] || $confirm == [sS][iI] ]; then
+            Run "sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si"
+        fi
+     fi
 fi
 
 # imposta la shell predefinita
-echo -e "$LI_INFO Cambio della shell predefinita a zsh..."
+echo -e "$LI_INFO Cambio la shell predefinita a zsh..."
 Run "sudo chsh -s $(which zsh) $(whoami)"
 
 # crea collegamenti simbolici
-read -p "$(echo -e "$LI_INPUT Creare collegamenti simbolici da $(DimText "$SCRIPT_DIR") a $(DimText "~/.config")? (S/N): ")" confirm
+read -p "$(echo -e "$LI_INPUT Creare collegamenti simbolici da $(UnderlineText "$SCRIPT_DIR") a $(UnderlineText "~/.config")? (S/N): ")" confirm
 if [[ $confirm == [sS] || $confirm == [sS][iI] ]]; then
-    echo -e "$LI_INFO Symlink delle directory verso $(DimText "~/.config")..."
+    echo -e "$LI_INFO Symlink delle directory verso $(UnderlineText "~/.config")..."
     Run "find $SCRIPT_DIR -mindepth 1 -maxdepth 1 -type d -not -path \"*/.git*\" -print0 | xargs -I{} -n1 -0 ln -s {} \"~/.config\""
-    echo -e "$LI_INFO Symlink dei file senza directory verso $(DimText "/home/$(whoami)")..."
+    echo -e "$LI_INFO Symlink dei file senza directory verso $(UnderlineText "/home/$(whoami)")..."
     Run "find $SCRIPT_DIR -mindepth 1 -maxdepth 1 -type f -name \".*\" -print0 | xargs -I{} -n1 -0 ln -s {} \"~/\""
 fi
 
@@ -187,6 +194,6 @@ fi
 which 'Hyprland' > /dev/null
 if [[ $? -eq 0 || "$SKIP_HYPR_CHECK" = true ]]; then
     WarnText "Se vuoi usare 'Hyprland' su macchina virtuale, esporta queste variabili d'ambiente in '.zshrc':"
-    echo -e "$(DimText "WLR_NO_HARDWARE_CURSORS=1")"
-    echo -e "$(DimText "WLR_RENDERER_ALLOW_SOFTWARE=1")"
+    echo -e "$(UnderlineText "WLR_NO_HARDWARE_CURSORS=1")"
+    echo -e "$(UnderlineText "WLR_RENDERER_ALLOW_SOFTWARE=1")"
 fi
