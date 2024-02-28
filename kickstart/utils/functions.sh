@@ -5,6 +5,11 @@ function DimText {
     echo "$HI_DIM$1$HI_RST"
 }
 
+# sottolineatura
+function UnderlineText {
+    echo "$HI_UND$1$HI_RST"
+}
+
 # crea una scritta di warning
 function WarnText {
     echo -e "$HI_WARN""WARNING> $1$HI_RST"
