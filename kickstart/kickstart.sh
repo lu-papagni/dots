@@ -172,7 +172,10 @@ else if [ "$manager" = "pacman" ]; then
         # installazione yay
         read -p "$(echo -e "$LI_INPUT Installare l'AUR helper 'yay' ? (S/N): ")" confirm
         if [[ $confirm == [sS] || $confirm == [sS][iI] ]]; then
+            echo -e "$LI_INFO Clonazione repo e compilazione pacchetto..."
             Run "sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si"
+            echo -e "$LI_INFO Pulizia file di installazione..."
+            Run "rm -rf yay-bin"
         fi
      fi
 fi
@@ -180,6 +183,16 @@ fi
 # imposta la shell predefinita
 echo -e "$LI_INFO Cambio la shell predefinita a zsh..."
 Run "sudo chsh -s $(which zsh) $(whoami)"
+
+# plugin di zsh (assumendo zsh installata)
+# Oh My Zsh
+Run "sh -c $(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# zsh-syntax-highlighting
+Run "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+# zsh-autosuggestions
+Run "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+# powerlevel10k
+Run "git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 
 # crea collegamenti simbolici
 read -p "$(echo -e "$LI_INPUT Creare collegamenti simbolici da $(UnderlineText "$SCRIPT_DIR") a $(UnderlineText "~/.config")? (S/N): ")" confirm
