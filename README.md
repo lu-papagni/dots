@@ -17,12 +17,22 @@ A partire dalla versione `37` di Fedora, l'ISO potrebbe fallire l'avvio su speci
 > [!IMPORTANT]
 > Secondo la [wiki](https://docs.fedoraproject.org/en-US/quick-docs/upgrading-fedora-offline/#sect-how-many-releases-can-i-upgrade-across-at-once) di Fedora è sicuro eseguire un upgrade solo fino a 2 versioni successive. Serviranno quindi più passaggi per completare il workaround.
 
-## Arch
-Per non impazzire è meglio scaricare [EndeavourOS](https://endeavouros.com/#Download).
-La ISO permette di installare una grande selezione di _desktop environment_, ma solo con l'installazione online. In modalità offline è presente KDE.
+## Arch-based
+Le migliori opzioni sono [Arch Linux](https://archlinux.org/download/) usando lo script `archinstall` o [EndeavourOS](https://endeavouros.com/#Download).
+Quest'ultima distribuzione ha un installer più _user-friendly_ e permette di scegliere fra una grande selezione di _desktop environment_ attraverso l'installazione online. In modalità offline è presente solo KDE.
 
 ### Possibili problemi
-- **Non c'è l'opzione di KDE su Wayland:** installare il pacchetto `plasma-wayland-session`
+- **Non c'è l'opzione per usare Wayland su KDE** ➡️ installare il pacchetto `plasma-wayland-session`
+> [!NOTE]
+> Da KDE `6.0` non è più necessario installare `plasma-wayland-session` in quanto Wayland è supportato di default.
+- **L'installazione di alcuni language server per Neovim fallisce** ➡️ sono stati osservati 2 casi fino ad ora. Le soluzioni sono
+    1.  Installare `nodejs` e `npm` in quanto sono dipendenze di parecchi script di `mason.nvim` (gestore language server).
+    2.  Installare `unzip` se l'errore è provocato da `clangd`, server per C/C++.
+- **Il login manager non compare dopo l'installazione** ➡️ attivare il servizio relativo con `systemctl`. Per [SDDM](https://wiki.archlinux.org/title/SDDM) usare
+
+```bash
+systemctl enable sddm.service
+```
 
 # Configurazione
 ## Dotfiles
@@ -79,17 +89,21 @@ Queste sono delle estensioni utili:
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) evidenzia il ruolo delle parole che si scrivono
 
 ## Script di installazione
-Ho creato uno script bash chiamato `kickstart.sh` per evitare i passaggi più ripetitivi, come installare i pacchetti e abilitare le repository di terze parti. Al momento è compatibile al 100% solo con Fedora (_08/01/2024_) e c'è un supporto iniziale per Arch Linux (spoiler non lo finirò mai).
+Ho creato uno script bash chiamato `kickstart.sh` per evitare i passaggi più ripetitivi, come installare i pacchetti e abilitare le repository di terze parti. Al momento è compatibile al 100% solo con Fedora e
+[agg. _28/02/2024_] funziona abbastanza bene su Arch Linux (lo finirò prima o poi).
 ### Breve guida a kickstart
 **Parametri opzionali**
-- `--dry-run` non modifica nulla sul sistema ma stampa l'output dei comandi che lo script avrebbe invece eseguito. Può essere utile per debug.
+- `-d` non modifica nulla sul sistema ma stampa l'output dei comandi che lo script avrebbe invece eseguito. Può essere utile per debug.
+- `-l` mostra il log dei comandi che stanno venendo eseguiti.
+- `-s` non controlla la presenza di eventuali dipendenze dello script (per debug).
+- `-h` mostra una breve guida.
 
 **Come si usa?**
 1. Inserisci il nome del package manager (nel caso di Fedora è `dnf`)
 2. Rispondi alle domande che appaiono
 3. Spera che funzioni
 
-**Attenzione!** Lo script esegue praticamente tutti i comandi con privilegi di root, chiedendo solo la primissima volta la password.
+**Attenzione!** Lo script esegue quasi tutti i comandi con privilegi di root, chiedendo solo la primissima volta la password.
 
 # Gestore delle finestre
 Su Linux si può scegliere l'ambiente grafico in modo molto libero. La prima decisione è sul tipo di gestore delle finestre (_window manager_ o _WM_ in breve) da usare, ovvero il software che posiziona
