@@ -3,7 +3,7 @@
 source "utils/definitions.sh"
 source "utils/functions.sh"
 
-SCRIPT_DIR="$(dirname "$0")"    # Cartella da cui si sta eseguendo lo script
+SCRIPT_DIR="$(echo $(cd "$(dirname $0)" && pwd))"    # Cartella da cui si sta eseguendo lo script
 
 # pacchetti da installare
 RequiredPackages=(
@@ -124,7 +124,7 @@ while read -p "$(echo -e "$LI_INPUT Vuoi indicare un nuovo file da cui leggere i
 [[ $confirm == [sS] || $confirm == [sS][iI] ]]
 do
     read -p "$(echo -e "$LI_INPUT Nome file: ")" packageFile
-    while read -r line
+    while read line || [ -n "$line" ]
     do
         echo -e "$LI_INFO Aggiungo: $(UnderlineText "$line")"
         RequiredPackages+=("$line")
@@ -171,7 +171,7 @@ if [ "$manager" = "dnf" ]; then
 else if [ "$manager" = "pacman" ]; then
         # installazione yay
         read -p "$(echo -e "$LI_INPUT Installare l'AUR helper 'yay' ? (S/N): ")" confirm
-        if [ $confirm == [sS] || $confirm == [sS][iI] ]; then
+        if [[ $confirm == [sS] || $confirm == [sS][iI] ]]; then
             Run "sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si"
         fi
      fi
@@ -185,15 +185,15 @@ Run "sudo chsh -s $(which zsh) $(whoami)"
 read -p "$(echo -e "$LI_INPUT Creare collegamenti simbolici da $(UnderlineText "$SCRIPT_DIR") a $(UnderlineText "~/.config")? (S/N): ")" confirm
 if [[ $confirm == [sS] || $confirm == [sS][iI] ]]; then
     echo -e "$LI_INFO Symlink delle directory verso $(UnderlineText "~/.config")..."
-    Run "find $SCRIPT_DIR -mindepth 1 -maxdepth 1 -type d -not -path \"*/.git*\" -print0 | xargs -I{} -n1 -0 ln -s {} \"~/.config\""
+    Run "find $SCRIPT_DIR -mindepth 1 -maxdepth 1 -type d -not -path \"*/.git*\" -print0 | xargs -I{} -n1 -0 ln -s $SCRIPT_DIR/{} ~/.config"
     echo -e "$LI_INFO Symlink dei file senza directory verso $(UnderlineText "/home/$(whoami)")..."
-    Run "find $SCRIPT_DIR -mindepth 1 -maxdepth 1 -type f -name \".*\" -print0 | xargs -I{} -n1 -0 ln -s {} \"~/\""
+    Run "find $SCRIPT_DIR -mindepth 1 -maxdepth 1 -type f -name \".*\" -print0 | xargs -I{} -n1 -0 ln -s $SCRIPT_DIR/{} ~/"
 fi
 
 # avviso supporto hyprland su vm
 which 'Hyprland' > /dev/null
 if [[ $? -eq 0 || "$SKIP_HYPR_CHECK" = true ]]; then
     WarnText "Se vuoi usare 'Hyprland' su macchina virtuale, esporta queste variabili d'ambiente in '.zshrc':"
-    echo -e "$(UnderlineText "WLR_NO_HARDWARE_CURSORS=1")"
-    echo -e "$(UnderlineText "WLR_RENDERER_ALLOW_SOFTWARE=1")"
+    echo "WLR_NO_HARDWARE_CURSORS=1"
+    echo "WLR_RENDERER_ALLOW_SOFTWARE=1"
 fi
