@@ -1,1 +1,2 @@
-plasma-wayland-session
+dolphin
+kcalc
