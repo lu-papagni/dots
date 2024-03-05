@@ -34,6 +34,9 @@ Quest'ultima distribuzione ha un installer più _user-friendly_ e permette di sc
 systemctl enable sddm.service
 ```
 
+- **Impossibile connettersi al MyCloud Home** ➡️ probabilmente è installato `firewalld` e sta bloccando le connessioni _samba_. Per risolvere, permettere il transito dei pacchetti
+  `samba-client`. Usando le zone predefinite di firewalld basta impostare _home_ come zona per la rete domestica.
+
 # Configurazione
 ## Dotfiles
 La maggior parte delle impostazioni dei software su Linux è salvata nei loro rispettivi file di configurazione (in gergo _dotfiles_).
