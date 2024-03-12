@@ -15,6 +15,7 @@ require("lazy").setup(
   {
     { import = "user.plugins" },
     { import = "user.plugins.lsp" },
+    { import = "user.plugins.debugger" },
     { import = "user.themes" }
   },
   {

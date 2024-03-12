@@ -1,7 +1,3 @@
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
-
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -17,7 +13,7 @@ vim.o.mouse = 'a'
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
+vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -41,3 +37,23 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
+
+-- Disabilita la visualizzazione della modalità
+vim.o.showmode = false
+
+-- Disabilita la barra delle informazioni (ruler)
+vim.o.ruler = false
+
+-- Imposta laststatus su 0
+vim.o.laststatus = 0
+
+-- Disabilita la visualizzazione del comando in basso
+vim.o.showcmd = false
+
+-- Rimuove lo spazio della riga dei comandi quando non è necessaria
+vim.o.cmdheight = 0
+
+-- 4 spazi di tabulazione
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true

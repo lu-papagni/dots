@@ -1,7 +1,7 @@
 return {
     "williamboman/mason.nvim",
     dependencies = {
-         "williamboman/mason-lspconfig.nvim",
+        "williamboman/mason-lspconfig.nvim",
     },
     config = function ()
         local mason = require("mason")
@@ -15,7 +15,7 @@ return {
                 "html",
                 "lua_ls",
                 "pyright",      -- Python
-                "clangd"        -- C/C++
+                "clangd",       -- C/C++
             },
             automatic_installation = true
         })
