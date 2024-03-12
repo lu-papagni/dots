@@ -17,23 +17,19 @@ return {
     },
   },
   opts = {
-      extensions = {
-          fzf = {
-              fuzzy = true,                    -- false will only do exact matching
-              override_generic_sorter = true,  -- override the generic sorter
-              override_file_sorter = true,     -- override the file sorter
-              case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-              -- the default case_mode is "smart_case"
-          }
+    extensions = {
+      fzf = {
+        fuzzy = true,                         -- false will only do exact matching
+        override_generic_sorter = true,       -- override the generic sorter
+        override_file_sorter = true,          -- override the file sorter
+        case_mode = "smart_case",             -- or "ignore_case" or "respect_case"
+        -- the default case_mode is "smart_case"
       }
+    }
   },
   config = function()
-      local telescope = require("telescope")
+    local telescope = require("telescope")
 
-      telescope.load_extension("fzf")
-
-      vim.keymap.set('n', "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find file in working directory" })
-      vim.keymap.set('n', "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in working directory" })
-      vim.keymap.set('n', "<leader>fu", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor" })
+    telescope.load_extension("fzf")
   end
 }

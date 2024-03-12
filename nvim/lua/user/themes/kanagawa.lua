@@ -1,5 +1,5 @@
 return {
   -- Theme inspired by Atom
-  'navarasu/onedark.nvim',
+  'rebelot/kanagawa.nvim',
   event = "VeryLazy",
 }
