@@ -1,4 +1,0 @@
-hyprland
-hyprpaper
-SwayNotificationCenter
-swaylock-effects
