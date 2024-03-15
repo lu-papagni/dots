@@ -47,12 +47,6 @@ vim.o.ruler = false
 -- Imposta laststatus su 0
 vim.o.laststatus = 0
 
--- Disabilita la visualizzazione del comando in basso
-vim.o.showcmd = false
-
--- Rimuove lo spazio della riga dei comandi quando non è necessaria
-vim.o.cmdheight = 0
-
 -- 4 spazi di tabulazione
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
