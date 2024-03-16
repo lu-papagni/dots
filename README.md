@@ -34,9 +34,6 @@ Quest'ultima distribuzione ha un installer più _user-friendly_ e permette di sc
 systemctl enable sddm.service
 ```
 
-- **Impossibile connettersi al MyCloud Home** ➡️ probabilmente è installato `firewalld` e sta bloccando le connessioni _samba_. Per risolvere, permettere il transito dei pacchetti
-  `samba-client`. Usando le zone predefinite di firewalld basta impostare _home_ come zona per la rete domestica.
-
 # Configurazione
 ## Dotfiles
 La maggior parte delle impostazioni dei software su Linux è salvata nei loro rispettivi file di configurazione (in gergo _dotfiles_).
@@ -107,6 +104,15 @@ Ho creato uno script bash chiamato `kickstart.sh` per evitare i passaggi più ri
 3. Spera che funzioni
 
 **Attenzione!** Lo script esegue quasi tutti i comandi con privilegi di root, chiedendo solo la primissima volta la password.
+
+## Firewall
+Nella distribuzione potrebbe essere installato `firewalld`. Per impostazione predefinita il software blocca tutti i tipi di pacchetto sulla rete, e questo potrebbe creare problemi specialmente
+durante le operazioni di stampa e accesso a dichi di rete.
+- **Servizio di stampa** ➡️ attivare `ipp-client`
+- **Condivisione file con SAMBA** ➡️ attivare `samba-client`
+
+Firewalld permette di definire delle _zone_ in cui attivare specifiche regole. È consigliabile utilizzare la zona _home_ per abilitare le regole elencate in precedenza.
+Infine è necessario aggiungere la rete desiderata alla zona _home_ per rendere effettive le modifiche.
 
 # Gestore delle finestre
 Su Linux si può scegliere l'ambiente grafico in modo molto libero. La prima decisione è sul tipo di gestore delle finestre (_window manager_ o _WM_ in breve) da usare, ovvero il software che posiziona
