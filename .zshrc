@@ -47,7 +47,8 @@ alias ghidra="/home/luca/ghidra_10.2.2_PUBLIC/ghidraRun"
 alias ascii_live="~/.ascii-live.sh & exit"
 alias prime_run="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia"
 # alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
-alias vencord="sh -c "$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)""
+alias vencord="sh -c $(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"
+alias pacrm_orphans="pacman -Qdtq | sudo pacman -Rns -"
 
 # Inizializza zsh e powerlevel10k
 source $ZSH/oh-my-zsh.sh
