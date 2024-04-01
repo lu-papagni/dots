@@ -1,24 +1,25 @@
-### Text rendering
+# Text rendering
 # text_composition_strategy legacy # attivare se il testo non si legge bene
-font_family JetBrainsMono NF
-font_size 12.0
+font_family     JetBrainsMono NF
+font_size 		  12.0
 
-### OS window style
+# Cursor
+cursor_shape underline
+shell_integration no-cursor
+
+# OS window style
 window_padding_width 5
 background_opacity 0.9
 
-### Terminal fake windows
+# Terminal fake windows
 window_border_width 0.7pt
 
-### Tab bar
+# Tab bar
 tab_bar_edge top
 tab_bar_style powerline
-tab_activity_symbol " "
-tab_title_template "{index} \uF0DA {title}{activity_symbol}"
-tab_title_max_length 30
-tab_fade 0.25 0.5 0.75 1
+tab_fade 0
+tab_activity_symbol  
 
-### Keybindings
 # New window
 map super+enter launch
 
@@ -37,13 +38,13 @@ map super+l neighboring_window right
 map super+k neighboring_window up
 map super+j neighboring_window down
 
-### Layouts
-enabled_layouts grid,stack,fat
+# Enabled layouts
+enabled_layouts grid,stack
 
 # Virtual windows
 # inactive_border_color #474747
 
 # BEGIN_KITTY_THEME
-# Gruvbox Material Dark Medium
-include themes/gruvbox-material.conf
+# Everforest Dark Medium
+include current-theme.conf
 # END_KITTY_THEME

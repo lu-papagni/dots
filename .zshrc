@@ -21,8 +21,8 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:/home/luca/.spicetify
 export EDITOR='nvim'
+DISABLE_AUTO_TITLE=true
 #export QT_QPA_PLATFORMTHEME="qt5ct"
-UNIVERSITY_DIR="/home/$(whoami)/OneDrive/Documenti/UNI"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -48,7 +48,8 @@ alias ascii_live="~/.ascii-live.sh & exit"
 alias prime_run="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia"
 # alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias vencord="sh -c $(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"
-alias pacrm_orphans="pacman -Qdtq | sudo pacman -Rns -"
+alias pacremove-orphans="pacman -Qdtq | sudo pacman -Rns -"
+alias zsh-history-remove="cat /dev/null > ~/.zsh_history"
 
 # Inizializza zsh e powerlevel10k
 source $ZSH/oh-my-zsh.sh
