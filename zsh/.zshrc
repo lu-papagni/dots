@@ -1,12 +1,4 @@
-# Esegui Hyprland dopo il login da tty1
-if [ "$(tty)" = "/dev/tty1" ]; then
-  which "Hyprland" > /dev/null
-  if [ $? -eq 0 ]; then
-    exec Hyprland
-  else
-    echo "Hyprland non installato!"
-  fi
-fi
+# source "./hyprland.sh"
 
 fastfetch -c ~/.config/fastfetch/small.jsonc
 
@@ -22,6 +14,7 @@ export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:/home/luca/.spicetify
 export EDITOR='nvim'
 DISABLE_AUTO_TITLE=true
+DISABLE_LS_COLORS=true
 #export QT_QPA_PLATFORMTHEME="qt5ct"
 
 # Set name of the theme to load --- if set to "random", it will
@@ -41,15 +34,12 @@ plugins=(
 
 # Alias
 alias ls="/usr/bin/lsd --color always"
-alias tree="ls --tree"
-alias ffc="fastfetch"
-alias ghidra="/home/luca/ghidra_10.2.2_PUBLIC/ghidraRun"
-alias ascii_live="~/.ascii-live.sh & exit"
-alias prime_run="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia"
-# alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias tree="/usr/bin/lsd --tree"
+# alias prime_run="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia"
 alias vencord="sh -c $(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"
-alias pacremove-orphans="pacman -Qdtq | sudo pacman -Rns -"
-alias zsh-history-remove="cat /dev/null > ~/.zsh_history"
+alias prune-orphans="pacman -Qdtq | sudo pacman -Rns -"
+alias rmhistory="cat /dev/null > ~/.zsh_history"
+alias dotfiles="cd ~/.dotfiles/ && nvim ."
 
 # Inizializza zsh e powerlevel10k
 source $ZSH/oh-my-zsh.sh
