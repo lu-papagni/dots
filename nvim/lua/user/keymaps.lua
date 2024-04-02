@@ -25,8 +25,10 @@ end)
 
 -- Telescope shortcuts
 vim.keymap.set('n', "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find file in working directory" })
-vim.keymap.set('n', "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in working directory" })
+vim.keymap.set('n', "<leader>fd", "<cmd>Telescope live_grep<cr>", { desc = "Find string in working directory" })
 vim.keymap.set('n', "<leader>fu", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor" })
+vim.keymap.set('n', "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>",
+  { desc = "Find string in open buffers" })
 
 -- Toggle breakpoint
 vim.keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>")

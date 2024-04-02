@@ -51,3 +51,14 @@ vim.o.laststatus = 0
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
+
+-- Disabilita continuazione commenti quando premo O
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '*' },
+  callback = function()
+    vim.cmd("set formatoptions-=o")
+  end
+})
+
+-- Disabilita wrapping
+vim.o.wrap = false
