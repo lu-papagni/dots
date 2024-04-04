@@ -18,5 +18,5 @@
 - [x] Fare in modo che l'autocompletamento delle funzioni permetta di navigare i parametri con TAB
 
 ## Kickstart.sh
-- [ ] Compatibilità con yay
-- [ ] sudo opzionale nella funzione Run
+- [x] Compatibilità con yay
+- [x] sudo opzionale nella funzione Run
