@@ -35,3 +35,6 @@ vim.keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>")
 
 -- Run debugger
 vim.keymap.set("n", "<leader>dr", "<cmd>DapContinue<CR>")
+
+-- Generate documentation
+vim.keymap.set('n', '<leader>doc', '<cmd>Neogen<CR>')

@@ -9,4 +9,4 @@ require("user.lazy")
 require("user.options")
 require("user.snippets")
 
-Colorscheme.apply(nil, 'mix')
+Colorscheme.apply(nil, 'mix', 'mix')
