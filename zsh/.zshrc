@@ -41,6 +41,9 @@ alias prune-orphans="pacman -Qdtq | sudo pacman -Rns -"
 alias rmhistory="cat /dev/null > ~/.zsh_history"
 alias dotfiles="cd ~/.dotfiles/ && nvim ."
 
+# Inizializza fzf
+eval "$(fzf --zsh)"
+
 # Inizializza zsh e powerlevel10k
 source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
