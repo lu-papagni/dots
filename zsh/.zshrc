@@ -36,7 +36,7 @@ plugins=(
 alias ls="/usr/bin/lsd --group-dirs=first"
 alias tree="/usr/bin/lsd --tree"
 # alias prime_run="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia"
-alias vencord="sh -c $(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)"
+alias vencord="curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh"
 alias prune-orphans="pacman -Qdtq | sudo pacman -Rns -"
 alias rmhistory="cat /dev/null > ~/.zsh_history"
 alias dotfiles="cd ~/.dotfiles/ && nvim ."
