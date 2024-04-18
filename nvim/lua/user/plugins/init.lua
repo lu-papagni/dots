@@ -6,5 +6,9 @@ return {
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
   { 'j-hui/fidget.nvim', opts = {} },
-  "fladson/vim-kitty",
+  {
+    "fladson/vim-kitty",
+    ft = "kitty"
+  },
+  { 'folke/neodev.nvim', lazy = true },
 }
