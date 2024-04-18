@@ -16,11 +16,9 @@ require("lazy").setup(
     { import = "user.plugins" },
     { import = "user.plugins.lsp" },
     { import = "user.plugins.debugger" },
+    { import = "user.plugins.syntax" },
+    { import = "user.plugins.interface" },
+    { import = "user.plugins.completion" },
     { import = "user.themes" }
-  },
-  {
-    install = {
-      colorscheme = { "onedark" }
-    }
   }
 )

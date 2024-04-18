@@ -6,6 +6,10 @@ M.foreground = nil
 M.background = nil
 M.transparent = false
 
+--- Applica il tema scelto a nvim
+---@param color string|nil Nome del tema
+---@param front string Variante dei colori per il testo
+---@param back string Variante dei colori per lo sfondo
 local function ApplyTheme(color, front, back)
   color = (color or M.current) or DEFAULT_THEME
 
@@ -29,7 +33,7 @@ M.apply = ApplyTheme
 local function EditTextObjects(color)
   color = (color or M.current) or DEFAULT_THEME
   if color == "gruvbox-material" then
-    vim.api.nvim_set_hl(0, "TSPunctBracket", { link="Grey" })
+    vim.api.nvim_set_hl(0, "TSPunctBracket", { link = "Grey" })
   end
 end
 M.editTextObjects = EditTextObjects

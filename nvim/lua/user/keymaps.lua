@@ -1,20 +1,27 @@
+-- Tasto leader
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Remap for dealing with word wrap
+-- QOL word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+-- Diagnostica
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Vai a prec. messaggio di diagnostica' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Vai a succ. messaggio di diagnostica' })
+vim.keymap.set('n', '<leader>dm', vim.diagnostic.open_float, { desc = 'Apri menu diagnostica' })
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Apri lista diagnostica' })
 
--- Open file explorer
-vim.keymap.set('n', '<leader>ex', vim.cmd.Ex)
+-- Apri esplora file (netrw)
+vim.keymap.set('n', '<leader>e', vim.cmd.Ex)
 
--- Format entire file in NORMAL mode or current selection in VISUAL mode
+-- Chiudi buffer corrente
+vim.keymap.set('n', "<leader>q", "<cmd>bd<cr>", { desc = "Chiudi buffer corrente" })
+
+-- Sostituisci parola
+vim.keymap.set('n', "S", "viws", { desc = "Sostituisci parola" })
+
+-- Formatta intero file in modalità NORMAL o selezione in modalità VISUAL
 vim.keymap.set({ "n", "v" }, "<leader>fo", function()
   require("conform").format({
     lsp_fallback = true,
@@ -23,18 +30,9 @@ vim.keymap.set({ "n", "v" }, "<leader>fo", function()
   })
 end)
 
--- Telescope shortcuts
-vim.keymap.set('n', "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find file in working directory" })
-vim.keymap.set('n', "<leader>fd", "<cmd>Telescope live_grep<cr>", { desc = "Find string in working directory" })
-vim.keymap.set('n', "<leader>fu", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor" })
-vim.keymap.set('n', "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>",
-  { desc = "Find string in open buffers" })
+-- Debugger keymaps
+vim.keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", { desc = "Attiva o disattiva breakpoint" })
+vim.keymap.set("n", "<leader>dr", "<cmd>DapContinue<CR>", { desc = "Avvia debugger" })
 
--- Toggle breakpoint
-vim.keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>")
-
--- Run debugger
-vim.keymap.set("n", "<leader>dr", "<cmd>DapContinue<CR>")
-
--- Generate documentation
-vim.keymap.set('n', '<leader>doc', '<cmd>Neogen<CR>')
+-- Doxygen
+vim.keymap.set('n', '<leader>doc', '<cmd>Neogen<CR>', { desc = "Genera commento doxygen" })

@@ -1,56 +1,39 @@
--- Set highlight on search
-vim.o.hlsearch = false
+vim.opt.hlsearch = false -- Non evidenziare le parole durante la ricerca
 
--- Make line numbers default
 vim.wo.number = true
-
--- Enable relative numbers
 vim.wo.relativenumber = true
 
--- Enable mouse mode
-vim.o.mouse = 'a'
+vim.opt.mouse = 'a'               -- Attiva il mouse
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+vim.opt.clipboard = 'unnamedplus' -- La clipboard è sincronizzata con il sistema
 
--- Enable break indent
-vim.o.breakindent = true
+vim.opt.breakindent = true        -- Le righe che escono dal bordo vengono mandate a capo e indentate
 
--- Save undo history
-vim.o.undofile = true
+vim.opt.undofile = true           -- Salva cronologia annulla operazione
 
--- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = 'yes' -- Attiva colonna dei numeri
 
--- Decrease update time
--- vim.o.updatetime = 250
--- vim.o.timeoutlen = 300
+vim.opt.completeopt = 'menuone,noselect'
 
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.opt.termguicolors = true -- Supporto truecolor
 
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
+vim.opt.showmode = false     -- Disabilita la visualizzazione della modalità
 
--- Disabilita la visualizzazione della modalità
-vim.o.showmode = false
+vim.opt.ruler = false        -- Disabilita la barra delle informazioni (ruler)
 
--- Disabilita la barra delle informazioni (ruler)
-vim.o.ruler = false
-
--- Imposta laststatus su 0
-vim.o.laststatus = 0
+vim.opt.laststatus = 0       -- Imposta laststatus su 0
 
 -- 4 spazi di tabulazione
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+
+vim.opt.wrap = false  -- Disabilita wrapping
+
+vim.opt.scrolloff = 9 -- Numero minimo di linee sopra/sotto al cursore
 
 -- Disabilita continuazione commenti quando premo O
 vim.api.nvim_create_autocmd('FileType', {
@@ -60,5 +43,10 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
--- Disabilita wrapping
-vim.o.wrap = false
+-- Evidenzia brevemente il testo quando copio
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("my-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end
+})
