@@ -5,11 +5,13 @@ return {
         "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
+        require("neodev").setup({})
+
         local lspconfig = require("lspconfig")
         local cmp_lsp = require("cmp_nvim_lsp")
 
         local on_attach = function(client, bufnr)
-            local opts = { noremap=true, silent=true }
+            local opts = { noremap = true, silent = true }
             opts.buffer = bufnr
 
             -- Keybinds
@@ -32,51 +34,21 @@ return {
             vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
         end
 
-        -- Used to enable autocompletion if passed to lsp server config
-        local capabilities = cmp_lsp.default_capabilities()
+        local server_configs = {
+            html = {},
+            tsserver = {},
+            lua_ls = {},
+            clangd = {},
+            pyright = {}
+        }
 
-        -- Server configuration
-        -- HTML
-        lspconfig["html"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach
-        })
-
-        -- TypeScript & JavaScript
-        lspconfig["tsserver"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach
-        })
-
-        -- Lua
-        lspconfig["lua_ls"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { "vim" }
-                    },
-                    workspace = {
-                        library = {
-                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                            [vim.fn.stdpath("config") .. "/lua"] = true
-                        }
-                    }
-                }
+        for server_name, opts in pairs(server_configs) do
+            local boilerplate = {
+                capabilities = cmp_lsp.default_capabilities(),
+                on_attach = on_attach
             }
-        })
-
-        -- C/C++
-        lspconfig["clangd"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach
-        })
-
-        -- Python
-        lspconfig["pyright"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach
-        })
+            table.insert(boilerplate, opts)
+            lspconfig[server_name].setup(boilerplate)
+        end
     end
 }
