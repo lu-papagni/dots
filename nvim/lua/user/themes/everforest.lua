@@ -1,4 +1,4 @@
 return {
   "neanias/everforest-nvim",
-  event = "VeryLazy"
+  lazy = true
 }
