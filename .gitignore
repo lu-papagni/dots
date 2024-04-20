@@ -1,2 +1,14 @@
+# kitty terminal
 kitty.conf.bak
+
+# nvim
 lazy-lock.json
+
+# spicetify
+spicetify/*
+!spicetify/config-xpui.ini
+!spicetify/Extensions/*
+
+# onedrive
+onedrive/*
+!onedrive/config
