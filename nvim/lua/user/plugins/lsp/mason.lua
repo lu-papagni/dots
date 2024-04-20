@@ -3,7 +3,8 @@ return {
     dependencies = {
         "williamboman/mason-lspconfig.nvim",
     },
-    config = function ()
+    cmd = "Mason",
+    config = function()
         local mason = require("mason")
         local lspconfig = require("mason-lspconfig")
 
@@ -11,11 +12,11 @@ return {
 
         lspconfig.setup({
             ensure_installed = {
-                "tsserver",     -- JavaScript & TypeScript
+                "tsserver", -- JavaScript & TypeScript
                 "html",
                 "lua_ls",
-                "pyright",      -- Python
-                "clangd",       -- C/C++
+                "pyright", -- Python
+                "clangd",  -- C/C++
             },
             automatic_installation = true
         })
