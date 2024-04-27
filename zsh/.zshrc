@@ -13,6 +13,7 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:/home/luca/.spicetify
 export EDITOR='nvim'
+export BAT_THEME="base16"
 DISABLE_AUTO_TITLE=true
 DISABLE_LS_COLORS=true
 #export QT_QPA_PLATFORMTHEME="qt5ct"
