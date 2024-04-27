@@ -18,9 +18,6 @@ vim.keymap.set('n', '<leader>e', vim.cmd.Ex)
 -- Chiudi buffer corrente
 vim.keymap.set('n', "<leader>q", "<cmd>bd<cr>", { desc = "Chiudi buffer corrente" })
 
--- Sostituisci parola
-vim.keymap.set('n', "S", "viws", { desc = "Sostituisci parola" })
-
 -- Formatta intero file in modalità NORMAL o selezione in modalità VISUAL
 vim.keymap.set({ "n", "v" }, "<leader>fo", function()
   require("conform").format({
