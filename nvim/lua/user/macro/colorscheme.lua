@@ -20,7 +20,12 @@ local function ApplyTheme(color, front, back)
 
   vim.cmd.colorscheme(color)
   if M.transparent then
-    local highlightGroups = { "Normal", "NormalNC", "NonText", "EndOfBuffer" }
+    local highlightGroups = {
+      "Normal",
+      "NormalNC",
+      "NonText",
+      "EndOfBuffer",
+    }
     for i, group in ipairs(highlightGroups) do
       vim.api.nvim_set_hl(0, group, { bg = "none" })
     end
@@ -34,6 +39,7 @@ local function EditTextObjects(color)
   color = (color or M.current) or DEFAULT_THEME
   if color == "gruvbox-material" then
     vim.api.nvim_set_hl(0, "TSPunctBracket", { link = "Grey" })
+    vim.api.nvim_set_hl(0, "FloatBorder", { link = "Grey" })
   end
 end
 M.editTextObjects = EditTextObjects

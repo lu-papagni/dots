@@ -10,9 +10,19 @@ return {
         local lspconfig = require("lspconfig")
         local cmp_lsp = require("cmp_nvim_lsp")
 
+        local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+        function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+            opts = opts or {}
+            opts.border = opts.border or 'rounded'
+            return orig_util_open_floating_preview(contents, syntax, opts, ...)
+        end
+
         local on_attach = function(client, bufnr)
-            local opts = { noremap = true, silent = true }
-            opts.buffer = bufnr
+            local opts = {
+                noremap = true,
+                silent = true,
+                buffer = bufnr
+            }
 
             -- Keybinds
             opts.desc = "Show LSP references"

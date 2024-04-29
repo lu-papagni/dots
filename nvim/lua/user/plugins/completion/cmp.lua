@@ -6,15 +6,19 @@ return {
         "hrsh7th/cmp-path",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
-        "rafamadriz/friendly-snippets"
+        "rafamadriz/friendly-snippets",
+        "onsails/lspkind.nvim",
     },
     config = function()
         local cmp = require("cmp")
         local luasnip = require("luasnip")
-
+        local lspkind = require("lspkind")
         require("luasnip.loaders.from_vscode").lazy_load()
 
         cmp.setup({
+            formatting = {
+                format = lspkind.cmp_format(),
+            },
             completion = {
                 completeopt = "menu,menuone,preview,noselect"
             },
@@ -55,9 +59,19 @@ return {
             sources = cmp.config.sources({
                 { name = "nvim_lsp" }, -- LSP suggestions
                 { name = "luasnip" },  -- Snippets
-                { name = "buffer" },   -- Suggest text in current file
+                -- { name = "buffer" },   -- Suggest text in current file
                 { name = "path" },     -- Directiories
-            })
+            }),
+            window = {
+                completion = {
+                    border = "rounded",
+                    winhighlight = "Normal:CmpPmenu,FloatBorder:Grey,CursorLine:PmenuSel,Search:None"
+                },
+                documentation = {
+                    border = "rounded",
+                    winhighlight = "Normal:CmpPmenu,FloatBorder:Grey,CursorLine:PmenuSel,Search:None"
+                },
+            }
         })
     end
 }
