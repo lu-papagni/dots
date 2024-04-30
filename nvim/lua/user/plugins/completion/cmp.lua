@@ -20,7 +20,7 @@ return {
                 format = lspkind.cmp_format(),
             },
             completion = {
-                completeopt = "menu,menuone,preview,noselect"
+                completeopt = "menu,menuone,preview,select"
             },
             snippet = {
                 expand = function(args)
