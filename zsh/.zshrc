@@ -31,6 +31,7 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   vi-mode
+  colored-man-pages
 )
 
 # Alias
