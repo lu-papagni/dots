@@ -1,16 +1,19 @@
 #!/usr/bin/env bash
 
+source "./utils/fmt.sh"
+
 function LinkDotfiles ()
 {
   local EXCLUDED_DIRS=(
     "zsh"
     "setup"
   )
+
   local DOTS_DIR="$HOME/.dotfiles"
 
   [ -d "$HOME/.config" ] || mkdir "$HOME/.config"
 
-  echo "Collegamento simbolico delle directory..."
+  PrintLog "Collegamento simbolico delle directory..."
 
   # Soft link dotfiles
   find $DOTS_DIR -maxdepth 1 -type d -not -path "$DOTS_DIR/.*" $(
@@ -22,9 +25,9 @@ function LinkDotfiles ()
   | xargs -I{} ln -s {} "$HOME/.config"
 
   # Soft link zsh
-  ln -s "$HOME/.dotfiles/zsh/.zshrc" "$HOME"
+  ln -s "$DOTS_DIR/zsh/.zshrc" "$HOME"
 
-  echo "... fine collegamento simbolico."
+  PrintLog "... fine collegamento simbolico."
 }
 
 function SetupShell ()
@@ -46,13 +49,12 @@ function SetupShell ()
 
   if [[ $? -eq 0 ]] then
 
-    echo "Installo Oh-My-Zsh..."
-    echo "ATTENZIONE: per procedere nel setup, uscire da zsh con CTRL+D."
+    PrintLog "Installo Oh-My-Zsh..."
 
     # Oh-My-Zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 
-    echo "Installo i plugin della shell..."
+    PrintLog "Installo i plugin della shell..."
 
     # Plugin
     for plugin in ${PLUGINS[*]}
@@ -61,7 +63,7 @@ function SetupShell ()
       git clone --depth=1 "https://github.com/$plugin.git" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/$NAME"
     done
 
-    echo "Installo i temi della shell..."
+    PrintLog "Installo i temi della shell..."
 
     # Temi
     for theme in ${THEMES[*]}
@@ -74,22 +76,22 @@ function SetupShell ()
       rm "$HOME/.zshrc" && mv "$HOME/.zshrc.pre-oh-my-zsh" "$HOME/.zshrc"
     fi
 
-    echo "Cambio shell predefinita..."
+    PrintLog "Cambio shell predefinita..."
 
     # Cambia shell predefinita
     chsh -s "$(which $SHELL)" "$(whoami)"
 
-    echo "... configurazione shell terminata."
+    PrintLog "... configurazione shell terminata."
     
   else
     # Stampa errore
-    echo "Shell '$SHELL' non installata."
+    PrintErr "Shell '$SHELL' non installata."
   fi  
 }
 
 InstallPackages ()
 {
-  local SOURCES=("aur" "flathub")
+  local SOURCES=("aur" "btrfs" "flathub")
 
   # Parsing file
   for source in ${SOURCES[*]}; do
@@ -99,7 +101,7 @@ InstallPackages ()
     local PACKAGES=()
     local SUDO=""
 
-    echo "Lettura lista dei pacchetti (fonte '$source')..."
+    PrintLog "Lettura lista dei pacchetti (fonte '$source')..."
 
     for line in $(cat "sources/$source.txt"); do
       if [[ ! $line == !* ]] then
@@ -114,11 +116,11 @@ InstallPackages ()
         ;;
       "flatpak") INSTALL_CMD="install"; SUDO="sudo"
         ;;
-      *) echo "'$PKG_MANAGER' non supportato."
+      *) PrintErr "'$PKG_MANAGER' non supportato."
         ;;
     esac
 
-    echo "Installazione pacchetti (fonte '$source')..."
+    PrintLog "Installazione pacchetti (fonte '$source')..."
     # Composizione del comando per installare i pacchetti
     $SUDO $PKG_MANAGER $INSTALL_CMD $(
       for pkg in ${PACKAGES[*]}; do
@@ -128,7 +130,7 @@ InstallPackages ()
 
   done  # Fine parsing
 
-  echo "... fine installazione pacchetti."
+  PrintLog "... fine installazione pacchetti."
 }
 
 # Inizio esecuzione
@@ -137,5 +139,4 @@ InstallPackages
 SetupShell
 
 # Uscita
-read -p "Setup terminato. Premi INVIO per uscire..."
-exit
+PrintLog "Script terminato con successo. Riavviare il terminale per rendere effettive le modifiche."

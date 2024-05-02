@@ -9,22 +9,22 @@ kitty
 ttf-jetbrains-mono-nerd
 btop
 fastfetch
-#---------------
+#----------------
 # Editor di testo
-#---------------
+#----------------
 neovim
+ripgrep
 wl-clipboard
-#---------------
-# Snapshot BTRFS
-#---------------
-snapper
-grub-btrfs
-inotify-tools
 #---------------
 # Utility
 #---------------
 flatpak
 libva-mesa-driver
-ripgrep
-fprint
+libfprint
+fprintd
+#---------------
+# Programmazione
+#---------------
 python-pip
+npm
+nodejs
