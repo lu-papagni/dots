@@ -2,6 +2,7 @@ return {
     "williamboman/mason.nvim",
     dependencies = {
         "williamboman/mason-lspconfig.nvim",
+        "zapling/mason-conform.nvim"
     },
     cmd = "Mason",
     config = function()
