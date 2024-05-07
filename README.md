@@ -18,8 +18,8 @@ A partire dalla versione `37` di Fedora, l'ISO potrebbe fallire l'avvio su speci
 > Secondo la [wiki](https://docs.fedoraproject.org/en-US/quick-docs/upgrading-fedora-offline/#sect-how-many-releases-can-i-upgrade-across-at-once) di Fedora è sicuro eseguire un upgrade solo fino a 2 versioni successive. Serviranno quindi più passaggi per completare il workaround.
 
 ## Arch-based
-Le migliori opzioni sono [Arch Linux](https://archlinux.org/download/) usando lo script `archinstall` o [EndeavourOS](https://endeavouros.com/#Download).
-Quest'ultima distribuzione ha un installer più _user-friendly_ e permette di scegliere fra una grande selezione di _desktop environment_ attraverso l'installazione online. In modalità offline è presente solo KDE.
+- [Arch Linux](https://archlinux.org/download/) usando lo script `archinstall`
+- [EndeavourOS](https://endeavouros.com/#Download)
 
 ### Possibili problemi
 - **Non c'è l'opzione per usare Wayland su KDE** ➡️ installare il pacchetto `plasma-wayland-session`
@@ -36,74 +36,35 @@ systemctl enable sddm.service
 
 # Configurazione
 ## Dotfiles
-La maggior parte delle impostazioni dei software su Linux è salvata nei loro rispettivi file di configurazione (in gergo _dotfiles_).
-Questi ultimi sono salvati in [questa repository](https://github.com/lu-papagni/dots). Per gestire i _dotfiles_ più facilmente ho creato un alias basato su git per sincronizzarli.
+La maggior parte delle impostazioni dei software su Linux è salvata nei loro rispettivi file di configurazione (chiamati _dotfiles_).
+Questi ultimi sono salvati [qui](https://github.com/lu-papagni/dots).
 
-Per utilizzarlo è necessaria una **shell compatibile POSIX** (come bash, zsh…) e seguire questo procedimento:
+Per gestire i _dotfiles_ più facilmente ho creato lo script [setup.sh](https://raw.githubusercontent.com/lu-papagni/dots/main/setup/setup.sh)
+per eseguire tutte le operazioni ripetitive, come collegamenti simbolici e installazione dei pacchetti.
 
-> [!IMPORTANT]
-> Questo processo era un po' troppo macchinoso, quindi ora lo script prevede che si debba semplicemente clonare la repository in `~/.config` (senza sotto-directory). In questo modo si
-> può gestire il tutto con gli stessi comandi di qualsiasi altra repo. Per i file che hanno bisogno di risiedere direttamente in `/home`, lo script creerà dei link simbolici.
->
-> Il *punto 4* è ancora molto consigliato (ovviamente non usando l'alias ma questo comando in `.config`):
->
-> ```bash
-> git config --local status.showUntrackedFiles no
-> ```
-
-1.  Creare una directory _dummy_ (ovvero non utilizzata da noi ma solo come bersaglio del comando). Io l'ho posizionata in `~/.dotfiles`;
-2.	Spostarsi in quest'ultima directory ed inizializzare un progetto vuoto con git.
-
-    ```bash
-  	git init --bare
-    ```
-
-4.	Definire il seguente alias all'interno del file di configurazione della propria shell. Da notare che la directory git specificata è proprio quella creata in precedenza.
-
-    ```bash
-  	alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
-    ```
-    
-6.  Per questa directory conviene disattivare l’impostazione secondo cui git mostra in automatico i file non selezionati per il monitoraggio. Normalmente è una funzione utile,
-    ma in questo caso il software ci consiglierebbe ogni volta di aggiungere file non pertinenti al progetto (probabilmente l'intera directory `/home`).
-    
-    ```bash
-    dotfiles config --local status.showUntrackedFiles no
-    ```
-    
-7.  Una volta fatto ciò sarà possibile gestire i dotfiles come se fossero un normale progetto git. L’unica differenza è nel push dei file: bisognerà infatti specificare repository
-    e branch ogni volta che si vuole eseguire un backup. Ad esempio: `dotfiles push --set-upstream https://github.com/lu-papagni/dots.git main`. In alternativa si potrebbero configurare
-    le proprietà del ramo locale per puntare alla nostra repository per evitare di ripetere l'indirizzo ogni volta.
-
-## Plugin per la shell
-La shell _zsh_ è compatibile con molte estensioni di terze parti. Per essere sicuri che rimangano sempre aggiornate, può essere utile installare [Oh-My-Zsh](https://ohmyz.sh), un popolare plugin manager.
-- Installazione di _Oh-My-Zsh_:
-  
-  ```bash
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  ```
-
-Queste sono delle estensioni utili:
-- [Powerlevel10k](https://github.com/romkatv/powerlevel10k#for-new-users) (prompt compatibile con zsh)
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) completa i comandi che si scrivono al terminale
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) evidenzia il ruolo delle parole che si scrivono
+> [!WARNING]
+> Per utilizzare `setup.sh` è necessaria una <ins>shell compatibile con lo standard POSIX</ins> come `bash`, `zsh`, ecc. Altre shell (ad esempio `fish`) non sono in grado di eseguirlo.
 
 ## Script di installazione
-Ho creato uno script bash chiamato `kickstart.sh` per evitare i passaggi più ripetitivi, come installare i pacchetti e abilitare le repository di terze parti. Al momento è compatibile al 100% solo con Fedora e
-[agg. _28/02/2024_] funziona abbastanza bene su Arch Linux (lo finirò prima o poi).
-### Breve guida a kickstart
-**Parametri opzionali**
-- `-d` non modifica nulla sul sistema ma stampa l'output dei comandi che lo script avrebbe invece eseguito. Può essere utile per debug.
-- `-l` mostra il log dei comandi che stanno venendo eseguiti.
-- `-s` non controlla la presenza di eventuali dipendenze dello script (per debug).
-- `-h` mostra una breve guida.
+**Pre-requisiti**
+- Aver clonato questa repository in una directory a piacere sul proprio PC. Questa directory non deve essere eliminata o spostata dopo l'installazione.
+- Nello script, modificare la variabile `DOTS_DIR` in modo da puntare a quest'ultima directory. Per impostazione predefinita, lo script assume che sia `~/.dotfiles`.
+- Concedere i permessi di esecuzione allo script con:
+  ```bash
+  chmod +x setup.sh
+  ```
 
 **Come si usa?**
-1. Inserisci il nome del package manager (nel caso di Fedora è `dnf`)
-2. Rispondi alle domande che appaiono
-3. Spera che funzioni
 
-**Attenzione!** Lo script esegue quasi tutti i comandi con privilegi di root, chiedendo solo la primissima volta la password.
+È possibile aggiungere nell'array `SOURCES` una serie di nomi di file di testo (esclusa l'estensione) da cui lo script copierà i nomi dei pacchetti da installare.
+
+> [!NOTE]
+> Deve essere presente un solo pacchetto per riga.
+> I file devono trovarsi nella directory `setup/sources`.
+
+Nella prima riga è obbligatorio specificare il nome del package manager che dovrà installarli preceduto da un punto esclamativo, in questo modo: `!nome_package_manager`.
+
+Fatto questo, basta avviare lo script dal terminale.
 
 ## Firewall
 Nella distribuzione potrebbe essere installato `firewalld`. Per impostazione predefinita il software blocca tutti i tipi di pacchetto sulla rete, e questo potrebbe creare problemi specialmente
@@ -113,6 +74,105 @@ durante le operazioni di stampa e accesso a dichi di rete.
 
 Firewalld permette di definire delle _zone_ in cui attivare specifiche regole. È consigliabile utilizzare la zona _home_ per abilitare le regole elencate in precedenza.
 Infine è necessario aggiungere la rete desiderata alla zona _home_ per rendere effettive le modifiche.
+
+## Snapshot BTRFS
+Se il sistema è stato configurato con il filesystem BTRFS, è possibile configurare la funzione degli snapshot del disco. Attivandola, il sistema potrà essere all'occorrenza
+riportato ad uno stato funzionante nel caso in cui dovesse avvenire un malfunzionamento, come un aggiornamento che introduce un bug critico o corruzione dei dati.
+Usare come riferimento i seguenti articoli:
+1. [BTRFS snapshots and system rollbacks on Arch Linux - Daniel Wayne Armstrong](https://www.dwarmstrong.org/btrfs-snapshots-rollbacks/)
+2. [EndeavourOS System Recovery - pavinjosdev](https://github.com/pavinjosdev/eos-system-recovery)
+
+### Pre-requisiti
+Avere installati i seguenti pacchetti:
+- `snapper` ➡️ esegue gli snapshot
+- `snap-pac` (opzionale) ➡️ hook di pacman che fa uno snapshot ogni volta che avviene un'installazione
+- `grub-btrfs` ➡️ permette di accedere agli snapshot da grub
+- `inotify-tools` ➡️ dipendenza di _grub-btrfs_
+
+### Configurazione
+1. Creare una configurazione per gli snapshot della root.
+```bash
+sudo snapper -c root create-config /
+```
+2. Verificare che sia stata creata correttamente la directory `/.snapshots`. Questo indica che il comando precedente è andato a buon fine.
+```bash
+sudo btrfs subvolume list /
+```
+L'output del comando precedente dovrebbe essere simile a
+```
+ID 256 gen 199 top level 5 path @
+ID 257 gen 186 top level 5 path @home
+ID 258 gen 9 top level 5 path @snapshots
+[...]
+ID 265 gen 199 top level 256 path .snapshots
+```
+Ora bisogna creare un nuovo sotto-volume btrfs per contenere gli snapshot. Snapper ha creato di default la directory `/.snapshots`, ma non l'ha separata dal contenuto
+della root. In questo modo, se mai servisse effettuare un rollback, si andrebbero a perdere tutti gli snapshot fatti _dopo_ quello ripristinato.
+
+3. Rimuovere e ricreare la cartella creata da snapper
+```
+sudo rm -rI /.snapshots && sudo mkdir /.snapshots
+```
+
+4. Montare la partizione btrfs e creare nuovo sotto-volume
+```bash
+sudo mount -t btrfs /dev/<partizione principale> /mnt    # solitamente è sda2, ma se si usa un nvme ha una nomenclatura diversa
+sudo btrfs subvolume create /mnt/@snapshots
+sudo umount /mnt
+```
+
+5. Modificare la tabella delle partizioni per montare automaticamente `@snapshots`. Aprire il file `/etc/fstab` e aggiungere in basso questa riga
+```bash
+UUID=<xxx-xxx-xxx-xxx-xxx>  /.snapshots  btrfs  subvol=/@snapshots,<opzioni di montaggio>
+```
+Al posto di `<xxx-xxx-xxx-xxx-xxx>` bisogna inserire l'ID comune alle altre partizioni btrfs presenti; le opzioni di montaggio possono essere copiate da quelle già usate
+dalle altre partizioni.
+
+6. Montare tutte le partizioni
+```bash
+sudo mount -a
+```
+Se dovesse apparire un _hint_ di systemd che chiede di riavviare i processi in background, farlo con
+```bash
+systemctl daemon-reload
+```
+
+7. Eseguire uno snapshot di prova per verificare che sia tutto a posto
+```bash
+sudo snapper -c root create -c number -d 'TEST'
+# il parametro 'number' indica l'algoritmo con cui gli snapshot vengono via via eliminati
+# il più vecchio viene eliminato per primo
+```
+
+8. Verificare che lo snapshot sia stato creato e che sia presente in `@snapshots`
+```bash
+sudo snapper -c root list   # e poi
+sudo btrfs subvolume list /
+```
+
+9. Attivare il servizio che esegue uno snapshot ad ogni avvio
+```bash
+systemctl enable snapper-boot.timer
+```
+
+A questo punto è necessario configurare una modalità per accedere agli snapshot. Una soluzione è quella di usare una funzione chiamata _overlayfs_, la quale
+permette di avviare uno snapshot come se fosse un CD live. In questo modo avremo accesso alla GUI, da cui potremo effettuare la manutenzione.
+
+10. Modificare `/etc/grub.d/41_snapshots-btrfs` aggiungendo `rd.live.overlay.overlayfs=1` ai parametri del kernel (variabile `kernel_parameters`).
+11. <ins>Eseguire il file appena modificato</ins>. Poi riconfigurare grub con
+```bash
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+12. Per rendere questo processo automatico è possibile aggiungere questo servizio
+```bash
+sudo systemctl enable grub-btrfsd
+```
+> [!IMPORTANT]
+> È comunque obbligatorio usare il procedimento manuale almeno una volta.
+
+13. Aggiungere `/.snapshots` alle eccezioni durante l'indicizzazione del disco. Modificare `/etc/updatedb.conf`, aggiungendo la stringa `.snapshots` alla variabile `PRUNENAMES`.
+14. Per effettuare la manutenzione, fare riferimento al paragrafo 11 dell'articolo 1 mostrato in precedenza.
 
 # Gestore delle finestre
 Su Linux si può scegliere l'ambiente grafico in modo molto libero. La prima decisione è sul tipo di gestore delle finestre (_window manager_ o _WM_ in breve) da usare, ovvero il software che posiziona
