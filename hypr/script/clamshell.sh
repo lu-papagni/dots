@@ -5,6 +5,6 @@ if cat $STATE | grep -q "closed";  then
   hyprctl keyword monitor "eDP-1, disable"
 else
   echo "Abilita"
-  hyprctl keyword monitor "eDP-1,1920x1080@60,auto,1"
+  hyprctl keyword monitor "eDP-1,1920x1200@60,auto,1.25"
 fi
 
