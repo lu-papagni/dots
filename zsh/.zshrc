@@ -1,5 +1,7 @@
 # source "./hyprland.sh"
 
+# cat ".cache/wal/sequences"    # Colori generati da Pywal
+
 fastfetch -c ~/.config/fastfetch/small.jsonc
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
