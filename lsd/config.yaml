@@ -1,0 +1,6 @@
+color:
+  when: always
+icons:
+  when: always
+sorting:
+  dir-grouping: first
