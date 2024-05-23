@@ -3,7 +3,6 @@ brave-bin
 asciiquarium-transparent-git
 cbonsai
 cmatrix-git
-klassy
 onedrive-abraunegg
 onedrive_tray-git
 pipes.sh

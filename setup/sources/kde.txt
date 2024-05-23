@@ -1,0 +1,4 @@
+!yay
+kwin-effects-forceblur
+kwin-polonium
+klassy

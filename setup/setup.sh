@@ -49,31 +49,33 @@ function SetupShell ()
 
   if [[ $? -eq 0 ]] then
 
-    PrintLog "Installo Oh-My-Zsh..."
+    if [ "$USE_OMZ" = true ]; then
+      PrintLog "Installo Oh-My-Zsh..."
 
-    # Oh-My-Zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+      # Oh-My-Zsh
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 
-    PrintLog "Installo i plugin della shell..."
+      PrintLog "Installo i plugin della shell..."
 
-    # Plugin
-    for plugin in ${PLUGINS[*]}
-    do
-      local NAME="${plugin#*/}"   # Scarta tutto fino allo slash
-      git clone --depth=1 "https://github.com/$plugin.git" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/$NAME"
-    done
+      # Plugin
+      for plugin in ${PLUGINS[*]}
+      do
+        local NAME="${plugin#*/}"   # Scarta tutto fino allo slash
+        git clone --depth=1 "https://github.com/$plugin.git" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/$NAME"
+      done
 
-    PrintLog "Installo i temi della shell..."
+      PrintLog "Installo i temi della shell..."
 
-    # Temi
-    for theme in ${THEMES[*]}
-    do
-      local NAME="${theme#*/}"   # Scarta tutto fino allo slash
-      git clone --depth=1 "https://github.com/$theme.git" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/$NAME"
-    done
+      # Temi
+      for theme in ${THEMES[*]}
+      do
+        local NAME="${theme#*/}"   # Scarta tutto fino allo slash
+        git clone --depth=1 "https://github.com/$theme.git" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/$NAME"
+      done
 
-    if [[ -f "$HOME/.zshrc.pre-oh-my-zsh" ]] then
-      rm "$HOME/.zshrc" && mv "$HOME/.zshrc.pre-oh-my-zsh" "$HOME/.zshrc"
+      if [[ -f "$HOME/.zshrc.pre-oh-my-zsh" ]] then
+        rm "$HOME/.zshrc" && mv "$HOME/.zshrc.pre-oh-my-zsh" "$HOME/.zshrc"
+      fi
     fi
 
     PrintLog "Cambio shell predefinita..."
@@ -91,7 +93,7 @@ function SetupShell ()
 
 InstallPackages ()
 {
-  local SOURCES=("aur" "btrfs" "flathub")
+  local SOURCES=("aur" "kde" "btrfs" "flathub")
 
   # Parsing file
   for source in ${SOURCES[*]}; do
@@ -134,6 +136,7 @@ InstallPackages ()
 }
 
 # Inizio esecuzione
+USE_OMZ=false   # Se usare oh-my-zsh come plugin manager
 LinkDotfiles
 InstallPackages
 SetupShell
