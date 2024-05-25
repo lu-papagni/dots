@@ -2,3 +2,5 @@
 kwin-effects-forceblur
 kwin-polonium
 klassy
+ksshaskpass
+kwalletmanager
