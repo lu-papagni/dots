@@ -34,6 +34,9 @@ ln -s "$DOTS_DIR/zsh/.zshrc" "$HOME"
 InstallPackages
 SetupShell
 
+# Configurazione Spicetify
+Spicetify
+
 # Setup kwallet
 PrintLog "Configurazione di kwallet..."
 mkdir -p ~/.config/environment.d
