@@ -20,6 +20,7 @@ export BAT_THEME="base16"
 # Alias
 alias ls="/usr/bin/lsd"
 alias tree="/usr/bin/lsd --tree"
+alias vim="nvim ."
 alias vencord="sh -c \"$(curl -sS https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh)\""
 alias prune-orphans="pacman -Qdtq | sudo pacman -Rns -"
 alias rmhistory="cat /dev/null > ~/.zsh_history"
