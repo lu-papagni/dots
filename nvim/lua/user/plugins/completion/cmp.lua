@@ -17,7 +17,19 @@ return {
 
         cmp.setup({
             formatting = {
-                format = lspkind.cmp_format(),
+                expandable_indicator = true,
+                fields = { 'abbr', 'kind', 'menu' },
+                format = lspkind.cmp_format({
+                    with_text = true,
+                    maxwidth = 50,
+                    before = function(_, vim_item)
+                        local m = vim_item.menu and vim_item.menu or ""
+                        if #m > 20 then
+                            vim_item.menu = string.sub(m, 1, 20) .. "..."
+                        end
+                        return vim_item
+                    end,
+                })
             },
             completion = {
                 completeopt = "menu,menuone,preview,select"
