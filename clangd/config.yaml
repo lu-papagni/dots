@@ -1,2 +1,9 @@
 CompileFlags:
   Add: [-Wall, -Wextra]
+InlayHints:
+  Enabled: Yes
+  BlockEnd: No
+  Designators: No
+  ParameterNames: Yes
+  DeducedTypes: Yes
+  TypeNameLimit: 24

@@ -42,12 +42,17 @@ return {
 
             opts.desc = "Smart rename"
             vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-        end
+
+            -- Suggerimenti contestuali
+            if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+                vim.keymap.set('n', '<leader>th', function()
+                    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+                end)
+            end
+        end -- on_attach
 
         local server_configs = {
             html = {},
-            tsserver = {},
-            lua_ls = {},
             clangd = {},
             pyright = {}
         }
@@ -60,5 +65,32 @@ return {
             table.insert(boilerplate, opts)
             lspconfig[server_name].setup(boilerplate)
         end
+
+        lspconfig.lua_ls.setup {
+            capabilities = cmp_lsp.default_capabilities(),
+            on_attach = on_attach,
+            settings = {
+                Lua = {
+                    telemetry = { enable = false },
+                    hint = { enable = true },
+                }
+            }
+        }
+
+        lspconfig.tsserver.setup {
+            capabilities = cmp_lsp.default_capabilities(),
+            on_attach = on_attach,
+            init_options = {
+                preferences = {
+                    tsserincludeInlayParameterNameHints = 'all',
+                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                    includeInlayFunctionParameterTypeHints = true,
+                    includeInlayVariableTypeHints = true,
+                    includeInlayPropertyDeclarationTypeHints = true,
+                    includeInlayFunctionLikeReturnTypeHints = true,
+                    includeInlayEnumMemberValueHints = true,
+                }
+            }
+        }
     end
 }
