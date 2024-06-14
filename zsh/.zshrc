@@ -17,6 +17,8 @@ export BAT_THEME="base16"
 
 # Alias
 alias ls="/usr/bin/lsd"
+alias ll="ls -la"
+alias la="ls -A"
 alias tree="/usr/bin/lsd --tree"
 alias vim="nvim"
 alias prune-orphans="pacman -Qdtq | sudo pacman -Rns -"
