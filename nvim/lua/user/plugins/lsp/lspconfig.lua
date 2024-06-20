@@ -49,22 +49,23 @@ return {
                     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
                 end)
             end
-        end -- on_attach
+        end            -- on_attach
 
-        local server_configs = {
-            html = {},
-            clangd = {},
-            pyright = {}
+        --[[ SERVER ]] --
+        lspconfig.html.setup {
+            capabilities = cmp_lsp.default_capabilities(),
+            on_attach = on_attach
         }
 
-        for server_name, opts in pairs(server_configs) do
-            local boilerplate = {
-                capabilities = cmp_lsp.default_capabilities(),
-                on_attach = on_attach
-            }
-            table.insert(boilerplate, opts)
-            lspconfig[server_name].setup(boilerplate)
-        end
+        lspconfig.clangd.setup {
+            capabilities = cmp_lsp.default_capabilities(),
+            on_attach = on_attach
+        }
+
+        lspconfig.pyright.setup {
+            capabilities = cmp_lsp.default_capabilities(),
+            on_attach = on_attach
+        }
 
         lspconfig.lua_ls.setup {
             capabilities = cmp_lsp.default_capabilities(),

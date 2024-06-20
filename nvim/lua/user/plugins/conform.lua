@@ -1,11 +1,9 @@
 return {
     "stevearc/conform.nvim",
-    dependencies = {
-        "zapling/mason-conform.nvim"
-    },
     event = { "BufReadPre", "BufNewFile" },
     config = function()
         local conform = require("conform")
+        local mason = require("user.macro.mason-ensure")
 
         conform.setup({
             formatters_by_ft = {
@@ -24,7 +22,7 @@ return {
         }
 
         -- Installazione automatica formatters
-        require("mason-conform").setup()
+        mason.ensure({ "clang-format" })
     end,
 
 }

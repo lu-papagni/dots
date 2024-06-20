@@ -26,10 +26,3 @@ vim.keymap.set({ "n", "v" }, "<leader>fo", function()
     timeout_ms = 500
   })
 end)
-
--- Debugger keymaps
-vim.keymap.set("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", { desc = "Attiva o disattiva breakpoint" })
-vim.keymap.set("n", "<leader>dr", "<cmd>DapContinue<CR>", { desc = "Avvia debugger" })
-
--- Doxygen
-vim.keymap.set('n', '<leader>doc', '<cmd>Neogen<CR>', { desc = "Genera commento doxygen" })
