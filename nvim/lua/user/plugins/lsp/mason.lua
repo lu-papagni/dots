@@ -7,7 +7,11 @@ return {
         local mason = require("mason")
         local lspconfig = require("mason-lspconfig")
 
-        mason.setup()
+        mason.setup({
+            ui = {
+                border = "rounded",
+            }
+        })
 
         lspconfig.setup({
             ensure_installed = {
@@ -17,7 +21,7 @@ return {
                 "pyright", -- Python
                 "clangd",  -- C/C++
             },
-            automatic_installation = true
+            automatic_installation = true,
         })
     end
 }

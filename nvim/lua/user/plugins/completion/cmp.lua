@@ -75,14 +75,12 @@ return {
                 { name = "path" },     -- Directiories
             }),
             window = {
-                completion = {
-                    border = "rounded",
-                    winhighlight = "Normal:CmpPmenu,FloatBorder:Grey,CursorLine:PmenuSel,Search:None"
-                },
-                documentation = {
-                    border = "rounded",
-                    winhighlight = "Normal:CmpPmenu,FloatBorder:Grey,CursorLine:PmenuSel,Search:None"
-                },
+                completion = cmp.config.window.bordered({
+                    side_padding = 0,
+                }),
+                documentation = cmp.config.window.bordered({
+                    side_padding = 0,
+                }),
             }
         })
     end

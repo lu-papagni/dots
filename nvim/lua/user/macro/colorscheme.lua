@@ -22,11 +22,12 @@ local function ApplyTheme(color, front, back)
   if M.transparent then
     local highlightGroups = {
       "Normal",
+      "NormalFloat",
       "NormalNC",
       "NonText",
       "EndOfBuffer",
     }
-    for i, group in ipairs(highlightGroups) do
+    for _, group in ipairs(highlightGroups) do
       vim.api.nvim_set_hl(0, group, { bg = "none" })
     end
   end
