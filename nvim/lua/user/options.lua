@@ -51,4 +51,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end
 })
 
+vim.api.nvim_create_user_command("ToggleThemeVariant", require("user.macro.colorscheme").toggleMode, {})
+vim.api.nvim_create_user_command("ToggleThemeTransparency", require("user.macro.colorscheme").toggleTransparency, {})
+
+-- Rimuovi il padding di kitty
+if os.getenv('TERM') == 'xterm-kitty' then
+  vim.system({ 'kitty', '@', 'set-spacing', 'padding=0' }, { detach = true })
+
+  vim.api.nvim_create_autocmd("VimLeave", {
+    callback = function()
+      vim.system({ 'kitty', '@', 'set-spacing', 'padding=default' }, { detach = true })
+    end
+  })
+end
+
 vim.g.c_syntax_for_h = true
