@@ -1,6 +1,3 @@
-#---------------
-# Terminale
-#---------------
 zsh
 bat
 lsd
@@ -9,22 +6,14 @@ kitty
 ttf-jetbrains-mono-nerd
 btop
 fastfetch
-#----------------
-# Editor di testo
-#----------------
 neovim
 ripgrep
 wl-clipboard
-#---------------
-# Utility
-#---------------
 flatpak
 libva-mesa-driver
 libfprint
 fprintd
-#---------------
-# Programmazione
-#---------------
+kolourpaint
 python-pip
 npm
 nodejs
