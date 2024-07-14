@@ -1,4 +1,10 @@
-/usr/bin/fastfetch -c "$HOME/.config/fastfetch/small.jsonc"
+function _FetchSysInfo ()
+{
+  local SETTINGS_NAME="$1"
+  /usr/bin/fastfetch -c "$HOME/.config/fastfetch/$SETTINGS_NAME.jsonc"
+}
+
+_FetchSysInfo "small"
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -15,6 +21,9 @@ export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share/}/zinit/zinit.git"
 ## bat pager
 export BAT_THEME="base16"
 
+## Neovim
+export NVIMRC="$HOME/.config/nvim"
+
 # Alias
 alias ls="/usr/bin/lsd"
 alias ll="ls -la"
@@ -24,7 +33,7 @@ alias vim="nvim"
 alias prune-orphans="pacman -Qdtq | sudo pacman -Rns -"
 alias rmhistory="cat /dev/null > ~/.zsh_history"
 if [[ $(cat '/sys/class/dmi/id/product_version' | grep -ic 'ThinkPad') ]] then
-  alias fastfetch="/usr/bin/fastfetch -c "$HOME/.config/fastfetch/thinkpad-big.jsonc""
+  alias fastfetch="_FetchSysInfo thinkpad-big"
 fi
 
 # zinit
