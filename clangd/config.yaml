@@ -1,5 +1,8 @@
 CompileFlags:
-  Add: [-Wall, -Wextra]
+  Add: [-Wall, -Wextra, -resource-dir=, -I/usr/include]
+  Remove: [-resource-dir=]
+  Compiler: gcc
+---
 InlayHints:
   Enabled: Yes
   BlockEnd: No
@@ -7,3 +10,16 @@ InlayHints:
   ParameterNames: Yes
   DeducedTypes: Yes
   TypeNameLimit: 24
+---
+If:
+  PathMatch: [.*\.c, .*\.h]
+CompileFlags:
+  Remove: [-std]
+  Add: [-xc, -std=c11]
+---
+If:
+  PathMatch: [.*\.cpp, .*\.hpp]
+CompileFlags:
+  Remove: [-std]
+  Add: [-xc++, -std=c++17]
+  Compiler: g++
