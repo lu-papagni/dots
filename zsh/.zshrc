@@ -1,10 +1,11 @@
 function _FetchSysInfo ()
 {
   local SETTINGS_NAME="$1"
+
   /usr/bin/fastfetch -c "$HOME/.config/fastfetch/$SETTINGS_NAME.jsonc"
 }
 
-_FetchSysInfo "small"
+_FetchSysInfo "small.image"
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -20,9 +21,6 @@ export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share/}/zinit/zinit.git"
 
 ## bat pager
 export BAT_THEME="base16"
-
-## Neovim
-export NVIMRC="$HOME/.config/nvim"
 
 # Alias
 alias ls="/usr/bin/lsd"
