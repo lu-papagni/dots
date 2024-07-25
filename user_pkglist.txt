@@ -19,3 +19,4 @@ npm
 nodejs
 jdk11-openjdk
 jdk17-openjdk
+stow
