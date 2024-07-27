@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source "./utils/fmt.sh"
+source "$(dirname ${BASH_SOURCE[0]:-$0})/utils/fmt.sh"
 
 # ███████╗██╗  ██╗███████╗██╗     ██╗
 # ██╔════╝██║  ██║██╔════╝██║     ██║
@@ -13,9 +13,19 @@ if [ ! -v __DEFINE_SHELLSETUP ]; then
   __DEFINE_SHELLSETUP=true
 
   function OhMyZsh() {
-    AssertPackagesInstalled "git"
+    AssertExecutable "git"
 
     if [[ $? -eq 0 ]]; then
+      while getopts 'h' opt; do
+        case "$opt" in
+        h)
+          echo 'Effettua il setup del plugin manager `oh-my-zsh`.'
+          echo 'Non ammette parametri.\n'
+          return 0
+          ;;
+        esac
+      done
+
       # Plugin e temi provengono da github
       local PLUGINS=(
         "zsh-users/zsh-autosuggestions"
@@ -61,19 +71,24 @@ if [ ! -v __DEFINE_SHELLSETUP ]; then
   # s (shell): quale shell installare
   # p (plugin manager): quale plugin manager usare
   function SetupShell() {
-    AssertPackagesInstalled "whoami" "chsh"
+    AssertExecutable "whoami" "chsh"
 
     if [[ $? -eq 0 ]]; then
       local SHELL=
       local PLUGIN_MGR=
 
-      while getopts 's:p:' opt; do
-        case ${opt} in
+      while getopts 's:p:h' opt; do
+        case "$opt" in
         s)
           SHELL="${OPTARG}"
           ;;
         p)
           PLUGIN_MGR="${OPTARG}"
+          ;;
+        h)
+          echo "Configura la nuova shell e la imposta come predefinita.\n"
+          column "$(dirname ${BASH_SOURCE[0]:-$0})/help/setup-shell.txt" -tL -s '|'
+          return 0
           ;;
         ?)
           return 1
@@ -82,16 +97,16 @@ if [ ! -v __DEFINE_SHELLSETUP ]; then
       done
 
       # Se non sono state date queste informazioni
-      if [[ -z $SHELL || -z $PLUGIN_MGR ]]; then
+      if [[ -z "$SHELL" || -z "$PLUGIN_MGR" ]]; then
         PrintErr "Non sono stati forniti parametri"
         return 1
       fi
 
       # Controllo se la shell è installata
-      AssertPackagesInstalled "$SHELL"
+      AssertExecutable "$SHELL"
 
       if [[ $? -eq 0 ]]; then
-        PrintLog "È stato indicato $(PrintExample "$PLUGIN_MGR") come plugin manager per $("$SHELL")"
+        PrintLog "È stato indicato $(PrintExample "$PLUGIN_MGR") come plugin manager per la shell $(PrintExample "$SHELL")"
 
         case "$PLUGIN_MGR" in
         zinit)

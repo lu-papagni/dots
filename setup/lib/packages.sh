@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source "./utils/fmt.sh"
-source "./utils/assert.sh"
+source "$(dirname ${BASH_SOURCE[0]:-$0})/utils/fmt.sh"
+source "$(dirname ${BASH_SOURCE[0]:-$0})/utils/assert.sh"
 
 # ██████╗  █████╗  ██████╗██╗  ██╗ █████╗  ██████╗ ███████╗███████╗
 # ██╔══██╗██╔══██╗██╔════╝██║ ██╔╝██╔══██╗██╔════╝ ██╔════╝██╔════╝
@@ -16,19 +16,23 @@ if [ ! -v __DEFINE_PACKAGEINST ]; then
   # PARAMETRI
   # -s (sources): lista delle fonti di installazione
   function InstallPackages() {
-    AssertPackagesInstalled "cat"
+    AssertExecutable "cat"
 
     if [[ $? -eq 0 ]]; then
       local SOURCES=
 
-      while getopts 's:' opt; do
+      while getopts 's:h' opt; do
         case ${opt} in
         s)
           SOURCES=($OPTARG)
           ;;
+        h)
+          column "$(dirname ${BASH_SOURCE[0]:-$0})/help/install-packages.txt" -tL -s '|'
+          return 0
+          ;;
         ?)
           PrintErr "Sintassi di InstallPackages errata."
-          exit 1
+          return 1
           ;;
         esac
       done
@@ -76,7 +80,7 @@ if [ ! -v __DEFINE_PACKAGEINST ]; then
           ;;
         esac
 
-        AssertPackagesInstalled "$PKG_MANAGER"
+        AssertExecutable "$PKG_MANAGER"
 
         if [[ $? -eq 0 ]]; then
           PrintLog "Installazione pacchetti (fonte $(PrintExample "$source"))..."

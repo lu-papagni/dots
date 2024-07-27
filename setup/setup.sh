@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
-source "./src/utils/fmt.sh"
-source "./src/linking.sh"
-source "./src/packages.sh"
-source "./src/shell.sh"
-source "./src/spicetify.sh"
+SETUP_SCRIPT_DIR="$(cd $(dirname $0) && pwd)"
+SETUP_DOTS_DIR="$(cd "$SETUP_SCRIPT_DIR" && cd .. && pwd)"
+
+source "lib/utils/fmt.sh"
+source "lib/linking.sh"
+source "lib/packages.sh"
+source "lib/shell.sh"
+source "lib/spicetify.sh"
+source "lib/kwallet.sh"
 
 # ███████╗███████╗████████╗██╗   ██╗██████╗
 # ██╔════╝██╔════╝╚══██╔══╝██║   ██║██╔══██╗
@@ -14,7 +18,7 @@ source "./src/spicetify.sh"
 # ╚══════╝╚══════╝   ╚═╝    ╚═════╝ ╚═╝
 
 PrintLog "Link simbolico file di configurazione..."
-StowDotfiles -n
+LinkDotfiles
 
 # Installa i pacchetti dalle fonti specificate
 PrintLog "Installazione pacchetti..."
@@ -26,7 +30,7 @@ SetupShell -s "zsh" -p "zinit"
 
 # Spicetify
 PrintLog "Configurazione di Spicetify..."
-Spicetify -t "text"
+SpicetifyConfig -t "text"
 
 # Se KDE è installato
 if [[ ! -z $KDE_SESSION_VERSION ]]; then

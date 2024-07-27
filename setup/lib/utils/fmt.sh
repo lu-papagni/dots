@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [ ! -v __DEFINE_FMT ]; then
   __DEFINE_FMT=true
 
@@ -9,6 +11,7 @@ if [ ! -v __DEFINE_FMT ]; then
   __FMT_YELLOW="$__FMT_PREFIX""33m"
   __FMT_GREEN="$__FMT_PREFIX""32m"
   __FMT_GRAY="$__FMT_PREFIX""90m"
+  __FMT_BLUE="$__FMT_PREFIX""34m"
 
   # Stampa una riga di log
   function PrintLog() {

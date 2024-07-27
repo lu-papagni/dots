@@ -1,0 +1,2 @@
+-s | <shell> | Il nome della shell che si vuole configurare.
+-p | <plugin_manager> | Nome del plugin manager che gestira' la shell.

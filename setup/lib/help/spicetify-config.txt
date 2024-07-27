@@ -1,0 +1,1 @@
+-t | "<tema> [tema_1] ... [tema_n]" | Specifica i temi che verranno installati.

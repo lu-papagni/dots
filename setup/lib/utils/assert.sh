@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-source "./fmt.sh"
+source "$(dirname ${BASH_SOURCE[0]:-$0})/fmt.sh"
 
 if [[ ! -v __DEFINE_ASSERT ]]; then
   __DEFINE_ASSERT=true
 
-  AssertPackagesInstalled() {
+  AssertExecutable() {
     local missing=()
 
     for package in "$@"; do
