@@ -1,6 +1,8 @@
 !yay
 kwin-effects-forceblur
-kwin-polonium
+kwin-scripts-krohnkite-git
 klassy
 ksshaskpass
 kwalletmanager
+kwin-effect-rounded-corners-git
+konsave

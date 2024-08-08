@@ -1,0 +1,9 @@
+[Libinput][1133][16419][Logitech Wireless Keyboard PID:4023]
+ScrollFactor=1
+
+[Libinput][1133][16468][Logitech Wireless Mouse]
+PointerAcceleration=0.000
+PointerAccelerationProfile=1
+
+[Libinput][1739][52839][SYNA8018:00 06CB:CE67 Touchpad]
+NaturalScroll=true
