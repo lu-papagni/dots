@@ -1,31 +1,27 @@
 #!/usr/bin/env bash
 
-source "$(dirname ${BASH_SOURCE[0]:-$0})/fmt.sh"
+source "$(pwd)/fmt.sh"
 
-if [[ ! -v __DEFINE_ASSERT ]]; then
-  __DEFINE_ASSERT=true
+[[ -v __DEFINE_ASSERT ]] && return
+readonly __DEFINE_ASSERT
 
-  AssertExecutable() {
-    local missing=()
+function AssertExecutable() {
+  local count=0
+  local -r caller="${FUNCNAME[1]:-${funcstack[2]}}"
 
-    for package in "$@"; do
-      if [[ -z "$(command -v "$package")" ]]; then
-        missing+=("$package")
-      fi
-    done
-
-    if [[ ${#missing[@]} -gt 0 ]]; then
-      PrintErr "Requisiti non soddisfatti!"
-
-      for m in ${missing[*]}; do
-        PrintErr "$m non trovato."
-      done
-
-      # almeno un eseguibile richiesto non è installato
-      return 1
+  for package in "$@"; do
+    if [[ -z "$(command -v "$package")" ]]; then
+      Log --error "Nella funzione $__FMT_RED$caller$__FMT_OFF: comando richiesto $__FMT_GREEN$package$__FMT_OFF non disponibile."
+      ((count += 1))
     fi
+  done
 
-    # tutto ok
-    return 0
-  }
-fi
+  # almeno un eseguibile richiesto non è installato
+  if [[ $count -gt 0 ]]; then
+    Log --error "Nella funzione $__FMT_RED$caller$__FMT_OFF: $count requisito/i non soddisfatti!"
+    return 1
+  fi
+
+  # tutto ok
+  return 0
+}

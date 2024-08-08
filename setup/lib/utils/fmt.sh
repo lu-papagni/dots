@@ -1,39 +1,50 @@
 #!/usr/bin/env bash
 
-if [ ! -v __DEFINE_FMT ]; then
-  __DEFINE_FMT=true
+[[ -v __DEFINE_FMT ]] && return
+readonly __DEFINE_FMT
 
-  # Codici per output colorato
-  __FMT_PREFIX="\e["
-  __FMT_OFF="$__FMT_PREFIX""0m"
-  __FMT_MAGENTA="$__FMT_PREFIX""35m"
-  __FMT_RED="$__FMT_PREFIX""31m"
-  __FMT_YELLOW="$__FMT_PREFIX""33m"
-  __FMT_GREEN="$__FMT_PREFIX""32m"
-  __FMT_GRAY="$__FMT_PREFIX""90m"
-  __FMT_BLUE="$__FMT_PREFIX""34m"
+# Generale
+readonly __FMT_PREFIX="\e["            # Prefisso di ogni codice escape
+readonly __FMT_OFF="${__FMT_PREFIX}0m" # Reset
 
-  # Stampa una riga di log
-  function PrintLog() {
-    local STR="$1"
-    echo -e "$__FMT_MAGENTA[SETUP]$__FMT_OFF $STR"
-  }
+# Effetti
+readonly __FMT_INVERT="${__FMT_PREFIX}7m"
 
-  # Stampa una riga di errore
-  function PrintErr() {
-    local STR="$1"
-    echo -e "$__FMT_RED[ERROR] $(PrintLog "$STR")"
-  }
+# Colori
+readonly __FMT_MAGENTA="${__FMT_PREFIX}35m"
+readonly __FMT_RED="${__FMT_PREFIX}31m"
+readonly __FMT_YELLOW="${__FMT_PREFIX}33m"
+readonly __FMT_GREEN="${__FMT_PREFIX}32m"
+readonly __FMT_GRAY="${__FMT_PREFIX}90m"
+readonly __FMT_BLUE="${__FMT_PREFIX}34m"
 
-  # Stampa una riga di informazione/warning
-  function PrintInfo() {
-    local STR="$1"
-    echo -e "$__FMT_YELLOW[INFO] $(PrintLog "$STR")"
-  }
+# Simboli
+readonly __FMT_SEPR="${__FMT_GRAY}::${__FMT_OFF}" # Separatore `::` di colore grigio
 
-  # Stampa una riga che contiene un comando
-  function PrintExample() {
-    local STR="$1"
-    echo -e "$__FMT_GRAY$STR$__FMT_OFF"
-  }
-fi
+# Stampa una riga di log, info, errore
+function Log() {
+  local msg
+  local pre
+
+  if [[ ! -v SETUP_OUTPUT_OFF ]]; then
+    case "$1" in
+    -e | --error)
+      msg="$2"
+      pre="${__FMT_RED}[ERRORE]"
+      ;;
+    -i | --info)
+      msg="$2"
+      pre="${__FMT_YELLOW}[INFO]"
+      ;;
+    *)
+      msg="$1"
+      pre="${__FMT_GREEN}[LOG]"
+      ;;
+    esac
+
+    echo -e "${pre}${__FMT_OFF} ${__FMT_SEPR} $msg"
+  fi
+}
+
+# Stampa una riga evidenziandola
+function Highlight() echo "$__FMT_GRAY$__FMT_INVERT$1$__FMT_OFF"
