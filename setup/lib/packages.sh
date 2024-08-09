@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source "utils/fmt.sh"
-source "utils/assert.sh"
+source "$(dirname ${BASH_SOURCE[0]:-$0})/utils/fmt.sh"
+source "$(dirname ${BASH_SOURCE[0]:-$0})/utils/assert.sh"
 
 # ██████╗  █████╗  ██████╗██╗  ██╗ █████╗  ██████╗ ███████╗███████╗
 # ██╔══██╗██╔══██╗██╔════╝██║ ██╔╝██╔══██╗██╔════╝ ██╔════╝██╔════╝
@@ -150,7 +150,7 @@ function InstallPackages() {
           BuildAurAsRoot -u "${SETUP_TARGET_USER}" "${packages[@]}"
         else
           # Composizione del comando per installare i pacchetti
-          $privilege $pkg_manager $install_cmd $skip_confirm_cmd "${packages[@]}"
+          ${SHELL:-$(command -v bash)} -c "$privilege $pkg_manager $install_cmd $skip_confirm_cmd ${packages[@]}"
         fi
       fi
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source "utils/fmt.sh"
-source "utils/assert.sh"
+source "$(dirname ${BASH_SOURCE[0]:-$0})/utils/fmt.sh"
+source "$(dirname ${BASH_SOURCE[0]:-$0})/utils/assert.sh"
 
 # ██╗     ██╗███╗   ██╗██╗  ██╗██╗███╗   ██╗ ██████╗
 # ██║     ██║████╗  ██║██║ ██╔╝██║████╗  ██║██╔════╝

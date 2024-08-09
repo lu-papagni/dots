@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source "$(pwd)/utils/fmt.sh"
+source "$(dirname ${BASH_SOURCE[0]:-$0})/utils/fmt.sh"
 
 # ███████╗██╗  ██╗███████╗██╗     ██╗
 # ██╔════╝██║  ██║██╔════╝██║     ██║

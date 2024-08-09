@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source "$(pwd)/fmt.sh"
+source "$(dirname ${BASH_SOURCE[0]:-$0})/fmt.sh"
 
 [[ -v __DEFINE_ASSERT ]] && return
 readonly __DEFINE_ASSERT
