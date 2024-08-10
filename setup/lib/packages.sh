@@ -118,7 +118,7 @@ function InstallPackages() {
         skip_confirm_cmd="--noconfirm"
         ;;
       pacman)
-        privilege="sudo"
+        [[ "$(whoami)" != "root" ]] && privilege="sudo"
         install_cmd="-S --needed"
         ;;
       yay)
@@ -126,11 +126,10 @@ function InstallPackages() {
         ;;
       flatpak)
         install_cmd="install"
-        privilege="sudo"
         skip_confirm_cmd="--assumeyes"
         ;;
       dnf | apt | 'apt-get')
-        privilege="sudo"
+        [[ "$(whoami)" != "root" ]] && privilege="sudo"
         install_cmd="install"
         skip_confirm_cmd="-y"
         ;;

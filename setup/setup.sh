@@ -11,10 +11,11 @@ set -ue
 
 #### IMPOSTAZIONI ####
 
+readonly SETUP_TARGET_USER="${1:-$(read -p 'Inserire nome utente: ')}"
+
 case "$(whoami)" in
-liveuser | root)                  # Impostazioni da usare durante l'installazione di EndeavourOS
-  SETUP_OUTPUT_OFF=1              # Disabilito il logging nell'installazione non interattiva
-  readonly SETUP_TARGET_USER="$1" # Lo script riceve il nome utente come primo parametro dall'installer
+liveuser | root)     # Impostazioni da usare durante l'installazione di EndeavourOS
+  SETUP_OUTPUT_OFF=1 # Disabilito il logging nell'installazione non interattiva
 
   if [[ -z $SETUP_TARGET_USER ]]; then
     Log --error "Utente non valido."
@@ -25,10 +26,6 @@ liveuser | root)                  # Impostazioni da usare durante l'installazion
 
   # Scarico i file
   git clone --recurse-submodules "https://github.com/lu-papagni/dots" "$SETUP_HOME/.dotfiles"
-  ;;
-*)
-  # Impostazioni da usare con l'installazione manuale
-  readonly SETUP_TARGET_USER="$(whoami)"
   ;;
 esac
 
@@ -63,6 +60,11 @@ SetupShell -s "zsh" -p "zinit"
 # Spicetify
 Log "Configurazione di Spicetify..."
 SpicetifyConfig -t "text"
+
+# Imposto il nome delle cartelle in inglese
+Log "Imposto nome directory in inglese"
+mkdir -p "${SETUP_HOME:-$HOME}/.config"
+echo "en_US" >"${SETUP_HOME:-$HOME}/.config/user-dirs.locale"
 
 # Uscita
 Log "Setup terminato. Riavviare il terminale per rendere effettive le modifiche."

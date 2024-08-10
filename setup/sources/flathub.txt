@@ -1,6 +1,6 @@
 !flatpak
-spotify
-discord
-flatseal
-onlyoffice
-
+com.spotify.Client
+com.discordapp.Discord
+com.github.tchx84.Flatseal
+com.valvesoftware.Steam
+com.brave.Browser

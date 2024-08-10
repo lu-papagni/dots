@@ -1,5 +1,4 @@
 !yay
-brave-bin
 asciiquarium-transparent-git
 cbonsai
 cmatrix-git
