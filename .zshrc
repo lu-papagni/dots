@@ -84,6 +84,9 @@ setopt hist_find_no_dups
 setopt hist_ignore_space
 setopt share_history
 
+# Globbing
+setopt extendedglob
+
 # Keybindings
 ## Imposta modalità VIM
 bindkey -v
