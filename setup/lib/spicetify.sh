@@ -75,7 +75,7 @@ function SpicetifyConfig() {
 
       if [ ${#themes[@]} -gt 0 ]; then
         for theme in ${themes[@]}; do
-          local folder="${SETUP_HOME:-$HOME}/.dotfiles/spicetify/Themes/$theme"
+          local folder="$HOME/.dotfiles/spicetify/Themes/$theme"
 
           Log "Installo il tema $(Highlight "$theme") per Spicetify."
 

@@ -19,7 +19,7 @@ function LinkDotfiles() {
 
   if [[ $? -eq 0 ]]; then
     local source_dir="$(pwd)"
-    local filter_file="${SETUP_HOME:-$HOME}/.dotfiles/setup/.setup-ignore-link"
+    local filter_file="$HOME/.dotfiles/setup/.setup-ignore-link"
 
     while getopts 's:f:h' opt; do
       case $opt in
@@ -60,8 +60,8 @@ function UnlinkDotfiles() {
   AssertExecutable "grep" "xargs" "find"
 
   if [[ $? -eq 0 ]]; then
-    local filter_file="${SETUP_HOME:-$HOME}/.dotfiles/setup/.setup-ignore-link"
-    local source_dir="${SETUP_HOME:-$HOME}/.dotfiles"
+    local filter_file="$HOME/.dotfiles/setup/.setup-ignore-link"
+    local source_dir="$HOME/.dotfiles"
 
     while getopts 'd:f:h' opt; do
       case ${opt} in

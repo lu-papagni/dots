@@ -16,14 +16,18 @@ readonly __DEFINE_PACKAGEINST
 # Compila ed installa i pacchetti della AUR senza `yay` durante un'installazione automatica
 function BuildAurAsRoot() {
   local directory="/tmp"
+  local tobuild=()
 
-  while getopts 'u:h' opt; do
+  while getopts 'u:p:h' opt; do
     case "$opt" in
     u)
-      if [[ -z "$OPTARG" ]]; then
+      if [[ -n "$OPTARG" ]]; then
         directory="/home/$OPTARG/.cache/yay"
         mkdir -p "$directory"
       fi
+      ;;
+    p)
+      tobuild+=("$OPTARG")
       ;;
     h)
       echo "Permette di installare i pacchetti della AUR quando si è root senza triggerare l'errore di makepkg."
@@ -36,10 +40,10 @@ function BuildAurAsRoot() {
 
   AssertExecutable "git" "makepkg" "pacman"
 
-  if [[ $? -eq 0 ]]; then
+  if [[ $? -eq 0 && -r "$directory" ]]; then
     echo "nobody ALL = (root) NOPASSWD: $(command -v pacman)" >/etc/sudoers.d/nobody
 
-    for pkg in "$@"; do
+    for pkg in "${tobuild[@]}"; do
       git clone "https://aur.archlinux.org/$pkg.git" "$directory/$pkg"
       chown -R nobody "$directory/$pkg"
       (
@@ -59,13 +63,13 @@ function InstallPackages() {
   AssertExecutable "sed" "head" "tail"
 
   if [[ $? -eq 0 ]]; then
-    local src_dir="${SETUP_HOME:-$HOME}/.dotfiles/sources"
+    local -r src_dir="$HOME/.dotfiles/sources"
     local sources=()
 
     while getopts 's:h' opt; do
       case "$opt" in
       s)
-        sources+=($OPTARG)
+        sources+=("$OPTARG")
         ;;
       h)
         echo "Installa i pacchetti presenti nelle liste specificate.\n"
@@ -156,9 +160,9 @@ function InstallPackages() {
     done # Fine parsing
 
     # Se KDE deve essere configurato
-    if [[ -n "$SETUP_KONSAVE_PROFILE" && -r "konsave/profiles/$SETUP_KONSAVE_PROFILE" ]]; then
+    if [[ -n "$SETUP_KONSAVE_PROFILE" && -r "$HOME/.dotfiles/konsave/profiles/$SETUP_KONSAVE_PROFILE" ]]; then
       Log "Caricamento profilo $(Highlight "$SETUP_KONSAVE_PROFILE")..."
-      AssertExecutable "konsave" && konsave -a "konsave/profiles/$SETUP_KONSAVE_PROFILE"
+      AssertExecutable "konsave" && konsave -a "$HOME/konsave/profiles/$SETUP_KONSAVE_PROFILE"
     fi
 
     Log "... fine installazione pacchetti."

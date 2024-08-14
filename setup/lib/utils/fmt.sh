@@ -26,7 +26,7 @@ function Log() {
   local msg
   local pre
 
-  if [[ ! -v SETUP_OUTPUT_OFF ]]; then
+  if [[ $SETUP_OUTPUT_OFF -eq 1 ]]; then
     case "$1" in
     -e | --error)
       msg="$2"

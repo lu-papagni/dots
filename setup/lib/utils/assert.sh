@@ -10,7 +10,7 @@ function AssertExecutable() {
   local -r caller="${FUNCNAME[1]:-${funcstack[2]}}"
 
   for package in "$@"; do
-    if [[ -z "$(command -v "$package")" ]]; then
+    if ! command -v "$package" &>/dev/null; then
       Log --error "Nella funzione $__FMT_RED$caller$__FMT_OFF: comando richiesto $__FMT_GREEN$package$__FMT_OFF non disponibile."
       ((count += 1))
     fi
