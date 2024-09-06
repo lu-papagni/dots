@@ -13,6 +13,10 @@ fi
 export PATH=$PATH:/home/luca/.spicetify
 export EDITOR="nvim"
 
+## java
+export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
+export PATH="$JAVA_HOME/bin:$PATH"
+
 ## man
 export LESS_TERMCAP_mb=$'\e[1;34m'     # begin bold
 export LESS_TERMCAP_md=$'\e[1;33m'     # begin blink
