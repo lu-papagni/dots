@@ -1,4 +1,4 @@
 [submodule "nvim"]
 	path = nvim
 	url = https://github.com/lu-papagni/nvim-config.git
-  branch = lazyvim
+  branch = minimal
