@@ -35,6 +35,12 @@ export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share/}/zinit/zinit.git"
 export BAT_THEME="base16"
 
 # Alias
+function vencord() {
+  local url="https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh" 
+  local script="$(mktemp)"
+  curl -sS --progress-bar "$url" > "$script"
+  sh "$script"
+}
 alias ls="/usr/bin/lsd"
 alias ll="ls -la"
 alias la="ls -A"
