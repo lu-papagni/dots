@@ -1,7 +1,5 @@
 CompileFlags:
-  Add: [-Wall, -Wextra, -resource-dir=, -I/usr/include]
-  Remove: [-resource-dir=]
-  Compiler: gcc
+  Add: [-Wall, -Wextra]
 ---
 InlayHints:
   Enabled: Yes
@@ -16,6 +14,7 @@ If:
 CompileFlags:
   Remove: [-std]
   Add: [-xc, -std=c11]
+  Compiler: gcc
 ---
 If:
   PathMatch: [.*\.cpp, .*\.hpp]
