@@ -13,3 +13,6 @@ spicetify/*
 # onedrive
 onedrive/*
 !onedrive/config
+
+# systemd
+systemd/*/*.wants
