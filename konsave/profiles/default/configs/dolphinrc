@@ -1,0 +1,27 @@
+MenuBar=Disabled
+
+[General]
+AutoExpandFolders=true
+BrowseThroughArchives=true
+ConfirmClosingMultipleTabs=false
+GlobalViewProps=false
+RememberOpenedTabs=false
+ShowSelectionToggle=false
+ShowSpaceInfo=false
+ShowZoomSlider=false
+Version=202
+ViewPropsTimestamp=2024,5,10,17,33,3.118
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Disabled
+
+[PreviewSettings]
+Plugins=appimagethumbnail,directorythumbnail,opendocumentthumbnail,kraorathumbnail,ebookthumbnail,windowsexethumbnail,audiothumbnail,blenderthumbnail,fontthumbnail,cursorthumbnail,djvuthumbnail,rawthumbnail,mobithumbnail,gsthumbnail,ffmpegthumbs,comicbookthumbnail,imagethumbnail,windowsimagethumbnail,exrthumbnail,jpegthumbnail,svgthumbnail
+
+[Search]
+Location=Everywhere

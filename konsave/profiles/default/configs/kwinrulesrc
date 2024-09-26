@@ -1,0 +1,17 @@
+[76e7e64d-76e1-4003-a046-7868878990b8]
+Description=Finestre trasparenti
+opacityactive=90
+opacityactiverule=2
+wmclass=^(?!.*(kitty|Brave-browser))
+wmclassmatch=3
+
+[7ee40ba2-dc36-4d01-b90a-fd1c69f7321d]
+Description=Finestre trasparenti
+opacityactive=90
+opacityactiverule=1
+wmclass=^(?!(kitty|vlc|Brave-browser|Stardew Valley|firefox|discord|org.kde.gwenview)$)(\\w*)
+wmclassmatch=3
+
+[General]
+count=1
+rules=7ee40ba2-dc36-4d01-b90a-fd1c69f7321d
