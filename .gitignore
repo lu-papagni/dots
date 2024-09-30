@@ -19,3 +19,6 @@ onedrive/*
 
 # systemd
 systemd/*/*.wants
+
+# rclone
+rclone/*.conf
