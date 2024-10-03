@@ -1,0 +1,17 @@
+[Unit]
+Description=Start easyeffects in the background
+StartLimitBurst=5
+StartLimitInterval=300
+
+[Service]
+Type=simple
+Environment="PATH=/bin:/usr/bin"
+ExecStart=/usr/bin/easyeffects -l ThinkPad_T14G3 --gapplication-service
+ExecStop=/usr/bin/easyeffects -q
+Restart=on-failure
+RestartSec=5
+KillMode=mixed
+StandardOutput=journal
+
+[Install]
+WantedBy=default.target
