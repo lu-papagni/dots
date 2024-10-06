@@ -2,7 +2,7 @@ function _FetchSysInfo() {
   /usr/bin/fastfetch -c "$HOME/.config/fastfetch/$1.jsonc"
 }
 
-_FetchSysInfo "small.image"
+_FetchSysInfo "small.ascii"
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
