@@ -4,30 +4,46 @@
     "type": "small",
     "height": 7
   },
+  "display": {
+    "hideCursor": true,
+    "separator": " \uF0DA ",
+    "color": {
+      "title": "red",
+      "keys": "magenta",
+      "separator": "dim_white"
+    },
+  },
   "modules": [
     "title",
-    "separator",
     {
-      "type" : "datetime",
-      "key" : "\uf455  Data",
-      "format" : "{11} {6} - {14}:{18}"
+      // separatore
+      "type": "custom",
+      "format": "───────────────",
+      "outputColor": "dim_white"
+    },
+    {
+      "type" : "packages",
+      "key" : "\uF487 ",
     },
     {
       "type" : "uptime",
-      "key" : "\uf021  Uptime",
+      "key" : "\uF017 ",
       "format" : "{2}h {3}m"
     },
     {
       "type" : "memory",
-      "key" : "\uefc5  Memoria",
+      "key" : "\uefc5 ",
       "format" : "{1} ({3})"
     },
     {
       "type" : "battery",
-      "key" : "\uf241  Batteria",
+      "key" : "\uf241 ",
       "format" : "{4}",
     },
     "break",
-    "break",
+    {
+      "type": "colors",
+      "symbol": "circle"
+    },
   ]
 }
