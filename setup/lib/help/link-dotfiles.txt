@@ -1,3 +1,0 @@
--d | <directory_fonte> | La directory che contiene gli elementi da linkare. NB: la destinazione e' `~/.config`.
--f | <file_filtro> | Specifica un file contenente regole per ignorare specifici file e directory.
-|| Usa solo espressioni regolari semplici.

@@ -1,4 +1,0 @@
--s | <shell> | Il nome della shell che si vuole configurare.
--p | <plugin_manager> | Nome del plugin manager che gestirà la shell.
-|| Valori possibili: zinit, omz
--u | [utente] | Nome utente per cui è necessario modificare la shell.

@@ -1,5 +1,0 @@
--u | <nome_utente> | Specifica l'utente in modo da salvare i file di compilazione
-|| nella directory `/home/<nome_utente>/.cache/yay`. In questo modo potranno essere usati
-|| da `yay` in un secondo momento.
-|| Come default, la funzione salva i file in `/tmp`.
--h || Mostra questo messaggio.

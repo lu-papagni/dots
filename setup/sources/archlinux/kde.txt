@@ -1,8 +1,0 @@
-!yay
-kwin-effects-forceblur
-kwin-scripts-krohnkite-git
-klassy
-ksshaskpass
-kwalletmanager
-kwin-effect-rounded-corners-git
-konsave
