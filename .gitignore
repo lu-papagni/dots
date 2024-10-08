@@ -2,7 +2,8 @@
 .directory
 
 # kitty terminal
-kitty.conf.bak
+kitty/*.conf.bak
+kitty/current-theme.conf
 
 # nvim
 lazy-lock.json
