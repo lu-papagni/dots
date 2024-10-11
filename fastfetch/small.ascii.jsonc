@@ -6,11 +6,11 @@
   },
   "display": {
     "hideCursor": true,
-    "separator": " \uF0DA ",
+    "separator": " ➜  ",
     "color": {
       "title": "red",
       "keys": "magenta",
-      "separator": "dim_white"
+      "separator": "cyan"
     },
   },
   "modules": [
