@@ -1,0 +1,6 @@
+[user]
+	email = papagniluca4@gmail.com
+	name = lu-papagni
+[credential]
+	helper = cache --timeout 21600
+	helper = oauth
