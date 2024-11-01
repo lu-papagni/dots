@@ -203,5 +203,6 @@
   <Action name="view_zoom_in" priority="0"/>
   <Action name="view_zoom_out" priority="0"/>
   <Action name="view_zoom_reset" priority="0"/>
+  <Action name="view_redisplay" priority="0"/>
  </ActionProperties>
 </gui>

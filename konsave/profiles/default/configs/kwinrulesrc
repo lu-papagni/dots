@@ -13,5 +13,13 @@ wmclass=^(?!(kitty|vlc|Brave-browser|Stardew Valley|firefox|discord|org.kde.gwen
 wmclassmatch=3
 
 [General]
-count=1
-rules=7ee40ba2-dc36-4d01-b90a-fd1c69f7321d
+count=2
+rules=7ee40ba2-dc36-4d01-b90a-fd1c69f7321d,bd041af1-7f3d-4c5a-b59c-f3276e5a8d50
+
+[bd041af1-7f3d-4c5a-b59c-f3276e5a8d50]
+Description=Barra degli strumenti scura
+decocolor=BreezeDark
+decocolorrule=2
+types=1
+wmclass=kitty
+wmclassmatch=1

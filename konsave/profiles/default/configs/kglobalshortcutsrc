@@ -1,12 +1,13 @@
 [ActivityManager]
 _k_friendly_name=Gestore delle attività
+switch-to-activity-013169d6-470e-4e6d-920e-32dc5ca3ea10=none,none,Passa all'attività «Predefinita»
 switch-to-activity-233515cf-f1da-41cd-bb4f-842504173b99=none,none,Passa all'attività «Predefinita»
 
 [KDE Keyboard Layout Switcher]
 Switch keyboard layout to Inglese (USA)=none,none,Cambia la mappatura della tastiera in Inglese (USA)
 Switch keyboard layout to Inglese (USA, intl., con tasti muti)=none,none,Cambia la mappatura della tastiera in Inglese (USA\\, intl.\\, con tasti muti)
 Switch to Last-Used Keyboard Layout=Meta+Alt+L,Meta+Alt+L,Passa all'ultima mappatura di tastiera utilizzata
-Switch to Next Keyboard Layout=Meta+Alt+K,Meta+Alt+K,Passa alla mappatura di tastiera successiva
+Switch to Next Keyboard Layout=Meta+Space,Meta+Alt+K,Passa alla mappatura di tastiera successiva
 _k_friendly_name=Selettore di mappature della tastiera
 
 [kaccess]
@@ -32,14 +33,14 @@ mute=Volume Mute,Volume Mute,Silenzia
 
 [ksmserver]
 Halt Without Confirmation=none,,Spegnimento senza conferma
-Lock Session=Meta+Shift+L\tScreensaver,Meta+L\tScreensaver,Blocca sessione
-Log Out=Ctrl+Alt+Del,Ctrl+Alt+Del,Mostra richiesta di chiusura della sessione
+Lock Session=Meta+Shift+L\tScreensaver,Meta+L\tScreensaver,Lock Session
+Log Out=Ctrl+Alt+Del,Ctrl+Alt+Del,Mostra la schermata di chiusura della sessione
 Log Out Without Confirmation=none,,Uscita senza conferma
 LogOut=none,,Disconnetti
 Reboot=none,,Riavvia
 Reboot Without Confirmation=none,,Riavvio senza conferma
 Shut Down=none,,Spegni
-_k_friendly_name=Gestione della sessione
+_k_friendly_name=Session Management
 
 [kwin]
 Activate Window Demanding Attention=Meta+Ctrl+A,Meta+Ctrl+A,Attiva la finestra che chiede attenzione
@@ -276,7 +277,7 @@ PowerOff=Power Off,Power Off,Spegni
 Sleep=Sleep,Sleep,Sospendi
 Toggle Keyboard Backlight=Keyboard Light On/Off,Keyboard Light On/Off,Attiva retroilluminazione tastiera
 Turn Off Screen=none,none,Spegni lo schermo
-_k_friendly_name=Il Sistema di Gestione Energetica per KDE
+_k_friendly_name=Gestione energetica
 powerProfile=Battery\tMeta+B,Battery\tMeta+B,Cambia il profilo energetico
 
 [plasmashell]
@@ -293,7 +294,7 @@ activate task manager entry 7=Meta+7,Meta+7,Attiva voce 7 del gestore dei proces
 activate task manager entry 8=Meta+8,Meta+8,Attiva voce 8 del gestore dei processi
 activate task manager entry 9=Meta+9,Meta+9,Attiva voce 9 del gestore dei processi
 activate widget 27=Meta+Ctrl+C,none,Attiva oggetto Selettore del colore
-activate widget 44=none,none,Attiva oggetto Avviatore di applicazioni
+activate widget 52=,none,Attiva oggetto Avviatore di applicazioni
 clear-history=none,,Ripulisci la cronologia degli appunti
 clipboard_action=Meta+Ctrl+X,Meta+Ctrl+X,Menu a comparsa delle azioni automatiche
 cycle-panels=Meta+Alt+P,Meta+Alt+P,Sposta il fuoco della tastiera tra i pannelli

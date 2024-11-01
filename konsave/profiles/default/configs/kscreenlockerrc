@@ -6,4 +6,4 @@ Image=/home/luca/Pictures/Sfondi/dark-side.png
 PreviewImage=/home/luca/Pictures/Sfondi/dark-side.png
 
 [Greeter][Wallpaper][org.kde.potd][General]
-Provider=flickr
+Provider=bing

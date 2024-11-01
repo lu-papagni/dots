@@ -1,6 +1,10 @@
 [Style]
 MenuOpacity=80
 
+[Windeco]
+ButtonSize=ButtonLarge
+TitleAlignment=AlignLeft
+
 [Windeco Exception 0]
 BorderSize=0
 Enabled=true

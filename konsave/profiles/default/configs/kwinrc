@@ -1,7 +1,12 @@
 [Desktops]
 Id_1=bc8a89da-5378-4818-854b-5841f43ace06
-Number=1
+Id_2=89efa894-8796-42b2-ba80-cc8fd98ea3f1
+Number=2
 Rows=1
+
+[Effect-blur]
+BlurStrength=13
+NoiseStrength=7
 
 [Effect-blurplus]
 BlurDecorations=true
@@ -28,6 +33,7 @@ DisableOutlineTile=false
 DisableRoundTile=false
 
 [Plugins]
+blurEnabled=true
 dimscreenEnabled=true
 krohnkiteEnabled=false
 kwin4_effect_shapecornersEnabled=false
@@ -90,6 +96,7 @@ RollOverDesktops=true
 Scale=1.25
 
 [org.kde.kdecoration2]
+ButtonsOnLeft=SM
 library=org.kde.klassy
 theme=Klassy
 
