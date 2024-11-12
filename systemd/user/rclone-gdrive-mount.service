@@ -10,7 +10,7 @@ StartLimitInterval=300
 # Type=forking si usa per i daemon
 Type=forking
 Environment="PATH=/bin:/usr/bin"
-ExecStart=/usr/bin/rclone mount gdrive: %h/GDrive --daemon --vfs-cache-mode full --vfs-cache-max-age 3d --vfs-cache-max-size 1G
+ExecStart=/usr/bin/rclone mount gdrive: %h/GDrive --daemon --vfs-cache-mode full --vfs-cache-max-age 7d --vfs-cache-max-size 1G
 ExecStop=/usr/bin/fusermount -u %h/GDrive
 Restart=on-failure
 RestartSec=5
