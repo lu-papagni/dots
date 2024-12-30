@@ -10,12 +10,15 @@ fi
 
 # Variabili d'ambiente
 ## Generali
-export PATH=$PATH:/home/luca/.spicetify
+PATH="$PATH:$HOME/.spicetify"
 export EDITOR="nvim"
 
-## java
-export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
-export PATH="$JAVA_HOME/bin:$PATH"
+## Java
+# export JAVA_HOME='/usr/lib/jvm/java-17-openjdk'
+# export PATH="$JAVA_HOME/bin:$PATH"
+
+## Moduli Python
+PATH="$PATH:$HOME/.local/bin"
 
 ## man
 export LESS_TERMCAP_mb=$'\e[1;34m'     # begin bold
@@ -34,10 +37,12 @@ export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share/}/zinit/zinit.git"
 ## bat pager
 export BAT_THEME="base16"
 
+export PATH
+
 # Alias
-function vencord() {
-  local url="https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh" 
-  local script="$(mktemp)"
+function vencord-install() {
+  local -r url="https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh" 
+  local -r script="$(mktemp)"
   curl -sS --progress-bar "$url" > "$script"
   sh "$script"
 }
