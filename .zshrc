@@ -2,8 +2,33 @@ function _FetchSysInfo() {
   /usr/bin/fastfetch -c "$HOME/.config/fastfetch/$1.jsonc"
 }
 
+function _IsWin32() {
+  grep -i 'microsoft' '/proc/sys/kernel/osrelease' > /dev/null
+  return $?
+}
+
+function _HardwareNameIs() {
+  local -r product='/sys/class/dmi/id/product_version'
+
+  if [[ -f "$product" && -n "$1" ]] then
+    if [[ $(cat "$product" | grep -ic "$1") -gt 0 ]] then
+      return 0
+    fi
+  fi
+
+  return 1
+}
+
+function _InstallRepairVencord() {
+  local -r url="https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh" 
+  local -r script="$(mktemp)"
+  curl -sS --progress-bar "$url" > "$script"
+  sh "$script"
+}
+
 _FetchSysInfo "small.ascii"
 
+# Avvia prompt istantaneo di powerlevel10k
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -39,22 +64,29 @@ export BAT_THEME="base16"
 
 export PATH
 
+## WSL
+if _IsWin32; then
+  export WIN_HOME="/mnt/c/Users/$(whoami)"
+  export WIN_DOCUMENTS="$WIN_HOME/Documents"
+  export WIN_DOWNLOADS="$WIN_HOME/Downloads"
+fi
+
 # Alias
-function vencord-install() {
-  local -r url="https://raw.githubusercontent.com/Vendicated/VencordInstaller/main/install.sh" 
-  local -r script="$(mktemp)"
-  curl -sS --progress-bar "$url" > "$script"
-  sh "$script"
-}
 alias ls="/usr/bin/lsd"
 alias ll="ls -la"
 alias la="ls -A"
 alias tree="/usr/bin/lsd --tree"
 alias vim="nvim"
-alias prune-orphans="pacman -Qdtq | sudo pacman -Rns -"
+alias pacman-prune-orphans="pacman -Qdtq | sudo pacman -Rns -"
 alias rmhistory="cat /dev/null > ~/.zsh_history"
-if [[ $(cat '/sys/class/dmi/id/product_version' | grep -ic 'ThinkPad') ]] then
+alias vencord="_InstallRepairVencord"
+
+if _HardwareNameIs 'ThinkPad'; then
   alias fastfetch="_FetchSysInfo thinkpad-big"
+fi
+
+if _IsWin32; then
+  command -v 'batcat' > /dev/null && alias bat='batcat'
 fi
 
 # zinit
@@ -72,7 +104,6 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k    # Prompt
 zinit light zsh-users/zsh-syntax-highlighting           # Evidenzia sintassi dei comandi
 zinit light zsh-users/zsh-completions                   # Suggerimenti
 zinit light zsh-users/zsh-autosuggestions               # Autocompletamento
-zinit light Aloxaf/fzf-tab                              # Usa fzf con i suggerimenti
 zinit snippet OMZP::sudo                                # Premi ESC x2 per inserire sudo all'inizio
 zinit snippet OMZP::command-not-found                   # Se provi ad eseguire un programma che non
                                                         # esiste suggerisce di installarlo
