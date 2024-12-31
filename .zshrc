@@ -104,6 +104,7 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k    # Prompt
 zinit light zsh-users/zsh-syntax-highlighting           # Evidenzia sintassi dei comandi
 zinit light zsh-users/zsh-completions                   # Suggerimenti
 zinit light zsh-users/zsh-autosuggestions               # Autocompletamento
+zinit light Aloxaf/fzf-tab                              # Filtra i suggerimenti con fzf
 zinit snippet OMZP::sudo                                # Premi ESC x2 per inserire sudo all'inizio
 zinit snippet OMZP::command-not-found                   # Se provi ad eseguire un programma che non
                                                         # esiste suggerisce di installarlo
