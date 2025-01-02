@@ -26,6 +26,11 @@ function _InstallRepairVencord() {
   sh "$script"
 }
 
+function _InstallNeovimDeb() {
+  local -r url='https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz'
+  curl -sL "$url" | sudo tar -xzf - --strip-components=1 --overwrite -C /usr
+}
+
 _FetchSysInfo "small.ascii"
 
 # Avvia prompt istantaneo di powerlevel10k
@@ -57,7 +62,7 @@ export GROFF_NO_SGR=1                  # for konsole and gnome-terminal
 export MANPAGER='less -siM +Gg'
 
 ## zinit
-export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share/}/zinit/zinit.git"
+export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
 ## bat pager
 export BAT_THEME="base16"
@@ -79,7 +84,8 @@ alias tree="/usr/bin/lsd --tree"
 alias vim="nvim"
 alias pacman-prune-orphans="pacman -Qdtq | sudo pacman -Rns -"
 alias rmhistory="cat /dev/null > ~/.zsh_history"
-alias vencord="_InstallRepairVencord"
+alias vencord='_InstallRepairVencord'
+alias deb-install-vim='_InstallNeovimDeb'
 
 if _HardwareNameIs 'ThinkPad'; then
   alias fastfetch="_FetchSysInfo thinkpad-big"
