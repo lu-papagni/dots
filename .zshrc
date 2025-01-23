@@ -149,6 +149,7 @@ bindkey '^k' history-search-backward
 bindkey '^j' history-search-forward
 
 # Inizializza fzf
+export FZF_DEFAULT_OPTS='--multi'
 eval "$(fzf --zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
