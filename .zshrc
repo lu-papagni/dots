@@ -27,8 +27,10 @@ function _InstallRepairVencord() {
 }
 
 function _InstallNeovimDeb() {
-  local -r url='https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz'
-  curl -sL "$url" | sudo tar -xzf - --strip-components=1 --overwrite -C /usr
+  local -r url='https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz'
+  local -r filename='/tmp/nvim.tar.gz'
+  curl -L "$url" -o "$filename"
+  sudo tar -xzf "$filename" --strip-components=1 --overwrite -C '/usr'
 }
 
 _FetchSysInfo "small.ascii"
