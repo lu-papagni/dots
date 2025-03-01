@@ -35,6 +35,11 @@ function _InstallNeovimDeb() {
 
 _FetchSysInfo "small.ascii"
 
+precmd() {
+  # Correggi il prompt che non lampeggia dopo alcuni comandi
+  printf '\x1b[ q'
+}
+
 # Avvia prompt istantaneo di powerlevel10k
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
