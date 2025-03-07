@@ -23,3 +23,6 @@ systemd/*/*.wants
 
 # rclone
 rclone/*.conf
+
+# zsh
+.zcompdump

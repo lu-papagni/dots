@@ -1,4 +1,4 @@
-source ~/zsh/utils.sh
+source "${ZDOTDIR}/utils.sh"
 
 if [[ -v WSLENV ]]; then
   precmd() {
@@ -15,8 +15,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source ~/zsh/env.sh       # Variabili d'ambiente
-source ~/zsh/aliases.sh   # Alias 
+source "${ZDOTDIR}/env.sh"       # Variabili d'ambiente
+source "${ZDOTDIR}/aliases.sh"   # Alias 
 
 # zinit
 ## Scarica zinit se non è già installato
