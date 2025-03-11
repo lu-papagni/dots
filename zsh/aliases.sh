@@ -21,6 +21,8 @@ alias pacman-prune-orphans="pacman -Qdtq | sudo pacman -Rns -"
 alias rmhistory="cat /dev/null > ~/.zsh_history"
 alias vencord='_InstallRepairVencord'
 alias vim-update-deb='_InstallNeovimDeb'
+alias reload="source ${ZDOTDIR:-$HOME}/.zshrc"
+alias zsh-config="$EDITOR ${ZDOTDIR:-$HOME/.zshrc}"
 
 if _GetComputerModel 'ThinkPad'; then
   alias fastfetch="_FetchSysInfo thinkpad-big"
