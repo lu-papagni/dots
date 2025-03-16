@@ -10,3 +10,5 @@
 	conflictstyle = diff3
 [core]
 	editor = nvim --cmd \"let g:git_editor=1\"
+[init]
+	defaultBranch = main
