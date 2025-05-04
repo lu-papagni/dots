@@ -12,22 +12,23 @@ function _InstallNeovimDeb() {
   sudo tar -xzf "$filename" --strip-components=1 --overwrite -C '/usr'
 }
 
-alias ls="/usr/bin/lsd"
-alias ll="ls -la"
-alias la="ls -A"
-alias tree="/usr/bin/lsd --tree"
-alias vim="nvim"
-alias pacman-prune-orphans="pacman -Qdtq | sudo pacman -Rns -"
-alias rmhistory="cat /dev/null > ~/.zsh_history"
+alias ls='/usr/bin/lsd'
+alias ll='ls -la'
+alias la='ls -A'
+alias tree='/usr/bin/lsd --tree'
+alias vim='nvim'
+alias pacman-prune-orphans='pacman -Qdtq | sudo pacman -Rns -'
+alias history-clear='cat /dev/null > ~/.zsh_history'
 alias vencord='_InstallRepairVencord'
 alias vim-update-deb='_InstallNeovimDeb'
-alias reload="source ${ZDOTDIR:-$HOME}/.zshrc"
+alias zsh-reload="source ${ZDOTDIR:-$HOME}/.zshrc"
 alias zsh-config="$EDITOR ${ZDOTDIR:-$HOME/.zshrc}"
 
 if _GetComputerModel 'ThinkPad'; then
   alias fastfetch="_FetchSysInfo thinkpad-big"
 fi
 
+# Alias specifici per Debian
 if [[ $(grep -ic 'debian' '/etc/issue') -ge 1 ]]; then
   alias bat='batcat'
 fi

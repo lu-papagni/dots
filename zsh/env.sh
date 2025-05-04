@@ -10,6 +10,9 @@ PATH="$PATH:$HOME/.local/bin"
 # Spicetify
 PATH="$PATH:$HOME/.spicetify"
 
+# NeoVim via bob
+PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
+
 ## man
 export LESS_TERMCAP_mb=$'\e[1;34m'     # begin bold
 export LESS_TERMCAP_md=$'\e[1;33m'     # begin blink
