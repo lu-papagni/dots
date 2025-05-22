@@ -7,11 +7,12 @@ if [[ -v WSLENV ]]; then
   }
 fi
 
-_FetchSysInfo 'small.ascii'
+__fetch_system_info 'small.ascii'
 
 # Avvia prompt istantaneo di powerlevel10k
 # NOTE: mantenere vicino all'inizio del file 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]];
+then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
