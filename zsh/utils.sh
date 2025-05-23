@@ -8,7 +8,7 @@ function __fetch_system_info() {
 
   [[ -n "$fetch_cmd" && -n "$1" ]] || return -1
 
-  eval $fetch_cmd -c "${XDG_CONFIG_HOME}/${fetch_cmd##*/}/${1}.jsonc"
+  eval "$fetch_cmd" -c "${XDG_CONFIG_HOME}/${fetch_cmd##*/}/${1}.jsonc"
 }
 
 # Ottiene il nome del modello di PC in uso.
@@ -19,7 +19,8 @@ function __get_computer_model() {
 
   if [[ -v WSLENV ]]; then
     # Windows
-    model="$(wmic.exe csproduct get version | tail -n 2)"
+    local pwsh_version_cmd='(Get-CimInstance -ClassName Win32_ComputerSystemProduct).Version'
+    model="$(pwsh.exe -NoProfile -NonInteractive -NoLogo -Command "$pwsh_version_cmd")"
   else
     # UNIX
     model="$(cat /sys/class/dmi/id/product_version)"
