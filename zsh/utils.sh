@@ -19,8 +19,16 @@ function __get_computer_model() {
 
   if [[ -v WSLENV ]]; then
     # Windows
-    local pwsh_version_cmd='(Get-CimInstance -ClassName Win32_ComputerSystemProduct).Version'
-    model="$(pwsh.exe -NoProfile -NonInteractive -NoLogo -Command "$pwsh_version_cmd")"
+    local pwsh=
+    local -r pwsh_version_cmd='(Get-CimInstance -ClassName Win32_ComputerSystemProduct).Version'
+
+    if command -v pwsh.exe &> /dev/null; then
+      pwsh='pwsh.exe'
+    else
+      pwsh='powershell.exe'
+    fi
+
+    model="$("$pwsh" -NoProfile -NonInteractive -NoLogo -Command "$pwsh_version_cmd")"
   else
     # UNIX
     model="$(cat /sys/class/dmi/id/product_version)"
