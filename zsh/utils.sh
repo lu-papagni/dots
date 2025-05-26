@@ -31,7 +31,8 @@ function __get_computer_model() {
     model="$("$pwsh" -NoProfile -NonInteractive -NoLogo -Command "$pwsh_version_cmd")"
   else
     # UNIX
-    model="$(cat /sys/class/dmi/id/product_version)"
+    local -r product_info='/sys/class/dmi/id/product_version'
+    [[ -r "$product_info" ]] && model="$(cat "$product_info")"
   fi
 
   # Il modello cercato è presente
@@ -45,6 +46,7 @@ function __get_computer_model() {
 # Parametri:
 # 1) Nome da verificare
 function __get_os_name() {
+  [[ -r '/etc/issue' ]] || return -1
   [[ $(grep -ic "$1" '/etc/issue') -ge 1 ]]
 
   return $?
