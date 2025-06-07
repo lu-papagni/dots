@@ -4,6 +4,9 @@ if [[ -v WSLENV ]]; then
   precmd() {
     # Correggi il prompt che non lampeggia dopo alcuni comandi
     printf '\x1b[ q'
+
+    # Visualizza utente e directory come titolo
+    printf '\x1b]0;%s@%s\a' "$USER" "${PWD/#$HOME/~}"
   }
 fi
 
