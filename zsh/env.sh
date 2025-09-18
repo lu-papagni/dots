@@ -5,13 +5,7 @@ export EDITOR='nvim'
 # export PATH="$JAVA_HOME/bin:$PATH"
 
 # Moduli Python
-PATH="$PATH:$HOME/.local/bin"
-
-# Spicetify
-PATH="$PATH:$HOME/.spicetify"
-
-# NeoVim via bob
-PATH="$PATH:$HOME/.local/share/bob/nvim-bin"
+PATH="$PATH:$HOME/.local/bin:$HOME/.spicetify:$HOME/.local/share/bob/nvim-bin"
 
 ## man
 export LESS_TERMCAP_mb=$'\e[1;34m'     # begin bold

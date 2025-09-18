@@ -3,14 +3,44 @@ source "${ZDOTDIR}/utils.sh"
 if [[ -v WSLENV ]]; then
   precmd() {
     # Correggi il prompt che non lampeggia dopo alcuni comandi
-    printf '\x1b[ q'
+    printf '\e[?12h\e[?25h\e[5 q'
 
     # Visualizza utente e directory come titolo
-    printf '\x1b]0;%s@%s\a' "$USER" "${PWD/#$HOME/~}"
+    # printf '\x1b]0;%s@%s\a' "$USER" "${PWD/#$HOME/~}"
   }
+
+  # Cambia stile del cursore in base alla modalità vi
+  # NOTE: utile quando il terminale non supporta integrazione con la shell
+  zle-keymap-select () {
+    case $KEYMAP in
+      vicmd)
+        # Blocco fisso
+        printf '\e[2 q'
+        ;;
+      viins|main)
+        # Linea lampeggiante
+        printf '\e[5 q'
+        ;;
+    esac
+  }
+  zle -N zle-keymap-select
+  
+  my-vi-replace-char() {
+    # 1. Cambia il cursore in underscore per la durata del comando
+    printf '\e[4 q'
+  
+    # 2. Esegui la funzione originale di Zsh per la sostituzione di un carattere
+    zle vi-replace-chars "$@"
+  
+    # 3. Ripristina immediatamente il cursore a blocco della modalità comando
+    printf '\e[2 q'
+  }
+  zle -N my-vi-replace-char
+  bindkey -M vicmd r my-vi-replace-char
 fi
 
-__fetch_system_info 'small.ascii'
+# Mostra il meteo attuale
+[[ -x ~/.local/bin/wttrin ]] && ~/.local/bin/wttrin 
 
 # Avvia prompt istantaneo di powerlevel10k
 # NOTE: mantenere vicino all'inizio del file 
