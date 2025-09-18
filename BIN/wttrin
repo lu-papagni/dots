@@ -1,0 +1,112 @@
+#!/bin/sh
+
+# ==============================================================================
+#  Descrizione:
+#  Recupera le previsioni meteo da wttr.in e le memorizza in una cache
+#  temporanea. Lo script evita di effettuare richieste ripetute mostrando
+#  il contenuto della cache se questa è sufficientemente recente.
+#
+#  Uso:
+#  ./meteo.sh [-l LINGUA] [-t MINUTI]
+#
+#  Opzioni:
+#    -l LINGUA      Imposta la lingua per l'output (es: it, en, es).
+#                   Default: en.
+#    -t MINUTI      Imposta la durata della cache in minuti.
+#                   Default: 30.
+#    -h             Mostra questo messaggio di aiuto.
+# ==============================================================================
+
+# --- Impostazioni Predefinite ---
+DEFAULT_LANG="en"
+DEFAULT_CACHE_MINUTES=30
+
+# --- Funzioni ---
+
+# Mostra le istruzioni d'uso ed esce
+usage() {
+    echo "Uso: $(basename "$0") [-l LINGUA] [-t MINUTI]"
+    echo "  -l: Codice lingua (es: it, en, fr). Default: ${DEFAULT_LANG}"
+    echo "  -t: Durata della cache in minuti. Default: ${DEFAULT_CACHE_MINUTES}"
+    exit 1
+}
+
+# Controlla la presenza di comandi richiesti
+check_dependencies() {
+    if ! command -v curl >/dev/null 2>&1; then
+        echo "Errore: Il comando 'curl' è necessario ma non è installato." >&2
+        exit 1
+    fi
+}
+
+# Recupera le informazioni meteo e le salva nella cache
+fetch_weather() {
+    # Il flag -s per curl esegue l'operazione in modalità silenziosa
+    curl -s "http://wttr.in?lang=${LANGUAGE}&0npq" > "${CACHE_FILE}"
+}
+
+# --- Script Principale ---
+
+# Controlla le dipendenze
+check_dependencies
+
+# Imposta i valori di default
+LANGUAGE="${DEFAULT_LANG}"
+CACHE_MINUTES="${DEFAULT_CACHE_MINUTES}"
+
+# Analizza le opzioni passate allo script
+while getopts "l:t:h" opt; do
+    case "${opt}" in
+        l)
+            LANGUAGE="${OPTARG}"
+            ;;
+        t)
+            # Validazione di base per assicurarsi che il tempo sia un numero intero
+            case "${OPTARG}" in
+                ''|*[!0-9]*)
+                    echo "Errore: Il tempo deve essere un numero intero positivo." >&2
+                    usage
+                    ;;
+                *)
+                    CACHE_MINUTES="${OPTARG}"
+                    ;;
+            esac
+            ;;
+        h|*)
+            usage
+            ;;
+    esac
+done
+
+# Definisce un percorso univoco per il file di cache basato su ID utente e lingua
+# per evitare conflitti tra diversi utenti o lingue.
+CACHE_FILE="/tmp/meteo_cache_$(id -u)_${LANGUAGE}"
+
+# Determina se è necessario aggiornare la cache
+UPDATE_CACHE=1 # 1 = falso (in logica di shell), 0 = vero
+
+# Controlla se il file di cache esiste, non è vuoto e non è troppo vecchio.
+# L'opzione -s di test verifica che il file esista e abbia una dimensione maggiore di zero.
+if [ -s "${CACHE_FILE}" ]; then
+    # `find` con `-mmin -N` cerca file modificati negli ultimi N minuti.
+    # Se il comando trova il file, significa che la cache è ancora valida.
+    if [ -n "$(find "${CACHE_FILE}" -mmin -"${CACHE_MINUTES}" 2>/dev/null)" ]; then
+        UPDATE_CACHE=0 # Cache valida, non aggiornare
+    fi
+fi
+
+# Se la cache deve essere aggiornata (perché non esiste, è vuota o è scaduta)
+if [ "${UPDATE_CACHE}" -eq 1 ]; then
+    fetch_weather
+fi
+
+# Infine, mostra il contenuto del file di cache.
+# Si controlla nuovamente che il file esista e non sia vuoto in caso di fallimento del download.
+if [ -s "${CACHE_FILE}" ]; then
+    cat "${CACHE_FILE}"
+else
+    echo "Errore: Impossibile recuperare i dati meteo." >&2
+    exit 1
+fi
+
+exit 0
