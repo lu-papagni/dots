@@ -108,5 +108,8 @@ bindkey '^j' history-search-forward
 # Inizializza fzf
 command -v 'fzf' > /dev/null && eval "$(fzf --zsh)"
 
+# Node version manager
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 # Carica il profilo del prompt
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
