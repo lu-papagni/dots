@@ -5,7 +5,7 @@ function __install_repair_vencord() {
   sh "$script"
 }
 
-alias ls='ls --color'
+alias ls='ls -p --color=auto'
 alias ll='ls -la'
 alias la='ls -A'
 # alias tree='/usr/bin/lsd --tree'
