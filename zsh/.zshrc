@@ -105,6 +105,9 @@ bindkey -v
 bindkey '^k' history-search-backward
 bindkey '^j' history-search-forward
 
+## Accetta completamento automatico
+bindkey '^ ' autosuggest-accept
+
 # Inizializza fzf
 command -v 'fzf' > /dev/null && eval "$(fzf --zsh)"
 
