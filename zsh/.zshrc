@@ -79,7 +79,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'  # Abilita case insensiti
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}" # Suggerimenti colorati
 zstyle ':completion:*' menu no
 zstyle ':completion:*:descriptions' format '[%d]'
-zstyle ':fzf-tab:complete:cd:*' fzf-preview "${$(command -v lsd):-$(command -v ls)} -A \$realpath"
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -1 -p -A --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-min-height 10
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 
 ### Autocompletamento
