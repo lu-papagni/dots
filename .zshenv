@@ -1,7 +1,11 @@
 export ZDOTDIR=~/.config/zsh
 export FETCH_TOOL=/usr/bin/fastfetch
 [[ -v XDG_CONFIG_HOME ]] || export XDG_CONFIG_HOME="$HOME/.config"
+
+# Node version manager
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
 export TMUX_TMPDIR=/tmp
 if [[ -v WSLENV ]]; then
   if [[ ! -L "$HOME/.local/bin/x-www-browser" ]]; then
