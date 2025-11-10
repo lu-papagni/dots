@@ -8,6 +8,9 @@
 	tool = nvimdiff
 	conflictstyle = diff3
 [core]
-	editor = nvim --cmd \"let g:git_editor=1\"
+	editor = nvim --cmd 'let g:git_editor=1'
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
 [init]
 	defaultBranch = main
