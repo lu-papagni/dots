@@ -8,7 +8,7 @@ function __install_repair_vencord() {
 alias ls='ls -p --color=auto'
 alias ll='ls -la'
 alias la='ls -A'
-# alias tree='/usr/bin/lsd --tree'
+alias opencode=~/.local/bin/opencode-wrapper
 alias vim='nvim'
 alias pacman-prune-orphans='pacman -Qdtq | sudo pacman -Rns -'
 alias history-clear='cat /dev/null > ~/.zsh_history'

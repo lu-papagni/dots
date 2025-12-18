@@ -1,0 +1,21 @@
+#!/bin/sh
+
+install_opencode() {
+	read choice
+	case "$choice" in
+		y) bun install -g opencode-ai@latest ;;
+		*) printf 'Canceled.\n'; exit 1 ;;
+	esac
+}
+
+if ! command -v opencode > /dev/null 2>&1; then
+	printf 'AI assistant unavaiable\n'
+	printf 'Do you want to install it? (y/n) '
+	install_opencode
+fi
+
+# Many systems don't allow executing *.so files from /tmp for security reasons
+# So I use my own custom directory instead
+LOCAL_TMPDIR=~/.local/share/opencode/tmp
+
+mkdir -p "$LOCAL_TMPDIR" && BUN_TMPDIR="$LOCAL_TMPDIR" opencode
