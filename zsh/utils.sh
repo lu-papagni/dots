@@ -40,14 +40,3 @@ function __get_computer_model() {
 
   return $?
 }
-
-# Verifica il nome del sistema Linux in uso
-#
-# Parametri:
-# 1) Nome da verificare
-function __get_os_name() {
-  [[ -r '/etc/issue' ]] || return -1
-  [[ $(grep -ic "$1" '/etc/issue') -ge 1 ]]
-
-  return $?
-}
