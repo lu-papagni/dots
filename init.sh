@@ -79,6 +79,7 @@ git -C "$DOTS_DIR/nvim" checkout experimental >/dev/null 2>&1
 plog "Importing settings"
 import "$DOTS_DIR" ~/.config nvim tmux btop clangd zsh
 import "$DOTS_DIR" ~ .p10k.zsh .zshenv .gitconfig
+mkdir -p ~/.local/bin && import "$DOTS_DIR" ~/.local/bin BIN/opencode-wrapper
 
 plog "Installing missing packages"
 if [ -d "$DOTS_DIR/PACKAGES" ]; then
