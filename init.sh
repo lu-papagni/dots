@@ -45,15 +45,18 @@ import() {
 	shift 2
 
 	for item in "$@"; do
-		existing="$dest/$item"
+		if [ -e "$src/$item" ]; then
+			# Detect and remove existing configuration
+			existing="$dest/$item"
+			if [ -e "$existing" ] && [ ! -L "$existing" ]; then
+				pwarn "Found conflicting config: $existing"
+				rm -rfI "$existing"
+			fi
 
-		# Detect and remove existing configuration
-		if [ -e "$existing" ] && [ ! -L "$existing" ]; then
-			pwarn "Found conflicting config: $existing"
-			rm -rfI "$existing"
+			ln -s "$src/$item" "$dest" 2>/dev/null || true
+		else
+			perror "Target $item does not exist in $src"
 		fi
-
-		ln -s "$src/$item" "$dest" 2>/dev/null || true
 	done
 }
 
