@@ -87,10 +87,17 @@ mkdir -p ~/.local/bin && import "$DOTS_DIR" ~/.local/bin BIN/opencode-wrapper
 if [ -n "$WSLENV" ]; then
 	plog "Performing WSL specific tasks"
 	if [ -r "${DOTS_DIR}/wsl/wsl.conf" ]; then
-		sudo rm /etc/wsl.conf
-		sudo ln -s "$DOTS_DIR/wsl/wsl.conf" /etc 
+		[ -f '/etc/wsl.conf' ] && sudo rm /etc/wsl.conf
+		sudo ln -sf "$DOTS_DIR/wsl/wsl.conf" /etc 
+	else
+		pwarn "No WSL config found in $DOTS_DIR"
 	fi
-	[ -r "${DOTS_DIR}/wsl/fstab" ] && sudo cat "${DOTS_DIR}/wsl/fstab" >> /etc/fstab
+
+	if [ -r "${DOTS_DIR}/wsl/fstab" ]; then
+		sudo cat "${DOTS_DIR}/wsl/fstab" >> /etc/fstab
+	else
+		pwarn "No custom fstab found in $DOTS_DIR"
+	fi
 fi
 
 plog "Installing missing packages"
