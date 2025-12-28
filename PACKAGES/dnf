@@ -1,7 +1,8 @@
-neovim
-fzf
 bat
-ripgrep
 docker
+fzf
+git-delta
 ncurses
+neovim
+ripgrep
 zsh
