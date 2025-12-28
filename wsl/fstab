@@ -1,0 +1,2 @@
+# Erase /tmp at shutdown
+tmpfs	/tmp	tmpfs	noexec,defaults,nodev,nosuid,noatime	size=256m	0	0

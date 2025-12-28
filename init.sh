@@ -44,6 +44,9 @@ import() {
 	dest="$2"
 	shift 2
 
+	# Allow only directories as target, so managing the link name isn't needed
+	[ -d "$dest" ] || return 1
+
 	for item in "$@"; do
 		if [ -e "$src/$item" ]; then
 			# Detect and remove existing configuration
@@ -80,6 +83,15 @@ plog "Importing settings"
 import "$DOTS_DIR" ~/.config nvim tmux btop clangd zsh
 import "$DOTS_DIR" ~ .p10k.zsh .zshenv .gitconfig
 mkdir -p ~/.local/bin && import "$DOTS_DIR" ~/.local/bin BIN/opencode-wrapper
+
+if [ -n "$WSLENV" ]; then
+	plog "Performing WSL specific tasks"
+	if [ -r "${DOTS_DIR}/wsl/wsl.conf" ]; then
+		sudo rm /etc/wsl.conf
+		sudo ln -s "$DOTS_DIR/wsl/wsl.conf" /etc 
+	fi
+	[ -r "${DOTS_DIR}/wsl/fstab" ] && sudo cat "${DOTS_DIR}/wsl/fstab" >> /etc/fstab
+fi
 
 plog "Installing missing packages"
 if [ -d "$DOTS_DIR/PACKAGES" ]; then
