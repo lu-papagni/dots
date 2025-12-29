@@ -87,7 +87,8 @@ wslconfig() {
 	fi
 	
 	if [ -r "${DOTS_DIR}/wsl/fstab" ]; then
-		sudo cat "${DOTS_DIR}/wsl/fstab" >> /etc/fstab
+		plog "Applying new fstab rules"
+		cat "${DOTS_DIR}/wsl/fstab" | sudo tee -a /etc/fstab
 	else
 		pwarn "No custom fstab found in $DOTS_DIR"
 	fi
@@ -122,6 +123,7 @@ if [ "${INIT_SH_SOURCED:-}" != "1" ]; then
 			plog "Performing WSL specific tasks"
 			wslconfig
 			;;
+		*) plog "WSL not detected. Skipping" ;;
 	esac
 
 	plog "Installing missing packages"
@@ -129,8 +131,8 @@ if [ "${INIT_SH_SOURCED:-}" != "1" ]; then
 		for config in "$DOTS_DIR"/PACKAGES/*; do
 			# Run only if that package manager is installed
 			command -v "$(basename "$config")" >/dev/null || continue
-			update "$config" || perror "$config" "Could not update system: you must be root!"
-			install "$config" || perror "$config" "Could not install: you must be root!"
+			update "$config" || perror "$config" "Could not update system"
+			install "$config" || perror "$config" "Could not install your packages"
 		done
 	else
 		pwarn "Skipping package installation: no packages to install"
