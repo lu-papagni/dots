@@ -36,16 +36,17 @@ update() {
 install() {
 	config="$1"
 	pacman="$(basename $config)"
+	install_cmd='install'
+	noconfirm='-y'
 
 	case "$pacman" in
-		*) install_cmd='install' ;;&
-		pacman|yay) install_cmd='-S --needed' ;;
+		pacman|yay) install_cmd='-S --needed'; noconfirm='--noconfirm' ;;
 		apt*) no_weak_deps='--no-install-recommends' ;;
 		dnf) no_weak_deps='--setopt=install_weak_deps=False' ;;
 		zypper) no_weak_deps='--no-recommends' ;;
 	esac
 
-	xargs sudo "$pacman" "$install_cmd" "${no_weak_deps:-}" < "$config"
+	xargs sudo "$pacman" "$install_cmd" "$noconfirm" "${no_weak_deps:-}" < "$config"
 }
 
 import() {
@@ -77,6 +78,21 @@ import() {
 	done
 }
 
+wslconfig() {
+	if [ -r "${DOTS_DIR}/wsl/wsl.conf" ]; then
+		[ -f '/etc/wsl.conf' ] && sudo rm /etc/wsl.conf
+		sudo ln -sf "$DOTS_DIR/wsl/wsl.conf" /etc 
+	else
+		pwarn "No WSL config found in $DOTS_DIR"
+	fi
+	
+	if [ -r "${DOTS_DIR}/wsl/fstab" ]; then
+		sudo cat "${DOTS_DIR}/wsl/fstab" >> /etc/fstab
+	else
+		pwarn "No custom fstab found in $DOTS_DIR"
+	fi
+}
+
 # Main script execution (skip if sourced for testing)
 if [ "${INIT_SH_SOURCED:-}" != "1" ]; then
 	if ! command -v git >/dev/null; then
@@ -100,21 +116,13 @@ if [ "${INIT_SH_SOURCED:-}" != "1" ]; then
 	import "$DOTS_DIR" ~ .p10k.zsh .zshenv .gitconfig
 	mkdir -p ~/.local/bin && import "$DOTS_DIR" ~/.local/bin BIN/opencode-wrapper
 
-	if [ -n "${WSLENV:-}" ]; then
-		plog "Performing WSL specific tasks"
-		if [ -r "${DOTS_DIR}/wsl/wsl.conf" ]; then
-			[ -f '/etc/wsl.conf' ] && sudo rm /etc/wsl.conf
-			sudo ln -sf "$DOTS_DIR/wsl/wsl.conf" /etc 
-		else
-			pwarn "No WSL config found in $DOTS_DIR"
-		fi
-
-		if [ -r "${DOTS_DIR}/wsl/fstab" ]; then
-			sudo cat "${DOTS_DIR}/wsl/fstab" >> /etc/fstab
-		else
-			pwarn "No custom fstab found in $DOTS_DIR"
-		fi
-	fi
+	# Check if running on WSL by reading the kernel release
+	case "$(uname -r)" in
+		*microsoft-*-WSL*)
+			plog "Performing WSL specific tasks"
+			wslconfig
+			;;
+	esac
 
 	plog "Installing missing packages"
 	if [ -d "$DOTS_DIR/PACKAGES" ]; then
