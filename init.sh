@@ -5,6 +5,14 @@ set -e -u
 plog() { printf '[INFO]\t%s\n' "$*"; }
 pwarn() { printf '[WARN]\t%s\n' "$*"; }
 perror() { printf '[FAIL]\t%s\n' "$*" >&2; }
+on_exit() {
+	last_exit=$?
+	if [ $last_exit -ne 0 ]; then
+		perror "Uncaught error $last_exit at line ${LINENO:-??}"
+	fi
+}
+
+trap on_exit EXIT
 
 update() {
 	config="$1"
@@ -61,7 +69,7 @@ import() {
 				fi
 			fi
 
-			ln -s "$src/$item" "$dest" 2>/dev/null || true
+			mkdir -p "$dest" && ln -s "$src/$item" "$dest" 2>/dev/null
 		else
 			perror "Target $item does not exist in $src"
 		fi
