@@ -7,12 +7,13 @@ pwarn() { printf '[WARN]\t%s\n' "$*"; }
 perror() { printf '[FAIL]\t%s\n' "$*" >&2; }
 on_exit() {
 	last_exit=$?
+	lineno="${1:-??}"
 	if [ $last_exit -ne 0 ]; then
-		perror "Uncaught error $last_exit at line ${LINENO:-??}"
+		perror "Uncaught error $last_exit at line $lineno"
 	fi
 }
 
-trap on_exit EXIT
+trap 'on_exit ${LINENO:-}' EXIT
 
 update() {
 	config="$1"
