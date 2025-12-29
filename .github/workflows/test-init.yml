@@ -1,0 +1,30 @@
+name: Test init.sh
+
+on:
+  push:
+    paths:
+      - 'init.sh'
+      - '_tests/init.bats'
+      - '.github/workflows/test-init.yml'
+  pull_request:
+    paths:
+      - 'init.sh'
+      - '_tests/init.bats'
+      - '.github/workflows/test-init.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup BATS
+        uses: bats-core/bats-action@3.0.0
+
+      - name: Run tests
+        run: bats _tests/init.bats

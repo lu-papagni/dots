@@ -53,7 +53,12 @@ import() {
 			existing="$dest/$item"
 			if [ -e "$existing" ] && [ ! -L "$existing" ]; then
 				pwarn "Found conflicting config: $existing"
-				rm -rfI "$existing"
+				# Use -I for interactive prompt unless FORCE_OVERWRITE is set (for testing)
+				if [ "${FORCE_OVERWRITE:-}" = "1" ]; then
+					rm -rf "$existing"
+				else
+					rm -rfI "$existing"
+				fi
 			fi
 
 			ln -s "$src/$item" "$dest" 2>/dev/null || true
@@ -63,52 +68,55 @@ import() {
 	done
 }
 
-if ! command -v git >/dev/null; then
-	perror "git is required to run $0"
-	exit 1
-fi
-
-readonly REPO='https://github.com/lu-papagni/dots.git'
-readonly DOTS_DIR="${1:-$HOME/.dotfiles}"
-
-plog "Checking out dotfiles"
-if ! [ -d "$DOTS_DIR" ]; then
-	git clone --recurse-submodules "$REPO" "$DOTS_DIR"
-fi
-
-# Bring nvim config to latest version
-git -C "$DOTS_DIR/nvim" checkout experimental >/dev/null 2>&1
-
-plog "Importing settings"
-import "$DOTS_DIR" ~/.config nvim tmux btop clangd zsh
-import "$DOTS_DIR" ~ .p10k.zsh .zshenv .gitconfig
-mkdir -p ~/.local/bin && import "$DOTS_DIR" ~/.local/bin BIN/opencode-wrapper
-
-if [ -n "$WSLENV" ]; then
-	plog "Performing WSL specific tasks"
-	if [ -r "${DOTS_DIR}/wsl/wsl.conf" ]; then
-		[ -f '/etc/wsl.conf' ] && sudo rm /etc/wsl.conf
-		sudo ln -sf "$DOTS_DIR/wsl/wsl.conf" /etc 
-	else
-		pwarn "No WSL config found in $DOTS_DIR"
+# Main script execution (skip if sourced for testing)
+if [ "${INIT_SH_SOURCED:-}" != "1" ]; then
+	if ! command -v git >/dev/null; then
+		perror "git is required to run $0"
+		exit 1
 	fi
 
-	if [ -r "${DOTS_DIR}/wsl/fstab" ]; then
-		sudo cat "${DOTS_DIR}/wsl/fstab" >> /etc/fstab
-	else
-		pwarn "No custom fstab found in $DOTS_DIR"
-	fi
-fi
+	readonly REPO='https://github.com/lu-papagni/dots.git'
+	readonly DOTS_DIR="${1:-$HOME/.dotfiles}"
 
-plog "Installing missing packages"
-if [ -d "$DOTS_DIR/PACKAGES" ]; then
-	for config in "$DOTS_DIR"/PACKAGES/*; do
-		# Run only if that package manager is installed
-		command -v "$(basename "$config")" >/dev/null || continue
-		update "$config" || perror "$config" "Could not update system: you must be root!"
-		install "$config" || perror "$config" "Could not install: you must be root!"
-	done
-else
-	pwarn "Skipping package installation: no packages to install"
+	plog "Checking out dotfiles"
+	if ! [ -d "$DOTS_DIR" ]; then
+		git clone --recurse-submodules "$REPO" "$DOTS_DIR"
+	fi
+
+	# Bring nvim config to latest version
+	git -C "$DOTS_DIR/nvim" checkout experimental >/dev/null 2>&1
+
+	plog "Importing settings"
+	import "$DOTS_DIR" ~/.config nvim tmux btop clangd zsh
+	import "$DOTS_DIR" ~ .p10k.zsh .zshenv .gitconfig
+	mkdir -p ~/.local/bin && import "$DOTS_DIR" ~/.local/bin BIN/opencode-wrapper
+
+	if [ -n "${WSLENV:-}" ]; then
+		plog "Performing WSL specific tasks"
+		if [ -r "${DOTS_DIR}/wsl/wsl.conf" ]; then
+			[ -f '/etc/wsl.conf' ] && sudo rm /etc/wsl.conf
+			sudo ln -sf "$DOTS_DIR/wsl/wsl.conf" /etc 
+		else
+			pwarn "No WSL config found in $DOTS_DIR"
+		fi
+
+		if [ -r "${DOTS_DIR}/wsl/fstab" ]; then
+			sudo cat "${DOTS_DIR}/wsl/fstab" >> /etc/fstab
+		else
+			pwarn "No custom fstab found in $DOTS_DIR"
+		fi
+	fi
+
+	plog "Installing missing packages"
+	if [ -d "$DOTS_DIR/PACKAGES" ]; then
+		for config in "$DOTS_DIR"/PACKAGES/*; do
+			# Run only if that package manager is installed
+			command -v "$(basename "$config")" >/dev/null || continue
+			update "$config" || perror "$config" "Could not update system: you must be root!"
+			install "$config" || perror "$config" "Could not install: you must be root!"
+		done
+	else
+		pwarn "Skipping package installation: no packages to install"
+	fi
 fi
 
