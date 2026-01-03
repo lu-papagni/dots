@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -u
+
+powershell='/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe'
+[ -x "$powershell" ] || exit 1
+"$powershell" -NoProfile -Command "Start-Process '$1'"

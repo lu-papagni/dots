@@ -41,14 +41,10 @@ export BAT_THEME='base16'
 export MANROFFOPT='-c'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export FZF_DEFAULT_OPTS='--multi'
-
-export PATH="$(printf '%s:' \
-	"$HOME/.local/bin" \
-	"$HOME/.spicetify" \
-	"$HOME/.local/share/bob/nvim-bin" \
-	"$HOME/.bun/bin" \
-	"$HOME/.cache/.bun/bin" \
-)${PATH}"
+export TMUX_TMPDIR=/tmp
+if [[ -x ~/.local/bin/wsl-browser ]]; then
+	export BROWSER=~/.local/bin/wsl-browser
+fi
 
 # Aliases
 alias gc='git commit'
@@ -62,10 +58,9 @@ alias tree='tree -C'
 alias vim='nvim'; hash -d vimrc=~/.config/nvim
 
 if [[ $(uname -r) = *microsoft-*WSL* ]]; then
-	hash -d cdrive=/mnt/c
-	alias explorer="~cdrive/Windows/explorer.exe"
-	alias powershell="~cdrive/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
-	alias pwsh="~cdrive/Program\ Files/PowerShell/7/pwsh.exe"
+	alias explorer="/mnt/c/Windows/explorer.exe"
+	alias powershell="/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe"
+	alias pwsh="/mnt/c/Program\ Files/PowerShell/7/pwsh.exe"
 fi
 
 if [[ -r /etc/issue ]] && [[ $(grep -ic 'debian' /etc/issue) -ge 1 ]]; then
